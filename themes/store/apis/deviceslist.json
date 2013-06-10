@@ -1,0 +1,13 @@
+[
+    {
+        "id": "1",
+        "name": "Galaxy SIII",
+        "model": "Galaxys3"
+    },
+    
+    {
+        "id": "2",
+        "name": "iPhone",
+        "model": "iPhone"
+    }
+]
