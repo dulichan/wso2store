@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/wso2/!svn/ver/173480/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/pages
+END
+2-column-left.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/wso2/!svn/ver/172141/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/pages/2-column-left.hbs
+END
+2-column-right.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/wso2/!svn/ver/173480/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/pages/2-column-right.hbs
+END
+1-column.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/wso2/!svn/ver/172141/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/pages/1-column.hbs
+END

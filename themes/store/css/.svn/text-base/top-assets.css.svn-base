@@ -1,0 +1,28 @@
+.top-asset-slideshow-cont .asset{
+    width:200px;
+    margin-right: 17px;
+    display: inline-block;
+}
+.top-asset-slideshow-cont .asset:first-child{
+    margin-left:10px;
+}
+
+
+.top-asset-slideshow-pag {
+    height: 27px;
+    margin: 0;
+    position: absolute;
+    right: 10px;
+    top: 0;
+}
+.top-asset-slideshow-pag a{
+    width:8px;
+    height:30px;
+    font-size:0;
+    background:url(../img/asset-slideshow-pag.png) no-repeat center right;
+    margin-left:8px;
+    display:inline-block;
+}
+.top-asset-slideshow-pag a.selected{
+    background-position:center left;
+}

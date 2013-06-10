@@ -1,0 +1,28 @@
+<%
+var caramel;
+
+(function () {
+    var site,
+    		type = 'gadget',
+            log = new Log(),
+            store = require('/modules/store.js'),
+            user = require('/modules/user.js').current();
+
+    caramel = require('caramel').caramel;
+
+    if (!user) {
+        response.sendRedirect(caramel.configs().context);
+        return;
+    }
+
+    site = require('/modules/site.js');
+
+    caramel.render({
+        'title': 'Store | My Items',
+        'navigation': site.navigation({sso:false, user:user}),
+        'userAssets': store.userAssets(),
+        'recentAssets': store.recentAssets(type),
+        'tags': store.tags()
+    });
+}());
+%>

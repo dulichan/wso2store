@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/wso2/!svn/ver/174323/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store
+END
+asset.jag
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/wso2/!svn/ver/173379/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/asset.jag
+END
+add-gadget.jag
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/wso2/!svn/ver/170022/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/add-gadget.jag
+END
+top-assets.jag
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/wso2/!svn/ver/172219/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/top-assets.jag
+END
+assets.jag
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/wso2/!svn/ver/173379/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/assets.jag
+END
+register.jag
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/wso2/!svn/ver/170022/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/register.jag
+END
+store.json
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/wso2/!svn/ver/172279/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/store.json
+END
+sso.jag
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repos/wso2/!svn/ver/172254/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/sso.jag
+END
+dashboard.jag
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/wso2/!svn/ver/173670/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/dashboard.jag
+END
+index.jag
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/wso2/!svn/ver/172264/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/index.jag
+END
+login.jag
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/wso2/!svn/ver/172132/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/login.jag
+END
+logout.jag
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/wso2/!svn/ver/172132/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/logout.jag
+END
+app.js
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repos/wso2/!svn/ver/172279/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/app.js
+END
+jaggery.conf
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/wso2/!svn/ver/172318/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/jaggery.conf
+END

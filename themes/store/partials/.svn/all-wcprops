@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/wso2/!svn/ver/173465/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials
+END
+search.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/wso2/!svn/ver/173465/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/search.hbs
+END
+overview.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/wso2/!svn/ver/172290/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/overview.hbs
+END
+login.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/wso2/!svn/ver/172279/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/login.hbs
+END
+navbar.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/wso2/!svn/ver/162432/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/navbar.hbs
+END
+process-asset-text.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/repos/wso2/!svn/ver/172279/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/process-asset-text.hbs
+END
+asset.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/wso2/!svn/ver/172647/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/asset.hbs
+END
+recent-assets.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/repos/wso2/!svn/ver/172279/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/recent-assets.hbs
+END
+add-gadget.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/wso2/!svn/ver/172279/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/add-gadget.hbs
+END
+register.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/wso2/!svn/ver/172279/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/register.hbs
+END
+comments.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/wso2/!svn/ver/172647/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/comments.hbs
+END
+sort-assets.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/wso2/!svn/ver/173331/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/sort-assets.hbs
+END
+pagination.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/wso2/!svn/ver/172647/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/pagination.hbs
+END
+footer.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/wso2/!svn/ver/172279/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/footer.hbs
+END
+tags.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/wso2/!svn/ver/172279/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/tags.hbs
+END
+navigation.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/wso2/!svn/ver/173465/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/navigation.hbs
+END
+added-asset-text.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repos/wso2/!svn/ver/172141/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/added-asset-text.hbs
+END
+userAssets.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/wso2/!svn/ver/172483/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/userAssets.hbs
+END
+assets.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/wso2/!svn/ver/173331/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/assets.hbs
+END
+top-assets.hbs
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/wso2/!svn/ver/173248/carbon/platform/branches/4.0.0/products/ues/1.0.0/modules/apps/store/themes/store/partials/top-assets.hbs
+END
