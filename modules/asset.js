@@ -34,9 +34,8 @@ var Manager,
         this.registry = registry;
         this.type = type;
         this.user = require('/modules/user.js');
-        Packages.org.wso2.carbon.governance.api.util.GovernanceUtils.loadGovernanceArtifacts(registry.registry);
-		log.info('Reg');
-		log.info(registry.registry);
+     Packages.org.wso2.carbon.governance.api.util.GovernanceUtils.loadGovernanceArtifacts(registry.registry);
+//		new Log().info(registry.registry);
         this.manager = new carbon.registry.ArtifactManager(registry, type);
         this.sorter = new Sorter(registry);
     };
@@ -127,6 +126,7 @@ var Manager,
      */
     Manager.prototype.get = function (options) {
         var resource = this.registry.get(options);
+		log.info(resource.uuid);
         return this.manager.get(resource.uuid);
     };
 
@@ -134,6 +134,9 @@ var Manager,
      * Assets matching the filter
      */
     Manager.prototype.add = function (options) {
+		var log = new Log();
+		log.info("Caught SSS");
+		log.info(this.manager);
         return this.manager.add(options);
     };
 
@@ -141,6 +144,7 @@ var Manager,
      * Assets matching the filter
      */
     Manager.prototype.update = function (options) {
+		log.info(options);
         return this.manager.update(options);
     };
 
@@ -149,7 +153,9 @@ var Manager,
      */
     Manager.prototype.list = function (paging) {
         var all = this.manager.list(paging);
-        var paginated = this.sorter.paginate(all, paging);
+        // var paginated = this.sorter.paginate(all, paging);
+		// Temporarly remove pagniation
+		var paginated  = all;
         for (var i = 0; i < paginated.length; i++) {
             var asset = paginated[i];
             var user = this.user.current();

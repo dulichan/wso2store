@@ -1,0 +1,42 @@
+<div class="container">
+
+	<div class="raw-fluid">
+		<div id="all-app-list" class="block">
+			<div class="block-header">
+				All Applications
+				<div class="pull-right">
+					<a href="#" class="btn btn-info"><i class=" icon-plus-sign icon-white"> </i> Add Application</a>
+				</div>
+			</div>
+			<div class="container-fluid raw-fluid block-body">
+
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>App</th>
+							<th>Price</th>
+							<th>Total Installs</th>
+							<th>Rating</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody id="publisher-app-list">
+						<script id="hbs-publisher-app-list" type="text/x-handlebars-template">
+							[{#apps}]
+							<tr>
+							<td><img class="app-icon-small" src="themes/img/angryb.png"> [{attributes.overview_name}]</td>
+							<td>Free</td>
+							<td>1234</td>
+							<td>5</td>
+							<td>Live</td>
+							</tr>
+							[{/apps}]
+						</script>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+</div>

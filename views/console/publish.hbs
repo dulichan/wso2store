@@ -1,0 +1,201 @@
+<div class="raw-fluid">
+	<div id="app-upload-block" class="block">
+		<div class="block-header">
+			Application
+		</div>
+		<div class="container-fluid raw-fluid block-body">
+
+			<ul class="nav nav-tabs" id="application-tab">
+				<li class="active">
+					<a href="#app-infomation">Information</a>
+				</li>
+				<li>
+					<a href="#app-upload">Upload</a>
+				</li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="app-infomation">
+
+					<div class="well-large">
+
+						<form class="form-horizontal">
+
+							<div class="control-group">
+								<label class="control-label" for="txtName">Name</label>
+								<div class="controls">
+									<input class="field span6" type="text" id="txtName">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="txtDescription">Description</label>
+								<div class="controls">
+									<textarea class="field span6" id="txtDescription" rows="6"> </textarea>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="txtRecentChanges">Recent Changes</label>
+								<div class="controls">
+									<textarea class="field span6" id="txtRecentChanges" rows="6"> </textarea>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="txtCategory">Category</label>
+								<div class="controls">
+									<select id="txtCategory" class="select-btn">
+										<option>Business</option>
+										<option>Education</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="txtBanner">Banner</label>
+								<div class="controls">
+									<div class="fileupload fileupload-new" data-provides="fileupload">
+										<div class="fileupload-preview-banner thumbnail"></div>
+										<div>
+											<span class="btn btn-file"><span class="fileupload-new"><i class="icon-plus-sign"></i></span><span class="fileupload-exists"><i class="icon-edit"></i></span>
+												<input type="file" id="txtBanner" />
+											</span>
+											<a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><i class="icon-remove"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="txtScreenShot">Screen Shots</label>
+								<div class="controls">
+
+									<div class="fileupload fileupload-new" data-provides="fileupload">
+										<div class="fileupload-preview thumbnail"></div>
+										<div>
+											<span class="btn btn-file"><span class="fileupload-new"><i class="icon-plus-sign"></i></span><span class="fileupload-exists"><i class="icon-edit"></i></span>
+												<input type="file" id="txtScreenShot1" />
+											</span>
+											<a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><i class="icon-remove"></i></a>
+										</div>
+									</div>
+
+									<div class="fileupload fileupload-new" data-provides="fileupload">
+										<div class="fileupload-preview thumbnail"></div>
+										<div>
+											<span class="btn btn-file"><span class="fileupload-new"><i class="icon-plus-sign"></i></span><span class="fileupload-exists"><i class="icon-edit"></i></span>
+												<input type="file"  id="txtScreenShot2" />
+											</span>
+											<a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><i class="icon-remove"></i></a>
+										</div>
+									</div>
+
+									<div class="fileupload fileupload-new" data-provides="fileupload">
+										<div class="fileupload-preview thumbnail"></div>
+										<div>
+											<span class="btn btn-file"><span class="fileupload-new"><i class="icon-plus-sign"></i></span><span class="fileupload-exists"><i class="icon-edit"></i></span>
+												<input type="file"  id="txtScreenShot3" />
+											</span>
+											<a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><i class="icon-remove"></i></a>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="txtIconfile">Icon file</label>
+								<div class="controls">
+									<div class="fileupload fileupload-new" data-provides="fileupload">
+										<div class="fileupload-preview-icon thumbnail"></div>
+										<div>
+											<span class="btn btn-file"><span class="fileupload-new"><i class="icon-plus-sign"></i></span><span class="fileupload-exists"><i class="icon-edit"></i></span>
+												<input type="file" />
+											</span>
+											<a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><i class="icon-remove"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<div class="controls">
+									<label class="checkbox">
+										<input type="checkbox" id="chkMeetGudeLines">
+										This application meets Store Content Guidelines. </label>
+								</div>
+							</div>
+
+							<div class="nav navbar-inner form-buttons">
+								<input type="button" id="btn-app-save" class="btn btn-info" value="Save">
+							</div>
+
+						</form>
+
+					</div>
+
+				</div>
+				<div class="tab-pane" id="app-upload">
+					<div class="well-large">
+						<div class="raw-fluid">
+							<div class="pull-right">
+								<a href="#modal-upload" data-toggle="modal" class="btn btn-info"><i class=" icon-plus-sign icon-white"> </i> Upload Application</a>
+							</div>
+						</div>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Version</th>
+									<th>Uploaded On</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>10/June</td>
+									<td>Published</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<div id="modal-upload" class="modal hide fade">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4>Upload Application</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="control-group">						
+						<div class="controls">
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+								<div class="input-append">
+									<div class="uneditable-input span3">
+										<i class="icon-file fileupload-exists"></i><span class="fileupload-preview"></span>
+									</div><span class="btn btn-file"><span class="fileupload-new"><i class="icon-plus-sign"> </i></span><span class="fileupload-exists"><i class="icon-edit"> </i></span>
+										<input type="file" id="txtAppUpload" />
+									</span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><i class="icon-remove"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+				<a href="#" id="btn-app-upload" class="btn btn-info" data-dismiss="modal" aria-hidden="true">Upload</a>
+			</div>
+		</div>

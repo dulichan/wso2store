@@ -197,14 +197,5 @@ var loginWithSAML = function (username) {
     if (opts.login) {
         opts.login(user, "", session);
     }
-
-    var permission = {};
-    permission[opts.userSpace.options.path + '/' + username ] = [
-        carbon.registry.actions.GET,
-        carbon.registry.actions.PUT,
-        carbon.registry.actions.DELETE
-    ];
-    um.authorizeRole(privateRole(username), permission);
-
     return true;
 };
