@@ -1,4 +1,4 @@
-list = function(appController){
+home = function(appController){
 	return {
 		layout:'1-column',
 		title:'Your Apps',
