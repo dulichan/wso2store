@@ -6,5 +6,5 @@ navigation = function(){
 }
 
 index = function(){
-	response.sendRedirect('/publisher/console/list');
+	response.sendRedirect('/store/console/home');
 }
