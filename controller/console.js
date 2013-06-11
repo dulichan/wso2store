@@ -17,7 +17,7 @@ home = function(appController){
 
 
 
-publish = function(appController){
+user_home = function(appController){
 	return {
 		layout:'1-column',
 		title:'Your Apps',

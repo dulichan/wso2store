@@ -14,7 +14,15 @@
 						[{/menus}]
 						</ul>
 					</script>
-				</div>		
+				</div>
+				
+				<div class="pull-right">
+					<ul class="nav">
+						<li>
+							<a href="#">My Apps</a>
+						</li>
+					</ul>
+				</div>
 
 			</div>
 			
@@ -25,7 +33,26 @@
 
 	<div class="raw">
 
-		<div class="span11">			
+		<div class="span11">
+
+			<div class="block">
+				<div class="block-header">
+					My Devices
+				</div>
+				<div class="container-fluid raw-fluid block-body">
+					<ul id="devices-list-ui" class="jcarousel-skin-tango">
+						<script id="hbs-devices-list" type="text/x-handlebars-template">
+							[{#devices}]
+							<li class="device-item"><img class="device-image" src="themes/img/[{model}].png">
+							<div class="text-center">
+							[{name}]
+							</div>
+							</li>
+							[{/devices}]
+						</script>
+					</ul>
+				</div>
+			</div>
 
 			<div class="block">
 				<div class="block-header">
