@@ -1,0 +1,88 @@
+<div class="container">
+
+	<div class="raw">
+		<div class="navbar">
+			<div id="menu-list" class="navbar-inner">
+				<script id="hbs-menu-list" type="text/x-handlebars-template">
+					<ul class="nav">
+					{{#menus}}
+					<li>
+					<a href="#">{{name}}</a>
+					</li>
+					{{/menus}}
+					</ul>
+				</script>
+				<ul class="nav pull-right">
+					<li>
+						<a href="#">My Apps</a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="raw">
+
+		<div class="span11">
+
+			<div class="block">
+				<div class="block-header">
+					My Devices
+				</div>
+				<div class="container-fluid raw-fluid block-body">
+					<ul id="devices-list-ui" class="jcarousel-skin-tango">
+						<script id="hbs-devices-list" type="text/x-handlebars-template">
+							{{#devices}}
+							<li class="device-item"><img class="device-image" src="themes/img/{{model}}.png">
+							<div class="text-center">
+							{{name}}
+							</div>
+							</li>
+							{{/devices}}
+						</script>
+					</ul>
+				</div>
+			</div>
+
+			<div class="block">
+				<div class="block-header">
+					Recommanded Apps For You
+				</div>
+				<div id="recommanded-app-list" class="container-fluid raw-fluid block-body">
+
+				</div>
+			</div>
+
+			<div class="block">
+				<div class="block-header">
+					Newest Apps
+				</div>
+				<div id="newest-app-list" class="container-fluid raw-fluid block-body">
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<script id="hbs-app-list" type="text/x-handlebars-template">
+	{{#apps}}
+	<div  class="span2 text-center app-block">
+	<div class="raw-fluid">
+	<b>{{name}}</b>
+	</div>
+	<div class="raw-fluid">
+	<img class="app-icon" src="themes/img/angryb.png">
+	</div>
+	<div class="app-info">
+	<div class="raw-fluid">
+	{{author}}
+	</div>
+	</div>
+	</div>
+	{{/apps}}
+</script>
