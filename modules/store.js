@@ -35,6 +35,7 @@ var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, 
         path = ASSETS_EXT_PATH + type + '/asset.js';
         azzet = new File(path).isExists() ? require(path) : require('/modules/asset.js');
 		var r =registry();
+		log.info(r);
 		log.info(type);
 		//log.info(assetManagers);
         return (assetManagers[type] = new azzet.Manager(r, type));
@@ -92,7 +93,6 @@ var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, 
      * @return {String}
      */
     registry = function () {
-		log.info(require('/modules/user.js').userRegistry());
         return require('/modules/user.js').userRegistry() || require('/modules/server.js').anonRegistry();
     };
 
@@ -162,6 +162,7 @@ var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, 
     assets = function (type, paging, provider) {
 		var assetlist = assetManager(type).list(paging);
 		var list = assetlist;
+		log.info(list);
 		if(provider!=undefined){
 			list = [];
 			for (var i = assetlist.length - 1; i >= 0; i--){

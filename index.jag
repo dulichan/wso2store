@@ -6,124 +6,51 @@ var log =new Log();
 
 var mvc = new absolute({
 	SERVER_URL:"/store/",
-	IGNORE:["sso.jag", "login.jag", "logout.jag"],
+	IGNORE:["sso.jag", "login.jag", "logout.jag", "sample.jag"],
 	API:"api",
 	ROUTER: router
 });
 
-router.post('apps/upload',function(ctx){
-	var files = request.getAllFiles();
-	var names = [];
-	log.info(request.getContentType());
-	for(var name in files) {
-	    if(files.hasOwnProperty(file)) {
-	        var file = files[name];
-	        file.saveAs("uploads/"+name);
-			names.push(name);
-	    }
-	}
-	log.info('APPPPP');
-	log.info(names);
-	print(names);
-});
-
 router.get('apps/{id}',function(ctx){
+	// var store = require('/modules/store.js');
+	// 	assets = store.assets('android', 1, ctx.id);
+	// 	print(assets);
 	
 });
-
-router.get('apps/{id}/publish', function(ctx){
-	var publisher = require('/modules/publisher.js');
- 	var asset = publisher.asset('android',"/android/wso2mobile/wso2 container/1.0");
-	asset.attributes.overview_status="REVIEW";
-	publisher.updateAsset('android',asset);
+router.get('test',function(ctx){
+	
 });
-router.get('apps/{id}/accept', function(ctx){
-	var publisher = require('/modules/publisher.js');
- 	var asset = publisher.asset('android',ctx.id);
-	asset.attributes.overview_status="PUBLISH";
-	publisher.updateAsset('android',asset);
+router.get('popular', function(ctx){
+	var carbon = require('carbon'),
+	       server = new carbon.server.Server(),
+	       registry = new carbon.registry.Registry(server, {
+	           username : 'admin',
+	           tenantId : -1234
+	       }),
+	       am = new carbon.registry.ArtifactManager(registry, 'android');
+	print(am.list());
 });
-router.get('apps/{id}/reject', function(ctx){
-	var publisher = require('/modules/publisher.js');
- 	var asset = publisher.asset('android',ctx.id);
-	asset.attributes.overview_status="REJECT";
-	publisher.updateAsset('android',asset);
+router.get('newest', function(ctx){
+	var carbon = require('carbon'),
+	       server = new carbon.server.Server(),
+	       registry = new carbon.registry.Registry(server, {
+	           username : 'admin',
+	           tenantId : -1234
+	       }),
+	       am = new carbon.registry.ArtifactManager(registry, 'android');
+	print(am.list());
 });
-
-router.get('dev/{id}/apps',function(ctx){
-	var publisher = require('/modules/publisher.js');
-	assets = publisher.assets('android', 1, ctx.id);
-	print(assets);
-});
-// Still the lifecycles aren't working. There is noattachlifecyle in genericartifact class
-router.post('apps',function(ctx){
-	var publisher = require('/modules/publisher.js');
-	var t = "android";
-	publisher.addAsset(t, {
-		        name: ctx.name,
-		        lifecycle:["CREATED", "REVIEW", "PUBLISH", "REJECT", "REMOVED"],
-		        lifecycleState: "CREATED",
-		        attributes: {
-		            overview_status: "CREATED",
-		            overview_name: ctx.name,
-		            overview_version: ctx.version,
-		            overview_url: ctx.url,
-		            overview_provider: ctx.provider,
-					overview_recent_changes: ctx.recentChanges,
-					overview_description:ctx.description
-		        },
-				images :{
-					thumbnail:'http://localhost:9763/portal/gadgets/co2-emission/thumbnail.jpg',
-					banner:'http://localhost:9763/portal/gadgets/electric-power/banner.jpg'
-				}
-	});
-});
-
 router.get('apps', function(ctx){
-	var publisher = require('/modules/publisher.js');
-	assets = publisher.assets('android', 1);
-	print(assets);
+	var carbon = require('carbon'),
+	       server = new carbon.server.Server(),
+	       registry = new carbon.registry.Registry(server, {
+	           username : 'admin',
+	           tenantId : -1234
+	       }),
+	       am = new carbon.registry.ArtifactManager(registry, 'android');
+	print(am.list());
 });
 
-router.put('apps', function(ctx){
-	//To implement
-});
-
-
-
-router.get('apps/{id}/versions',function(ctx){
-	
-});
-// router.get('apps', function(ctx){
-//    var store = require('/modules/publisher.js');
-//    var type, total, assets,tag = ctx.tag, sort = ctx.sort,paging = store.assetsPaging(request);
-//    type = ctx.type;
-//    if (tag) {
-//        total = store.assetCount(type, {
-//            tag: tag
-//        });
-//        if (paging.start > total || paging.start < 0) {
-//            response.sendError(404, 'Requested page cannot be found');
-//            return;
-//        }
-//        assets = store.tagged(type, tag, paging);
-//    } else {
-//        total = store.assetCount(type);
-//        if (paging.start > total || paging.start < 0) {
-//            response.sendError(404, 'Requested page cannot be found');
-//            return;
-//        }
-//        assets = store.assets('Android', 1);
-//    }  
-// });
-// 
-// router.post('apps', function(ctx){
-// 	var server = require('/modules/server.js');
-// 	var user = require('/modules/user.js');
-// 	new Log().info(user.userRegistry());
-// 	store.addAsset('android','<metadata xmlns="http://www.wso2.org/governance/metadata"><overview><provider>WSO2Mobile</provider><name>WSO2 Agent</name><version>0.1</version><url>http://sdfsdf.com</url><status>CREATED</status></overview></metadata>');
-// 	
-// });
 
 mvc.route(request);
 %>

@@ -128,6 +128,8 @@ var mvc = (function () {
 	            return 'image/jpeg';
 	        case 'jpg':
 	            return 'image/jpg';
+			case 'apk':
+				return 'application/vnd.android.package-archive';
 	        default :
 	            return 'text/plain';
 	    }

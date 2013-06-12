@@ -178,6 +178,7 @@ var loginWithSAML = function (username) {
                 for (i = 0; i < length; i++) {
                     if (user.isAuthorized(perm, actions[i])) {
                         authorized = true;
+
                         break L1;
                     }
                 }

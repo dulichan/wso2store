@@ -50,14 +50,14 @@ if (samlResponse != null) {
         var user = require('/modules/user.js');
 
         if (user.loginWithSAML(username)) {
-            response.sendRedirect('/publisher');
+            response.sendRedirect('/store');
         }
 
     } else {
         // if the saml response is log out request from IDP, we log out from web app.
         ssoRelyingParty.invalidateSessionBySessionId(sessionId);
         session.invalidate();
-        response.sendRedirect('/publisher');
+        response.sendRedirect('/store');
 
     }
 
