@@ -6,7 +6,7 @@ var version = '1.0';
 var url =rootPath+"app"+".apk";
 var description = "Free theme for GO Launcher EX! To get the WIDGETS you see in screenshots go here: http://app.lk/ACP";
 var recent_changes = "No recent changes.";
-var banner = rootPath+"banner.png";
+var banner = rootPath+"banner.jpg";
 var screenshots = [
     rootPath+"screenshot1.jpg",
     rootPath+"screenshot2.jpg"

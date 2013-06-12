@@ -6,7 +6,7 @@ var version = '1.0';
 var url =rootPath+"app"+".apk";
 var description = "The dark knight rises at arkham city! This is not the lego, this is a real thing, and Batman, the most anticipated hero of the DC Comics series is back, resurrecting young Justice League!";
 var recent_changes = "No recent changes.";
-var banner = rootPath+"banner.png";
+var banner = rootPath+"banner.jpg";
 var screenshots = [
     rootPath+"screenshot1.jpg",
     rootPath+"screenshot2.jpg"

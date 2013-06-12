@@ -8,7 +8,7 @@ var description = "Sheep Up! is an original and humorous puzzle platformer compl
 var recent_changes = "No recent changes";
 var banner = rootPath+"banner.png";
 var screenshots = [
-    rootPath+"screenshot1.jpg",
+    rootPath+"screenshot1.png",
     rootPath+"screenshot2.jpg"
 ];
 var icon = rootPath+"icon.png";
