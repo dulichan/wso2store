@@ -137,8 +137,8 @@ header .navbar .brand {
     margin-bottom: 10px;     
 }
 
-#all-app-list .block-header{
-	padding-bottom: 20px;
+.block-header{
+	padding-bottom: 25px;
 }
 
 
@@ -170,4 +170,25 @@ header .navbar .brand {
 
 .form-buttons{
 	padding-top: 10px;
+}
+
+
+/*------APP INFO-----*/
+
+.appinfo-details{
+	font-size: small;
+}
+
+.appinfo-install{
+	margin-top: 10px;
+}
+
+.screen-shot{
+	margin: 10px;
+	width: 200px;
+	float:left;
+}
+
+.app-block{
+	color: #000;
 }

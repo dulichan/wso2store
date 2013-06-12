@@ -2,6 +2,7 @@ home = function(appController){
 	return {
 		layout:'1-column',
 		title:'Your Apps',
+		jsfile: 'console/home.js',
 		partials:{
 			header:appController.navigation()
 		},
@@ -21,6 +22,37 @@ user_home = function(appController){
 	return {
 		layout:'1-column',
 		title:'Your Apps',
+		jsfile: 'console/user_home.js',
+		partials:{
+			header:appController.navigation()
+		},
+		data:{
+			
+		}
+	};
+}
+
+
+install = function(appController){
+	return {
+		layout:'1-column',
+		title:'Your Apps',
+		jsfile: 'console/install.js',
+		partials:{
+			header:appController.navigation()
+		},
+		data:{
+			
+		}
+	};
+}
+
+
+login = function(appController){
+	return {
+		layout:'1-column',
+		title:'Your Apps',
+		jsfile: 'console/login.js',
 		partials:{
 			header:appController.navigation()
 		},
