@@ -2,7 +2,14 @@
 MAM module for fully communicating with MDM backend
 */
 var mam = (function () {
-    var module = function () {
+    var userObj = null;
+    var assetObj = null;
+    var module = function (user, asset) {
+	userObj = user;
+        assetObj = asset;
+        var log = new Log("MYAPP");
+	log.info("USER OBJ : "+userObj);
+	log.info("ASSET OBJ : "+userObj);
     };
 
     function mergeRecursive(obj1, obj2) {
@@ -25,35 +32,9 @@ var mam = (function () {
     // prototype
     module.prototype = {
         constructor: module,
-        
-        jsonPost: function(postUrl, postData){
-        	var url = postUrl;
-			var data = postData;
-			var result = post(url, data, {
-				"Content-Type": "application/json",
-			    "User-Agent" : "Jaggery-XHR",
-			    "Country" : "LK"
-			}, 'json');
-			return result;
-        },
-        
         install: function(){
-			var url = 'devices/{deviceid}/AppInstall';
-			var installData = "";
-			var result = jsonPost(url, installData);
-		},
-		
-		uninstall: function(){
-			var url = 'devices/{deviceid}/AppUNInstall';
-			var uninstallData = "";
-			var result = jsonPost(url, uninstallData);
-		},
-		
-		getDevices: function(email){
-			var url = 'devices/{deviceid}/AppUNInstall';
-			var data = email;
-			var result = jsonPost(url, data);
-		}
+	
+	}
     };
     // return module
     return module;

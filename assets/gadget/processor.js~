@@ -1,10 +1,7 @@
 var log = new Log();
 
 var process = function(user, asset, type) {
-   var mam = require ('modules/mam.js').mam;
-      var mamServer = new mam();
-      mamServer.install();
-   
+    log.info("Gadget was installed by a user");
 };
 
 var copyGadget = function(user, page, area, gadget) {

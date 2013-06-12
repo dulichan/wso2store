@@ -3,6 +3,7 @@
 //response.sendRedirect('.' + require('/store.json').assetsUrlPrefix + '/gadget');
 
 var caramel;
+var processor;
 (function () {
     var gadgets, sites, paging, count, current, total, loggedUser, type = "gadget",
             options = {},
@@ -15,8 +16,9 @@ var caramel;
             ssoLogin = require('/modules/sso-login.js'),
             ssoUser = session.get('LOGGED_IN_USER'),
             caramel = require('caramel').caramel;
+            processor = require('/assets/android/processor.js');
 
-
+    processor.process("kasun@wso2mobile.com","http://www.wso2mobile.com/abc.apk","2");
     sso = configs.ssoConfiguration.enabled;
 
     loggedUser = (sso && ssoUser) ? {username: ssoUser} : user.current();
