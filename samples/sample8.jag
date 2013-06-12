@@ -1,9 +1,9 @@
 <%
-var rootPath = "/publisher/apps/Jungle Book/";
+var rootPath = "/publisher/apps/Jungle_Book/";
 var provider = "DQ ENTERTAINMENT";
 var name = "Jungle Book";
 var version = '1.3';
-var url =rootPath+name+".apk";
+var url =rootPath+"app"+".apk";
 var description = "Mowgli has rescued a baby fox from Sherkhan's cave and is being chased by the evil Sherkhan. Help Mowgli escape from being caught by Sherkhan by jumping and sliding over different obstacles along his path.";
 var recent_changes = "What's in this version:
 Version 1.3

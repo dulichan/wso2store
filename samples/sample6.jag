@@ -1,9 +1,9 @@
 <%
-var rootPath = "/publisher/apps/Electric City/";
+var rootPath = "/publisher/apps/Electric_City/";
 var provider = "Reliance Games";
 var name = "Electric City";
 var version = '2.0';
-var url =rootPath+name+".apk";
+var url =rootPath+"app"+".apk";
 var description = "THE OFFICIAL GAME OF THE BLOCKBUSTER ANIMATED SERIES - TOM HANKS’ ELECTRIC CITY. THE REVOLT In Electric City The Revolt – you play a rebel character Frank Deetleman, who plays a key role in the uprising against Wire Central. You have to lead the revolt in your mission to fight for freedom. Freedom from the dictates of Wire Central, freedom of will, and freedom to breathe in a free city!";
 var recent_changes = "No recent changes.";
 var banner = rootPath+"banner.png";

@@ -1,9 +1,9 @@
 <%
-var rootPath = "/publisher/apps/Conference Caller/";
+var rootPath = "/publisher/apps/Conference_Caller/";
 var provider = "IT-System Syd";
 var name = "Conference Caller";
 var version = '2.1.8';
-var url =rootPath+name+".apk";
+var url =rootPath+"app"+".apk";
 var description = "Conference Caller works like a general phone book for your conference call meeting details. Each phone book item consists of name, conference code and (optional) pin. When it is time to dial into a call you simply press the phone book item from your list and it will dial the phone number to your conference service and your conference code.";
 var recent_changes = "Bug fixes release e.g. when deleting conference items or statistics now working much more reliable.";
 var banner = rootPath+"banner.png";

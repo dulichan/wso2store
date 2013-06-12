@@ -1,9 +1,9 @@
 <%
-var rootPath = "/publisher/apps/Sheep Up/";
+var rootPath = "/publisher/apps/Sheep_Up/";
 var provider = "Pocket Gems Publishing";
 var name = "Sheep Up";
 var version = '1.0.1';
-var url =rootPath+name+".apk";
+var url =rootPath+"app"+".apk";
 var description = "Sheep Up! is an original and humorous puzzle platformer complete with many addictive levels, a multi-directional tilt control gameplay, a huge variety of gameplay elements, many cool power-ups, colorful and enjoyable settings, an original soundtrack, and much more. Instant smiles included in the pack!";
 var recent_changes = "No recent changes";
 var banner = rootPath+"banner.png";

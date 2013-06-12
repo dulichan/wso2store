@@ -77,6 +77,7 @@ router.get('apps/{id}',function(ctx){
 	};
 	response.sendError(404);
 });
+router.post()
 
 var sp = function(items){
 	for (var i = items.length - 1; i >= 0; i--){

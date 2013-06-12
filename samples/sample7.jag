@@ -1,9 +1,9 @@
 <%
-var rootPath = "/publisher/apps/FuelLog Car Management/";
+var rootPath = "/publisher/apps/FuelLog_Car_Management/";
 var provider = "Simon Morgenthaler";
 var name = "FuelLog - Car Management";
 var version = '2.2.1';
-var url =rootPath+name+".apk";
+var url =rootPath+"app"+".apk";
 var description = "Track and log your mileage, fuel consumption, maintenances, services and costs of your car or motorbike and know exactly how much your car costs. FuelLog calculates a lot of useful statistics like fuel consumption and economy (e.g. mpg or l/100km) of your car or other vehicle, total cost and mileage, average cost per distance or gas amount, average cost per month, year and driven distances, expenses and a lot more. Everything is managed in a nice-looking and very easy to use interface.";
 var recent_changes = "What's in this version:
 2.2.1 (2011-07-01)
