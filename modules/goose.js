@@ -62,30 +62,23 @@ var goose = (function () {
                 var route = routeVariables[0];
                 var verb = routeVariables[1];
                 var uriMatcher = new URIMatcher(request.getRequestURI());
-                log.info(route + "   " + request.getRequestURI());
                 if (uriMatcher.match(route)) {
-                    log.info('Match');
+                    log.info('--------Goose Match--------');
                 }
-
                 if (uriMatcher.match(route) && request.getMethod() == verb) {
                     var elements = uriMatcher.elements();
                     var ctx = elements;
-                    log.info("Goose Verb -" + verb);
-                    log.info("Goose Route -" + route);
+                    log.info("--------Goose Verb --------" + verb);
+                    log.info("--------Goose Route --------" + route);
                     if (verb != 'GET') {
                         var jResult = request.getContent();
-                        log.info(jResult);
-                        //log.info('Goose String parameters -' + request.getParameter('username'));
-                        try {
-                            //jResult = parse(jResult);
-                        } catch (err) {
-							log.info(err);
-                            jResult = request.getAllParameters();
-                        }
-						log.info("Goose parsed data ");
+						if(request.getContentType()!='application/json'){
+							jResult = request.getAllParameters();
+						}
+						log.info("--------Goose parsed data--------- ");
 						log.info(jResult);
                         ctx = mergeRecursive(ctx, jResult);
-                    }
+                    }else{}
                     routeAction(ctx);
                     break;
                 }

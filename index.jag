@@ -20,6 +20,10 @@ router.get('apps/{id}',function(ctx){
 router.get('test',function(ctx){
 	
 });
+router.get('user/current', function(ctx){
+	var user = require('/modules/user.js');
+	print (user.current());
+});
 router.get('popular', function(ctx){
 	var carbon = require('carbon'),
 	       server = new carbon.server.Server(),
@@ -27,8 +31,12 @@ router.get('popular', function(ctx){
 	           username : 'admin',
 	           tenantId : -1234
 	       }),
-	       am = new carbon.registry.ArtifactManager(registry, 'android');
-	print(am.list());
+	am = new carbon.registry.ArtifactManager(registry, 'android');
+	var items = am.list();
+	items.sort(function (l, r) {
+        return registry.rating(l.path).average > registry.rating(r.path).average;
+    });
+	print(sp(items));
 });
 router.get('newest', function(ctx){
 	var carbon = require('carbon'),
@@ -37,9 +45,14 @@ router.get('newest', function(ctx){
 	           username : 'admin',
 	           tenantId : -1234
 	       }),
-	       am = new carbon.registry.ArtifactManager(registry, 'android');
-	print(am.list());
+	am = new carbon.registry.ArtifactManager(registry, 'android');
+	var items = am.list();
+    items.sort(function (l, r) {
+           return registry.get(l.path).created.time < registry.get(r.path).created.time;
+    });
+	print(sp(items));
 });
+
 router.get('apps', function(ctx){
 	var carbon = require('carbon'),
 	       server = new carbon.server.Server(),
@@ -48,9 +61,38 @@ router.get('apps', function(ctx){
 	           tenantId : -1234
 	       }),
 	       am = new carbon.registry.ArtifactManager(registry, 'android');
-	print(am.list());
+	var items =am.list();
+	print(sp(items));
+});
+router.get('apps/{id}',function(ctx){
+	log.info('got');
+	var carbon = require('carbon'),
+	       server = new carbon.server.Server(),
+	       registry = new carbon.registry.Registry(server, {
+	           username : 'admin',
+	           tenantId : -1234
+	       }),
+	am = new carbon.registry.ArtifactManager(registry, 'android');
+	var items = am.list();
+	for (var i = items.length - 1; i >= 0; i--){
+		var item = items[i]
+		if(item.id==ctx.id){
+			print(item);
+			return;
+		}
+	};
+	response.sendError(404);
 });
 
-
+var sp = function(items){
+	for (var i = items.length - 1; i >= 0; i--){
+		var item = items[i];
+		spli(item);
+	};
+	return items;
+}
+var spli = function(item){
+	item.attributes.images_screenshots =item.attributes.images_screenshots.split(',');
+}
 mvc.route(request);
 %>

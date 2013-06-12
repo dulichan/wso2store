@@ -135,8 +135,6 @@ var Manager,
      */
     Manager.prototype.add = function (options) {
 		var log = new Log();
-		log.info("Caught SSS");
-		log.info(this.manager);
         return this.manager.add(options);
     };
 
