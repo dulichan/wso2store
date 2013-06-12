@@ -71,7 +71,7 @@ router.get('apps/{id}',function(ctx){
 	for (var i = items.length - 1; i >= 0; i--){
 		var item = items[i]
 		if(item.id==ctx.id){
-			print(item);
+			print(spli(item));
 			return;
 		}
 	};
