@@ -1,4 +1,8 @@
-
+function getURLParameter(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
 
 String.format = function() {
   var s = arguments[0]; 
@@ -10,13 +14,15 @@ String.format = function() {
   return s;
 }
 
+
+
 function getServiceURLs(item){
 	
 	var serverURL = "/store/apis/"
 	
 	var urls =
 		{
-			"appDetails": "appinfo.json"			
+			"appDetails": "appinfo.json?app={0}"			
 		};
 	
 	arguments[0] = urls[item];		
@@ -34,8 +40,10 @@ $(document).ready(function() {
 
 function loadApp(){
 	
+	appId = getURLParameter("app");
+	
 	jQuery.ajax({
-	      url: getServiceURLs("appDetails"), 
+	      url: getServiceURLs("appDetails", appId), 
 	      type: "GET",
 	      dataType: "json",
 	      success: function(app) {
