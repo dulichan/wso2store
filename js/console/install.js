@@ -18,11 +18,11 @@ String.format = function() {
 
 function getServiceURLs(item){
 	
-	var serverURL = "/store/apis/"
+	var serverURL = "/store/api/"
 	
 	var urls =
 		{
-			"appDetails": "appinfo.json?app={0}"			
+			"appDetails": "apps/{0}"			
 		};
 	
 	arguments[0] = urls[item];		
