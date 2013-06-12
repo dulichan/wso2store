@@ -13,8 +13,6 @@ String.format = function() {
 $(document).ready(function() {
 	
 	
-	$("#devices-bar").hide(1000);	
-	
 	loadMenu();
 	//loadCategoryList();
 	loadRecommendedAppList();
@@ -27,15 +25,15 @@ $(document).ready(function() {
 
 function getServiceURLs(item){
 	
-	var serverURL = "/store/apis/"
+	var serverURL = "/store/"
 	
 	var urls =
 		{
-			"categoryList": "categorylist.json",
-			"recommandedAppList": "recom_applist.json",
-			"newestAppList": "newest_applist.json",
-			"menuList": "menuList.json",
-			"devicesList": "deviceslist.json"
+			"categoryList": "apis/categorylist.json",
+			"recommandedAppList": "api/popular",
+			"newestAppList": "api/newest",
+			"menuList": "apis/menuList.json",
+			"devicesList": "apis/deviceslist.json"
 		};
 	
 	arguments[0] = urls[item];		
