@@ -4,8 +4,7 @@ var provider = "Oddrobo Software AB";
 var name = "King of Math";
 var version = '1.0.4';
 var url =rootPath+"app"+".apk";
-var description = "ZLevel up your mathematics skills and become King of Math!
-King of Math is a fast-paced mathematics game with lots of fun and diverse problems in different areas. Starting as a male or female farmer, you level up your character by answering math questions and improving your total score. New character design and music for each of the ten levels. Collect stars, get achievements and compare your scores against your friends and players all over the world!";
+var description = "ZLevel up your mathematics skills and become King of Math! King of Math is a fast-paced mathematics game with lots of fun and diverse problems in different areas. Starting as a male or female farmer, you level up your character by answering math questions and improving your total score. New character design and music for each of the ten levels. Collect stars, get achievements and compare your scores against your friends and players all over the world!";
 var recent_changes = "Bug Fixes";
 var banner = rootPath+"banner.jpg";
 var screenshots = [

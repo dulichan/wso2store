@@ -42,5 +42,6 @@
             "username": "admin",
             "password": "admin"
         }
-    }
+    },
+	"mdmServer": ""
 }

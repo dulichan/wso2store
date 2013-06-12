@@ -5,17 +5,7 @@ var name = "Jungle Book";
 var version = '1.3';
 var url =rootPath+"app"+".apk";
 var description = "Mowgli has rescued a baby fox from Sherkhan's cave and is being chased by the evil Sherkhan. Help Mowgli escape from being caught by Sherkhan by jumping and sliding over different obstacles along his path.";
-var recent_changes = "What's in this version:
-Version 1.3
-- Game optimized better playability.
-- Bug Fixes
-- Game file size reduced.
-Version 1.2
-- Game optimized for single core mobiles for better playability.
-- bugs fixed.
-- Now the game runs better on dual core and higher mobiles.
-Version 1.1
-Added support for more tabs and mobiles";
+var recent_changes = "What's in this version:Version 1.3";
 
 var banner = rootPath+"banner.png";
 var screenshots = [

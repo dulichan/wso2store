@@ -4,9 +4,8 @@ var provider = "AVG";
 var name = "Antivirus for Android";
 var version = '1.0';
 var url =rootPath+"app"+".apk";
-var description = "Free, top-rated, real-time antivirus and anti-theft protection for Android™ devices.
-AVG AntiVirus FREE for Android™ protects you from harmful viruses, malware, spyware and text messages and helps keep your personal data safe.";
-var recent_changes = "What's in this version: ■ Bug fixes ■ Due to recent improvements we’ve done to our Anti-Theft device locator you may be prompted with a request for additional permissions";
+var description = "Free, top-rated, real-time antivirus and anti-theft protection for Android devices. AVG AntiVirus FREE for Android protects you from harmful viruses, malware, spyware and text messages and helps keep your personal data safe.";
+var recent_changes = "What's in this version:  Bug fixes  Due to recent improvements we’ve done to our Anti-Theft device locator you may be prompted with a request for additional permissions";
 var banner = rootPath+"banner.jpg";
 var screenshots = [
     rootPath+"screenshot1.jpg",
