@@ -71,8 +71,11 @@ router.get('apps/{id}',function(ctx){
 	for (var i = items.length - 1; i >= 0; i--){
 		var item = items[i]
 		if(item.id==ctx.id){
-			print(spli(item));
-			return;
+			item = spli(item);
+			if(item!=null){
+				print(item);
+				return;
+			}
 		}
 	};
 	response.sendError(404);
@@ -82,15 +85,21 @@ router.post('users/authenticate', function(ctx){
 });
 
 var sp = function(items){
+	var arr = [];
 	for (var i = items.length - 1; i >= 0; i--){
 		var item = items[i];
-		spli(item);
+		if(item.attributes.overview_status=="PUBLISHED"){
+			arr.push(spli(item));
+		}
 	};
-	return items;
+	return arr;
 }
 var spli = function(item){
-	item.attributes.images_screenshots =item.attributes.images_screenshots.split(',');
-	return item;
+	if(item.attributes.overview_status=="PUBLISHED"){
+		item.attributes.images_screenshots =item.attributes.images_screenshots.split(',');
+		return item;
+	}
+	return null;
 }
 mvc.route(request);
 %>
