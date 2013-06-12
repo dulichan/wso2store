@@ -17,7 +17,7 @@ $(document).ready(function() {
 	
 	loadMenu();
 	//loadCategoryList();
-	loadTopAppList();
+	loadRecommendedAppList();
 	loadNewestAppList();
 	loadDevicesList();
 	
@@ -93,7 +93,7 @@ function loadMenu(){
 }
 
 
-function loadTopAppList(){
+function loadRecommendedAppList(){
 	
 	jQuery.ajax({
 	      url: getServiceURLs("recommandedAppList"), 
@@ -101,7 +101,7 @@ function loadTopAppList(){
 	      dataType: "json",
 	      success: function(apps) {
 	      	 var template = Handlebars.compile($("#hbs-app-list").html());
-	      	 $("#top-app-list").html(template({apps:apps}));
+	      	 $("#recommanded-app-list").html(template({apps:apps}));
   			
 	      }				      
 	});
