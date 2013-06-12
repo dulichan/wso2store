@@ -8,40 +8,32 @@ String.format = function() {
   return s;
 }
 
-
-
-$(document).ready(function() {
-	
-	
-	$("#devices-bar").hide(1000);	
-	
-	loadMenu();
-	//loadCategoryList();
-	loadTopAppList();
-	loadNewestAppList();
-	loadDevicesList();
-	
-		
-	
-});
-
 function getServiceURLs(item){
 	
-	var serverURL = "/store/apis/"
+	var serverURL = "/store/"
 	
 	var urls =
 		{
-			"categoryList": "categorylist.json",
-			"recommandedAppList": "recom_applist.json",
-			"newestAppList": "newest_applist.json",
-			"menuList": "menuList.json",
-			"devicesList": "deviceslist.json"
+			"categoryList": "apis/categorylist.json",
+			"topAppList": "api/popular",
+			"newestAppList": "api/newest",
+			"menuList": "apis/menuList.json"
 		};
 	
 	arguments[0] = urls[item];		
 	return serverURL + String.format.apply(this, arguments);
 	
 }
+
+
+$(document).ready(function() {	
+	loadMenu();
+	//loadCategoryList();
+	loadTopAppList();
+	loadNewestAppList();
+});
+
+
 
 
 $("#devices-button").click(function() {
@@ -96,7 +88,7 @@ function loadMenu(){
 function loadTopAppList(){
 	
 	jQuery.ajax({
-	      url: getServiceURLs("recommandedAppList"), 
+	      url: getServiceURLs("topAppList"), 
 	      type: "GET",
 	      dataType: "json",
 	      success: function(apps) {
@@ -126,24 +118,3 @@ function loadNewestAppList(){
 	
 }
 
-
-function loadDevicesList(){
-	
-	jQuery.ajax({
-	      url: getServiceURLs("devicesList"), 
-	      type: "GET",
-	      dataType: "json",
-	      success: function(devices) {
-	      	 var template = Handlebars.compile($("#hbs-devices-list").html());
-	      	 $("#devices-list-ui").html(template({devices:devices}));
-	      	       	 
-  			$('#devices-list-ui').jcarousel();
-	      }				      
-	});
-	
-	
-	
-				
-	
-	
-}

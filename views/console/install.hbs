@@ -1,18 +1,18 @@
-<div class="container">
-
+<div class="container" id="install-app">
+	<script id="hbs-install-app" type="text/x-handlebars-template">
 	<div class="raw-fluid">
 		<div class="span3">
 			<div class="title">
-				<h3>Automate it</h3>
+				<h3>[{app.attributes.overview_name}]</h3>
 				<div class="raw text-center">
-					<img src="../themes/img/icon.png">
+					<img src="[{app.attributes.images_icon}]">
 
 					<div class="appinfo-details">
 						<div class="raw-fluid">
 							<b>Category: </b> Business
 						</div>
 						<div class="raw-fluid">
-							<b>Author: </b> Automate
+							<b>Author: </b> [{app.attributes.overview_provider}]
 						</div>
 					</div>
 
@@ -27,7 +27,7 @@
 		</div>
 		<div class="span8 pull-right">
 			<div class="raw-fluid banner">
-				<img src="../themes/img/banner.png">
+				<img src="[{app.attributes.images_banner}]">
 			</div>
 
 			<div class="appinfo-details">
@@ -45,19 +45,19 @@
 					<div class="tab-pane active" id="appinfo-details-tab">
 						<div class="raw-fluid">
 							<h5>Description</h5>
-							gg gflk glkglk  glkdglk dffkljer le jlkf lgjdlgl flgl lk lkjel jl rwlkrel l lrwl ltkt kt letlejrl lewjrlw llrew lr wljelrew
+							[{app.attributes.overview_description}]
+						</div>
+						<div class="raw-fluid">
+							<h5>Recent Changes</h5>
+							[{app.attributes.overview_recent_changes}]
 						</div>
 						<div class="raw-fluid">
 							<h5>Screen Shots</h5>
+							[{#app.attributes.images_screenshots}]
 							<div class="screen-shot">
-								<img src="../themes/img/screnshot.png">
+								<img src="[{this}]">
 							</div>
-							<div class="screen-shot">
-								<img src="../themes/img/screnshot.png">
-							</div>
-							<div class="screen-shot">
-								<img src="../themes/img/screnshot.png">
-							</div>
+							[{/app.attributes.images_screenshots}]							
 						</div>
 					</div>
 
@@ -72,5 +72,5 @@
 
 		</div>
 	</div>
-
+	</script>
 </div>

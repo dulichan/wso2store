@@ -62,20 +62,20 @@
 
 <script id="hbs-app-list" type="text/x-handlebars-template">
 	[{#apps}]
-	<a href="install">
+	<a href="install?app=[{id}]">
 		<div  class="span2 text-center app-block">
 		<div class="raw-fluid">
-		<b>[{name}]</b>
+		<b>[{attributes.overview_name}]</b>
 		</div>
 		<div class="raw-fluid">
-		<img class="app-icon" src="../themes/img/angryb.png">
+		<img class="app-icon" src="[{attributes.images_icon}]">
 		</div>
 		<div class="app-info">
 		<div class="raw-fluid">
-		[{author}]
+		[{attributes.overview_provider}]
 		</div>
 		<div class="raw-fluid">
-			<div class="rateit" data-rateit-value="2.5" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+			<div class="rateit"></div>
 		</div>
 		</div>
 		</div>
