@@ -6,16 +6,10 @@ var log =new Log();
 
 var mvc = new absolute({
 	SERVER_URL:"/store/",
-	IGNORE:["sso.jag", "login.jag", "logout.jag", "sample.jag"],
+	IGNORE:["sso.jag", "login.jag", "logout.jag","samples/sample.jag", "samples/sample1.jag","samples/sample2.jag","samples/sample3.jag", "samples/sample4.jag","samples/sample5.jag",
+	"samples/sample6.jag","samples/sample7.jag","samples/sample8.jag","samples/sample9.jag","samples/sample10.jag"],
 	API:"api",
 	ROUTER: router
-});
-
-router.get('apps/{id}',function(ctx){
-	// var store = require('/modules/store.js');
-	// 	assets = store.assets('android', 1, ctx.id);
-	// 	print(assets);
-	
 });
 router.get('test',function(ctx){
 	

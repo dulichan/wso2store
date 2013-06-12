@@ -156,6 +156,15 @@ var mvc = (function () {
 			var pageURL = reqURL.replace(configs.SERVER_URL, '');
 			//Ignore the specified URIs
 			for (var i=0; i < configs.IGNORE.length; i++) {
+				var pageParams = pageURL.split('/');
+				log.info(configs.IGNORE[i].charAt(0));
+				if(configs.IGNORE[i].charAt(0)=='/'){
+					
+					if(pageParams[0]==configs.IGNORE[i].split('/')[0]){
+						include(pageURL);
+						return;
+					}
+				}
 				if(pageURL==configs.IGNORE[i]){
 					include(pageURL);
 					return;

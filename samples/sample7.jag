@@ -1,0 +1,89 @@
+<%
+var rootPath = "/publisher/apps/FuelLog Car Management/";
+var provider = "Simon Morgenthaler";
+var name = "FuelLog - Car Management";
+var version = '2.2.1';
+var url =rootPath+name+".apk";
+var description = "Track and log your mileage, fuel consumption, maintenances, services and costs of your car or motorbike and know exactly how much your car costs. FuelLog calculates a lot of useful statistics like fuel consumption and economy (e.g. mpg or l/100km) of your car or other vehicle, total cost and mileage, average cost per distance or gas amount, average cost per month, year and driven distances, expenses and a lot more. Everything is managed in a nice-looking and very easy to use interface.";
+var recent_changes = "What's in this version:
+2.2.1 (2011-07-01)
+* Individual measurement units per vehicle
+* Additional unit "Hours (h)" (for boats and other machines with hour meters)
+* Additional cost recurrence categories
+* Note field per vehicle for additional information
+* Copy cost entries
+* Statistic values in the vehicles list
+* Speed improvements scrolling though the fill-ups list
+* Minor improvements
+* Bug fix (2.2.1)";
+
+var banner = rootPath+"banner.png";
+var screenshots = [
+    rootPath+"screenshot1.jpg",
+    rootPath+"screenshot2.jpg"
+];
+var icon = rootPath+"icon.png";
+
+var rxtPath = '/_system/governance/android/';
+var server = require('/modules/server.js');
+
+var reg = server.systemRegistry();
+var path = rxtPath + provider + '/' +name+ '/' +version;
+gadget =
+        <metadata xmlns="http://www.wso2.org/governance/metadata">
+            <overview>
+                <provider>{provider}</provider>
+                <name>{name}</name>
+                <version>{version}</version>
+                <url>{url}</url>
+                <status>PUBLISHED</status>
+				<description>{description}</description>
+				<recent_changes>{recent_changes}</recent_changes>
+            </overview>
+			<images>
+				<icon>{icon}</icon>
+				<banner>{banner}</banner>
+				<screenshots>{screenshots}</screenshots>
+			</images>
+        </metadata>;
+reg.put(path, {
+    mediaType: 'application/vnd.wso2-android+xml',
+    content: gadget.toXMLString()
+});
+
+// var thumbLength = thumbnails.length;
+// var tagsLength = tags.length;
+// var i, j, gadget, path, thumbIndex, tagIndex, name, tag;
+// 
+// for (i = 0; i < assetsCount; i++) {
+//     name = namePrefix + i;
+//     thumbIndex = i % thumbLength;
+//     tagIndex = i % tagsLength;
+//     path = rxtPath + provider + '/' + name + '/' + version;
+//     gadget =
+//             <metadata xmlns="http://www.wso2.org/governance/metadata">
+//                 <overview>
+//                     <provider>{provider}</provider>
+//                     <name>{name}</name>
+//                     <version>{version}</version>
+//                     <url>{url}</url>
+//                     <status>CREATED</status>
+//                 </overview>
+//                 <images>
+//                     <thumbnail>{thumbnails[thumbIndex]}</thumbnail>
+//                     <banner>{thumbnails[thumbIndex]}</banner>
+//                 </images>
+//             </metadata>;
+//     reg.put(path, {
+//         mediaType: 'application/vnd.wso2-gadget+xml',
+//         content: gadget.toXMLString()
+//     });
+// 
+//     reg.tag(path, tags.slice(tagIndex));
+// 
+//     for(j = 0; j < commentsCount; j++) {
+//         reg.comment(path, comment(j));
+//     }
+// 
+// }
+%>

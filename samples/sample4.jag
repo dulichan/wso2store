@@ -1,0 +1,78 @@
+<%
+var rootPath = "/publisher/apps/Conference Caller/";
+var provider = "IT-System Syd";
+var name = "Conference Caller";
+var version = '2.1.8';
+var url =rootPath+name+".apk";
+var description = "Conference Caller works like a general phone book for your conference call meeting details. Each phone book item consists of name, conference code and (optional) pin. When it is time to dial into a call you simply press the phone book item from your list and it will dial the phone number to your conference service and your conference code.";
+var recent_changes = "Bug fixes release e.g. when deleting conference items or statistics now working much more reliable.";
+var banner = rootPath+"banner.png";
+var screenshots = [
+    rootPath+"screenshot1.jpg",
+    rootPath+"screenshot2.jpg"
+];
+var icon = rootPath+"icon.png";
+
+var rxtPath = '/_system/governance/android/';
+var server = require('/modules/server.js');
+
+var reg = server.systemRegistry();
+var path = rxtPath + provider + '/' +name+ '/' +version;
+gadget =
+        <metadata xmlns="http://www.wso2.org/governance/metadata">
+            <overview>
+                <provider>{provider}</provider>
+                <name>{name}</name>
+                <version>{version}</version>
+                <url>{url}</url>
+                <status>PUBLISHED</status>
+				<description>{description}</description>
+				<recent_changes>{recent_changes}</recent_changes>
+            </overview>
+			<images>
+				<icon>{icon}</icon>
+				<banner>{banner}</banner>
+				<screenshots>{screenshots}</screenshots>
+			</images>
+        </metadata>;
+reg.put(path, {
+    mediaType: 'application/vnd.wso2-android+xml',
+    content: gadget.toXMLString()
+});
+
+// var thumbLength = thumbnails.length;
+// var tagsLength = tags.length;
+// var i, j, gadget, path, thumbIndex, tagIndex, name, tag;
+// 
+// for (i = 0; i < assetsCount; i++) {
+//     name = namePrefix + i;
+//     thumbIndex = i % thumbLength;
+//     tagIndex = i % tagsLength;
+//     path = rxtPath + provider + '/' + name + '/' + version;
+//     gadget =
+//             <metadata xmlns="http://www.wso2.org/governance/metadata">
+//                 <overview>
+//                     <provider>{provider}</provider>
+//                     <name>{name}</name>
+//                     <version>{version}</version>
+//                     <url>{url}</url>
+//                     <status>CREATED</status>
+//                 </overview>
+//                 <images>
+//                     <thumbnail>{thumbnails[thumbIndex]}</thumbnail>
+//                     <banner>{thumbnails[thumbIndex]}</banner>
+//                 </images>
+//             </metadata>;
+//     reg.put(path, {
+//         mediaType: 'application/vnd.wso2-gadget+xml',
+//         content: gadget.toXMLString()
+//     });
+// 
+//     reg.tag(path, tags.slice(tagIndex));
+// 
+//     for(j = 0; j < commentsCount; j++) {
+//         reg.comment(path, comment(j));
+//     }
+// 
+// }
+%>
