@@ -63,6 +63,7 @@ router.post('users/authenticate', function(ctx){
 	// 	var result =post(url,data,{},'json');
 	if(ctx.username=="dilan" && ctx.password=="123"){
 		session.put("user", {name:"Dilan"});
+		response.sendRedirect("../../console/user_home");
 	}else{
 		response.sendError(401);
 	}
