@@ -117,6 +117,7 @@ header .navbar .brand {
 
 .block .span2 {
     width: 140px;
+    height: 180px;
 }
 
 .app-info{
@@ -137,10 +138,18 @@ header .navbar .brand {
     margin-bottom: 10px;     
 }
 
+.app-block a{
+	color:#000000;
+}
+
 .block-header{
 	padding-bottom: 25px;
 }
 
+.app-block-name{
+	width:130px;
+	padding-left:5px;
+}
 
 /*------FILE UPLOAD-----*/
 
@@ -191,4 +200,14 @@ header .navbar .brand {
 
 .app-block{
 	color: #000;
+}
+
+/*------ELLIPSIS-----*/
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.ellipsis.multiline {
+	white-space: normal;
 }

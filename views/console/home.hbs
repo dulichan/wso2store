@@ -14,16 +14,8 @@
 						[{/menus}]
 						</ul>
 					</script>
-				</div>	
+				</div>				
 				
-				
-				<div class="pull-right">
-					<ul class="nav">
-						<li>
-							<a href="login">Login</a>
-						</li>
-					</ul>
-				</div>	
 
 			</div>
 			
@@ -62,23 +54,29 @@
 
 <script id="hbs-app-list" type="text/x-handlebars-template">
 	[{#apps}]
-	<a href="install?app=[{id}]">
+	
 		<div  class="span2 text-center app-block">
 		<div class="raw-fluid">
-		<b>[{attributes.overview_name}]</b>
+		<a href="install?app=[{id}]">	
+		<div class=" ellipsis app-block-name"><b>[{attributes.overview_name}]</b></div>
 		</div>
 		<div class="raw-fluid">
 		<img class="app-icon" src="[{attributes.images_icon}]">
 		</div>
 		<div class="app-info">
 		<div class="raw-fluid">
-		[{attributes.overview_provider}]
+		<div class=" ellipsis app-block-name">Publisher: [{attributes.overview_provider}]</div>
 		</div>
+		</a>
 		<div class="raw-fluid">
 			<div class="rateit"></div>
 		</div>
+		<div class="raw-fluid">
+			<img src="/store/themes/img/android.png" style="width:25px">
+			<button class="btn btn-info btn-small">Install</button>
 		</div>
 		</div>
-	</a>
+		</div>
+	
 	[{/apps}]
 </script>

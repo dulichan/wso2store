@@ -99,7 +99,8 @@ function loadTopAppList(){
 	      success: function(apps) {
 	      	 var template = Handlebars.compile($("#hbs-app-list").html());
 	      	 $("#top-app-list").html(template({apps:apps}));
-  			 $(function () { $('.rateit').rateit({ max: 4, step: 4}); });
+  			 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
+  			 $(".ellipsis").ellipsis();
 	      }				      
 	});
 	
@@ -116,7 +117,8 @@ function loadNewestAppList(){
 	      success: function(apps) {
 	      	 var template = Handlebars.compile($("#hbs-app-list").html());
 	      	 $("#newest-app-list").html(template({apps:apps}));
-  			 $(function () { $('.rateit').rateit({ max: 4, step: 4}); });
+  			 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
+  			 $(".ellipsis").ellipsis();
 	      }				      
 	});
 	
