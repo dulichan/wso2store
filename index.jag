@@ -117,7 +117,7 @@ router.get('apps/{id}',function(ctx){
 	log.info('got');
  	var item =  getAsset(ctx.id);
 	if(item!=undefined){
-		print item;
+		print (item);
 		return;
 	}
 	response.sendError(404);
