@@ -35,11 +35,11 @@ user_home = function(appController){
 
 install = function(appController){
 	return {
-		layout:'1-column',
+		layout:'1-column-nosearch',
 		title:'Your Apps',
 		jsfile: 'console/install.js',
 		partials:{
-			header:appController.navigation()
+			headernosearch:appController.navigation()
 		},
 		data:{
 			
@@ -50,11 +50,11 @@ install = function(appController){
 
 login = function(appController){
 	return {
-		layout:'1-column',
+		layout:'1-column-nosearch',
 		title:'Your Apps',
 		jsfile: 'console/login.js',
 		partials:{
-			header:appController.navigation()
+			headernosearch:appController.navigation()
 		},
 		data:{
 			
