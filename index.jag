@@ -138,7 +138,7 @@ var getAsset = function(appid){
 	           tenantId : -1234
 	       }),
 	am = new carbon.registry.ArtifactManager(registry, 'android');
-	var item = am.get(ctx.id);
+	var item = am.get(appid);
 	var items = am.list();
 	item = spli(item);
 	if(item!=null){
