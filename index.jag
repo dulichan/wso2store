@@ -15,8 +15,20 @@ router.get('test',function(ctx){
 	
 });
 router.get('user/current', function(ctx){
-	var user = require('/modules/user.js');
 	print (user.current());
+});
+router.post('users/authenticate', function(ctx){
+	var url = 'http://jaggeryjs.org/apidocs/resources/data.jag';
+	var data = {username:ctx.username, password:ctx.password};
+	var result =post(url,data,{},'json');
+	if(result.xhr.status==200){
+		session.put("user", result);
+	}
+});
+router.get("users/authenticate", function(ctx){
+	if(session.get("user")==null|| session.get("user")==undefined){
+		response.sendError(401);
+	}
 });
 router.get('popular', function(ctx){
 	var carbon = require('carbon'),
@@ -79,9 +91,6 @@ router.get('apps/{id}',function(ctx){
 		}
 	};
 	response.sendError(404);
-});
-router.post('users/authenticate', function(ctx){
-	
 });
 
 var sp = function(items){
