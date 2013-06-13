@@ -1,3 +1,7 @@
+
+
+
+
 String.format = function() {
   var s = arguments[0]; 
   for (var i = 0; i < arguments.length - 1; i++) {       
@@ -27,6 +31,7 @@ function getServiceURLs(item){
 
 
 $(document).ready(function() {	
+	
 	loadMenu();
 	//loadCategoryList();
 	loadTopAppList();
@@ -62,7 +67,7 @@ function loadCategoryList(){
 	      success: function(categories) {
 	      	 var template = Handlebars.compile($("#hbs-category-list").html());
 	      	 $("#category-list").html(template({categories:categories}));
-  			
+  			 
 	      }				      
 	});
 	
@@ -94,7 +99,7 @@ function loadTopAppList(){
 	      success: function(apps) {
 	      	 var template = Handlebars.compile($("#hbs-app-list").html());
 	      	 $("#top-app-list").html(template({apps:apps}));
-  			
+  			 $(function () { $('.rateit').rateit({ max: 4, step: 4}); });
 	      }				      
 	});
 	
@@ -111,7 +116,7 @@ function loadNewestAppList(){
 	      success: function(apps) {
 	      	 var template = Handlebars.compile($("#hbs-app-list").html());
 	      	 $("#newest-app-list").html(template({apps:apps}));
-  			
+  			 $(function () { $('.rateit').rateit({ max: 4, step: 4}); });
 	      }				      
 	});
 	
