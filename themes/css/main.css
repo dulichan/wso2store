@@ -29,6 +29,14 @@ header .navbar .brand {
 }
 
 
+header .navbar .pull-right a{
+	color:#FFFFFF;
+	text-decoration: none;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+
 
 /*------SEARCH-----*/
 
