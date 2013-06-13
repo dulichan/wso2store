@@ -51,6 +51,37 @@ var Manager,
         });
         return items;
     };
+	Sorter.prototype.recommended = function (items) {
+        var registry = this.registry;
+        var mam = require('/modules/mam.js');
+        var apps = mam.getUserApps("email");
+        var android = null;
+        var catList = [];
+        var isCat = 0;
+        var catIndex = 0;
+        android = {
+            user : "kasun@wso2mobile.com",
+            apps : [{'name': 'Angry Birds', 'package' : 'com.android.angrybirds'}, {'name': 'Contacts', 'package' : 'com.android.contacts'}, {'name': 'Evernote', 'package' : 'com.android.evernote'}, {'name': 'EZ File Explorer', 'package' : 'com.android.ez'}, {'name': 'Facebook', 'package' : 'com.android.facebook'}]
+        };
+        for(var i=0; i<items.length; i++){
+        	for(var j=0; j<android[0].apps.length; j++){
+        		if(items[i].package == android[o].apps[j].package){
+        			for(var k=0; k<catList.length; k++){
+        				if(catList[k].category == items[i].category){
+        					isCat = 1;
+        					catIndex = k;
+        				}
+        			}
+        			if(isCat == 0){
+        				catList.push({category:catList[catIndex].count, count:1});
+        			}else{
+        				catList[catIndex].count++;
+        			}
+        		}
+        	}
+        }
+        return items;
+    };
 
     Sorter.prototype.popular = function (items) {
         var registry = this.registry;

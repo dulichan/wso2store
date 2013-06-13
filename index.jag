@@ -2,6 +2,7 @@
 var absolute = require ('modules/absolute.js').mvc;
 var goose = require('modules/goose.js').goose;
 var router = new goose({CONTEXT: "/store/api/"});
+var configs = require('dataconf.json');
 var log =new Log();
 
 var mvc = new absolute({
@@ -14,15 +15,37 @@ var mvc = new absolute({
 router.get('test',function(ctx){
 	
 });
-router.get('user/current', function(ctx){
+router.get('users/current', function(ctx){
 	print (session.get('user'));
 });
+
+router.get('users/current/devices', function(ctx){
+	var mam = require('/modules/mam.js').mam;
+	var mamServer = new mam(configs.mdmServer);
+	// mdmServer.
+	print([
+	    {
+	        "id": "1",
+	        "name": "Galaxy SIII",
+	        "model": "Galaxys3"
+	    },
+
+	    {
+	        "id": "2",
+	        "name": "iPhone",
+	        "model": "iPhone"
+	    }
+	]);
+});
+
+router.get('users/current/apps/{id}')
+
 router.post('users/authenticate', function(ctx){
 	//var url = 'http://jaggeryjs.org/apidocs/resources/data.jag';
 	// var data = {username:ctx.username, password:ctx.password};
 	// 	var result =post(url,data,{},'json');
 	if(ctx.username=="dilan" && ctx.password=="123"){
-		session.put("user", {name:"Dilan"});
+		session.put("user", {userid:"12",name:"Dilan"});
 	}
 	// if(result.xhr.status==200){
 	// 		session.put("user", result);
@@ -33,7 +56,8 @@ router.get("users/authenticate", function(ctx){
 		response.sendError(401);
 	}
 });
-router.get("unauthenticate", function(ctx){
+
+router.get("users/unauthenticate", function(ctx){
 	session.put("username", undefined);
 });
 router.get('popular', function(ctx){
