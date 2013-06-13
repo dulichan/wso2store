@@ -15,20 +15,26 @@ router.get('test',function(ctx){
 	
 });
 router.get('user/current', function(ctx){
-	print (user.current());
+	print (session.get('user'));
 });
 router.post('users/authenticate', function(ctx){
-	var url = 'http://jaggeryjs.org/apidocs/resources/data.jag';
-	var data = {username:ctx.username, password:ctx.password};
-	var result =post(url,data,{},'json');
-	if(result.xhr.status==200){
-		session.put("user", result);
+	//var url = 'http://jaggeryjs.org/apidocs/resources/data.jag';
+	// var data = {username:ctx.username, password:ctx.password};
+	// 	var result =post(url,data,{},'json');
+	if(ctx.username=="dilan" && ctx.password=="123"){
+		session.put("user", {name:"Dilan"});
 	}
+	// if(result.xhr.status==200){
+	// 		session.put("user", result);
+	// 	}
 });
 router.get("users/authenticate", function(ctx){
 	if(session.get("user")==null|| session.get("user")==undefined){
 		response.sendError(401);
 	}
+});
+router.get("unauthenticate", function(ctx){
+	session.put("username", undefined);
 });
 router.get('popular', function(ctx){
 	var carbon = require('carbon'),
