@@ -38,7 +38,20 @@ router.get('users/current/devices', function(ctx){
 	]);
 });
 
-router.get('users/current/apps/{id}')
+router.get('devices/{deviceid}/apps/{id}/install', function(ctx){
+	
+});
+router.get('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
+	
+});
+router.get('devices/{deviceid}/apps/{id}/update', function(ctx){
+	
+});
+
+var getPackageName = function(appid){
+	var item = getAsset(appid); 
+	
+}
 
 router.post('users/authenticate', function(ctx){
 	//var url = 'http://jaggeryjs.org/apidocs/resources/data.jag';
@@ -102,6 +115,15 @@ router.get('apps', function(ctx){
 });
 router.get('apps/{id}',function(ctx){
 	log.info('got');
+ 	var item =  getAsset(ctx.id);
+	if(item!=undefined){
+		print item;
+		return;
+	}
+	response.sendError(404);
+});
+
+var getAsset = function(appid){
 	var carbon = require('carbon'),
 	       server = new carbon.server.Server(),
 	       registry = new carbon.registry.Registry(server, {
@@ -109,19 +131,13 @@ router.get('apps/{id}',function(ctx){
 	           tenantId : -1234
 	       }),
 	am = new carbon.registry.ArtifactManager(registry, 'android');
+	var item = am.get(ctx.id);
 	var items = am.list();
-	for (var i = items.length - 1; i >= 0; i--){
-		var item = items[i]
-		if(item.id==ctx.id){
-			item = spli(item);
-			if(item!=null){
-				print(item);
-				return;
-			}
-		}
-	};
-	response.sendError(404);
-});
+	item = spli(item);
+	if(item!=null){
+		return item;
+	}
+}
 
 var sp = function(items){
 	var arr = [];
