@@ -15,7 +15,7 @@
 						</ul>
 					</script>
 				</div>
-				
+
 				<div class="pull-right">
 					<ul class="nav">
 						<li>
@@ -25,8 +25,6 @@
 				</div>
 
 			</div>
-			
-			
 
 		</div>
 	</div>
@@ -41,15 +39,7 @@
 				</div>
 				<div class="container-fluid raw-fluid block-body">
 					<ul id="devices-list-ui" class="jcarousel-skin-tango">
-						<script id="hbs-devices-list" type="text/x-handlebars-template">
-							[{#devices}]
-							<li class="device-item"><img class="device-image" src="../themes/img/[{model}].png">
-							<div class="text-center">
-							[{name}]
-							</div>
-							</li>
-							[{/devices}]
-						</script>
+
 					</ul>
 				</div>
 			</div>
@@ -65,7 +55,7 @@
 
 			<div class="block">
 				<div class="block-header">
-					Newest Apps
+					My Apps
 				</div>
 				<div id="newest-app-list" class="container-fluid raw-fluid block-body">
 
@@ -78,25 +68,55 @@
 
 </div>
 
+<div id="myDevices" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			x
+		</button>
+		<h3 id="myModalLabel">My Devices</h3>
+	</div>
+	<div class="modal-body">
+		<ul id="devices-list-ui-modal" class="jcarousel-skin-tango">
+
+		</ul>
+	</div>
+</div>
+
 <script id="hbs-app-list" type="text/x-handlebars-template">
 	[{#apps}]
+
+	<div  class="span2 text-center app-block">
+	<div class="raw-fluid">
 	<a href="install?app=[{id}]">
-		<div  class="span2 text-center app-block">
-		<div class="raw-fluid">
-		<b>[{attributes.overview_name}]</b>
-		</div>
-		<div class="raw-fluid">
-		<img class="app-icon" src="[{attributes.images_icon}]">
-		</div>
-		<div class="app-info">
-		<div class="raw-fluid">
-		[{attributes.overview_provider}]
-		</div>
-		<div class="raw-fluid">
-			<div class="rateit"></div>
-		</div>
-		</div>
-		</div>
+	<div class=" ellipsis app-block-name"><b>[{attributes.overview_name}]</b></div>
+	</div>
+	<div class="raw-fluid">
+	<img class="app-icon" src="[{attributes.images_icon}]">
+	</div>
+	<div class="app-info">
+	<div class="raw-fluid">
+	<div class=" ellipsis app-block-name">Publisher: [{attributes.overview_provider}]</div>
+	</div>
 	</a>
+	<div class="raw-fluid">
+	<div class="rateit"></div>
+	</div>
+	<div class="raw-fluid">
+	<img src="/store/themes/img/android.png" style="width:25px">
+	<button class="btn btn-info btn-small"  href="#myDevices" data-toggle="modal">Install</button>
+	</div>
+	</div>
+	</div>
+
 	[{/apps}]
+</script>
+
+<script id="hbs-devices-list" type="text/x-handlebars-template">
+	[{#devices}]
+	<li class="device-item"><img class="device-image" src="../themes/img/[{model}].png">
+	<div class="text-center">
+	[{name}]
+	</div>
+	</li>
+	[{/devices}]
 </script>

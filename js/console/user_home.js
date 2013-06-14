@@ -100,6 +100,8 @@ function loadRecommendedAppList(){
 	      success: function(apps) {
 	      	 var template = Handlebars.compile($("#hbs-app-list").html());
 	      	 $("#recommanded-app-list").html(template({apps:apps}));
+	      	 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
+  			 $(".ellipsis").ellipsis();
   			
 	      }				      
 	});
@@ -117,6 +119,8 @@ function loadNewestAppList(){
 	      success: function(apps) {
 	      	 var template = Handlebars.compile($("#hbs-app-list").html());
 	      	 $("#newest-app-list").html(template({apps:apps}));
+	      	 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
+  			 $(".ellipsis").ellipsis();
   			
 	      }				      
 	});
@@ -133,9 +137,10 @@ function loadDevicesList(){
 	      dataType: "json",
 	      success: function(devices) {
 	      	 var template = Handlebars.compile($("#hbs-devices-list").html());
-	      	 $("#devices-list-ui").html(template({devices:devices}));
-	      	       	 
-  			$('#devices-list-ui').jcarousel();
+	      	 $("#devices-list-ui").html(template({devices:devices}));	      	       	 
+  			 $('#devices-list-ui').jcarousel();
+  			 $("#devices-list-ui-modal").html(template({devices:devices}));
+  			 $('#devices-list-ui-modal').jcarousel();
 	      }				      
 	});
 	

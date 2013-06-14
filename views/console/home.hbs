@@ -8,7 +8,7 @@
 					<script id="hbs-menu-list" type="text/x-handlebars-template">
 						<ul class="nav">
 						[{#menus}]
-						<li>
+						<li class="[{active}]">
 						<a href="#">[{name}]</a>
 						</li>
 						[{/menus}]
@@ -39,7 +39,7 @@
 
 			<div class="block">
 				<div class="block-header">
-					Newest Apps
+					New Apps
 				</div>
 				<div id="newest-app-list" class="container-fluid raw-fluid block-body">
 
@@ -73,7 +73,7 @@
 		</div>
 		<div class="raw-fluid">
 			<img src="/store/themes/img/android.png" style="width:25px">
-			<button class="btn btn-info btn-small">Install</button>
+			<a href="login" class="btn btn-info btn-small">Install</a>
 		</div>
 		</div>
 		</div>

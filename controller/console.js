@@ -48,7 +48,7 @@ install = function(appController){
 }
 
 
-login = function(appController){
+login = function(appController){	
 	return {
 		layout:'1-column-nosearch',
 		title:'Your Apps',
