@@ -35,14 +35,17 @@ router.get('users/current/devices', function(ctx){
 	print(result);
 });
 
-router.get('devices/{deviceid}/apps/{id}/install', function(ctx){
-	var url = getAsset(ctx.id).attributes.overview_url; 
+router.post('devices/{deviceid}/apps/{id}/install', function(ctx){
+	log.info("INSIDE");
+	var url = "http://10.200.3.163:9763"+getAsset(ctx.id).attributes.overview_url; 
 	var mam = require('/modules/mam.js').mam;
-	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
-	mamServer.install(url);
+	log.info(configs.mdmServer);
+	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:ctx.deviceid});
+	log.info("APP URL"+url);
+	mamServer.install(url,ctx.deviceid);
 //	mamServer.install
 });
-router.get('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
+router.post('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
 	var package_name = getAsset(ctx.id).attributes.overview_package_name; 
 	var mam = require('/modules/mam.js').mam;
 	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});

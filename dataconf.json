@@ -43,5 +43,5 @@
             "password": "admin"
         }
     },
-	"mdmServer": "localhost:9443/mdm"
+	"mdmServer": "http://localhost:9763/mdm"
 }

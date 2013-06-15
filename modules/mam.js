@@ -2,9 +2,9 @@
 MAM module for communicating with MDM backend
 */
 var mam = (function () {
-	var configs ={mdmServer:"localhost", user:"test"};
-    var module = function (configs) {
-		this.configs = mergeRecursive(this.configs,configs);
+	var configs ={mdmServer:"http://localhost:9763/mdm"};
+    var module = function (config) {
+		this.configs = config;
     };
     function mergeRecursive(obj1, obj2) {
         for (var p in obj2) {
@@ -27,35 +27,37 @@ var mam = (function () {
 	function jsonPost(postUrl, postData){
         	var url = postUrl;
 			var data = postData;
-			var result = post(url, {data:data}, {
+			log.info(JSON.stringify({"data":data}));
+			var result = post(url, JSON.stringify({"data":data}), {
 				"Content-Type": "application/json",
 			    "User-Agent" : "Jaggery-XHR",
 			    "Country" : "LK"
-			}, 'json');
+			});
 			return result;
     }
     // prototype
     module.prototype = {
         constructor: module,
-        install: function(installData){
-			var url = configs['mdmServer']+'devices/"+configs['device']+"/AppInstall';
+        install: function(installData, device){
+			var url =  configs['mdmServer']+'/devices/'+device+'/AppInstall';
+			log.info('URL--'+url);
 			var result = jsonPost(url, {url:installData});
 		},
 		
 		uninstall: function(uninstallData){
-			var url = configs['mdmServer']+'devices/"+configs['device']+"/AppUNInstall';
+			var url = configs['mdmServer']+'/devices/'+configs['device']+'/AppUNInstall';
 			var result = jsonPost(url, {"package":installData});
 		},
 		
 		getDevices: function(email){
-			var url = configs['mdmServer']+'/mdm/store/users/devices';
+			var url = configs['mdmServer']+'/users/devices';
 			var data = email;
 			var result = jsonPost(url, {email:email});
 			return result;
 		},
 		
 		getUserApps: function(email){
-			var url = configs['mdmServer']+'/mdm/store/users/apps';
+			var url = configs['mdmServer']+'/users/apps';
 			var data = email;
 			var result = jsonPost(url, {email:email});
 			return result;
