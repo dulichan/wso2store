@@ -27,7 +27,7 @@ function getServiceURLs(item){
 		{
 			"appDetails": "api/apps/{0}",
 			"devicesList": "apis/deviceslist.json",
-			"installApp": "/mdm/devices/{0}/appInstall"			
+			"installApp": "api/devices/{0}/apps/{1}/install"			
 		};
 	
 	arguments[0] = urls[item];		
@@ -89,10 +89,9 @@ function loadDevicesList(){
   			 $(".device-img").click(function() {
   			  	deviceId = $(this).data("deviceid");
 			  	jQuery.ajax({
-				      url: getServiceURLs("installApp", deviceId), 
+				      url: getServiceURLs("installApp", deviceId, selectedApp), 
 				      type: "POST",
-				      dataType: "json",
-				      data: JSON.stringify({url: selectedApp}),
+				      dataType: "json",				     
 				      success: function(apps) {
 				      	 
 				      }				      

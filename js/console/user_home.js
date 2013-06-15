@@ -37,7 +37,7 @@ function getServiceURLs(item){
 			"myAppList": "api/newest",
 			"menuList": "apis/menuList.json",
 			"devicesList": "apis/deviceslist.json",
-			"installApp": "/mdm/devices/{0}/{1}"
+			"installApp": "api/devices/{0}/apps/{1}/{2}"
 		};
 	
 	arguments[0] = urls[item];		
@@ -112,7 +112,7 @@ function loadRecommendedAppList(){
   			   $(".btn-install").click(function() {
 					appId = $(this).data("appid");
 					selectedApp = appId;
-					selectedAction = "appInstall";
+					selectedAction = "install";
 			 });  
   			
 	      }				      
@@ -140,7 +140,7 @@ function loadMyAppList(){
   			  $(".btn-remove").click(function() {
   			  	appId = $(this).data("appid");
 				selectedApp = appId;
-				selectedAction = "appRemove";
+				selectedAction = "remove";
 			 }); 
   			
 	      }				      
@@ -168,10 +168,9 @@ function loadDevicesList(){
   			 $(".device-img").click(function() {
   			  	deviceId = $(this).data("deviceid");
 			  	jQuery.ajax({
-				      url: getServiceURLs("installApp", deviceId, selectedAction), 
+				      url: getServiceURLs("installApp", deviceId, selectedApp, selectedAction), 
 				      type: "POST",
-				      dataType: "json",
-				      data: JSON.stringify({url: selectedApp}),
+				      dataType: "json",				     
 				      success: function(apps) {
 				      	 
 				      }				      
