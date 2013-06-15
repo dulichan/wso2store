@@ -17,9 +17,16 @@
 					</div>
 
 					<div class="appinfo-install">
-						<button href="#myDevices" data-toggle="modal" class="btn btn-large btn-info btn-install" data-appid="[{app.id}]">
+						[{#if isRemove}]
+							<button href="#myDevices" data-toggle="modal" class="btn btn-large btn-danger btn-remove" data-appid="[{app.id}]">
+							Remove
+							</button>
+						[{else}]
+							<button href="#myDevices" data-toggle="modal" class="btn btn-large btn-info btn-install" data-appid="[{app.id}]">
 							Install
-						</button>
+							</button>								
+						[{/if}]
+						
 					</div>
 				</div>
 

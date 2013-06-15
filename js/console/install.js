@@ -1,4 +1,5 @@
 selectedApp = "";
+selectedAction ="";
 
 
 function getURLParameter(name) {
@@ -27,7 +28,7 @@ function getServiceURLs(item){
 		{
 			"appDetails": "api/apps/{0}",
 			"devicesList": "apis/deviceslist.json",
-			"installApp": "api/devices/{0}/apps/{1}/install"			
+			"installApp": "api/devices/{0}/apps/{1}/{2}"			
 		};
 	
 	arguments[0] = urls[item];		
@@ -47,6 +48,8 @@ $(document).ready(function() {
 function loadApp(){
 	
 	appId = getURLParameter("app");
+	isRemove = getURLParameter("remove");
+	
 	
 	jQuery.ajax({
 	      url: getServiceURLs("appDetails", appId), 
@@ -54,7 +57,12 @@ function loadApp(){
 	      dataType: "json",
 	      success: function(app) {
 	      	 var template = Handlebars.compile($("#hbs-install-app").html());
-	      	 $("#install-app").html(template({app:app}));
+	      	 if(isRemove == 'true'){
+	      	 	$("#install-app").html(template({app:app, isRemove:isRemove}));
+	      	 }else{
+	      	 	$("#install-app").html(template({app:app}));
+	      	 }
+	      	 
 	      	 
 	      	 $('#application-tab a').click(function(e) {
 				e.preventDefault();
@@ -65,6 +73,14 @@ function loadApp(){
 			  $(".btn-install").click(function() {
   			  	appId = $(this).data("appid");
 				selectedApp = appId;
+				selectedAction ="install";
+			 }); 
+			 
+			 
+			 $(".btn-remove").click(function() {
+  			  	appId = $(this).data("appid");
+				selectedApp = appId;
+				selectedAction ="remove";
 			 }); 
 
   			
@@ -89,7 +105,7 @@ function loadDevicesList(){
   			 $(".device-img").click(function() {
   			  	deviceId = $(this).data("deviceid");
 			  	jQuery.ajax({
-				      url: getServiceURLs("installApp", deviceId, selectedApp), 
+				      url: getServiceURLs("installApp", deviceId, selectedApp, selectedAction), 
 				      type: "POST",
 				      dataType: "json",				     
 				      success: function(apps) {
