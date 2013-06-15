@@ -22,33 +22,38 @@ router.get('users/current', function(ctx){
 	}
 	print (session.get('user'));
 });
+router.get("users/current/apps", function(ctx){
+	var mam = require('/modules/mam.js').mam;
+	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
+	mamServer.getUserApps({user:session.get('user').username});
+});
 
 router.get('users/current/devices', function(ctx){
 	var mam = require('/modules/mam.js').mam;
 	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
-	print([
-	    {
-	        "id": "1",
-	        "name": "Galaxy SIII",
-	        "model": "Galaxys3"
-	    },
-	    {
-	        "id": "2",
-	        "name": "iPhone",
-	        "model": "iPhone"
-	    }
-	]);
+	var result = mamServer.getDevices({user:session.get('user').username});
+	print(result);
 });
 
 router.get('devices/{deviceid}/apps/{id}/install', function(ctx){
-	
+	var url = getAsset(ctx.id).attributes.overview_url; 
+	var mam = require('/modules/mam.js').mam;
+	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
+	mamServer.install(url);
+//	mamServer.install
 });
 router.get('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
-	
+	var package_name = getAsset(ctx.id).attributes.overview_package_name; 
+	var mam = require('/modules/mam.js').mam;
+	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
+	mamServer.uninstall(package_name);
 });
-router.get('devices/{deviceid}/apps/{id}/update', function(ctx){
-	
-});
+// router.get('devices/{deviceid}/apps/{id}/update', function(ctx){
+// 	var package_name = getAsset(ctx.id).attributes.overview_package_name; 
+// 	var mam = require('/modules/mam.js').mam;
+// 	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
+// 	mamServer.uninstall(package_name);
+// });
 
 var getPackageName = function(appid){
 	var item = getAsset(appid); 
@@ -59,8 +64,8 @@ router.post('users/authenticate', function(ctx){
 	//var url = 'http://jaggeryjs.org/apidocs/resources/data.jag';
 	// var data = {username:ctx.username, password:ctx.password};
 	// 	var result =post(url,data,{},'json');
-	if(ctx.username=="dilan" && ctx.password=="123"){
-		session.put("user", {name:"Dilan", username:"dilan@wso2mobile.com"});
+	if(ctx.username=="kasun" && ctx.password=="123"){
+		session.put("user", {name:"Kasun", username:"kasun@wso2mobile.com"});
 		response.sendRedirect("../../console/user_home");
 	}else{
 		response.sendError(401);

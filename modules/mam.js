@@ -27,7 +27,7 @@ var mam = (function () {
 	function jsonPost(postUrl, postData){
         	var url = postUrl;
 			var data = postData;
-			var result = post(url, data, {
+			var result = post(url, {data:data}, {
 				"Content-Type": "application/json",
 			    "User-Agent" : "Jaggery-XHR",
 			    "Country" : "LK"
@@ -38,27 +38,30 @@ var mam = (function () {
     module.prototype = {
         constructor: module,
         install: function(installData){
-			var url = configs['mdmServer']+'devices/{deviceid}/AppInstall';
-			var result = jsonPost(url, installData);
+			var url = configs['mdmServer']+'devices/"+configs['device']+"/AppInstall';
+			var result = jsonPost(url, {url:installData});
 		},
 		
 		uninstall: function(uninstallData){
-			var url = configs['mdmServer']+'devices/{deviceid}/AppUNInstall';
-			var result = jsonPost(url, uninstallData);
+			var url = configs['mdmServer']+'devices/"+configs['device']+"/AppUNInstall';
+			var result = jsonPost(url, {"package":installData});
 		},
 		
 		getDevices: function(email){
-			var url = configs['mdmServer']+'devices/{deviceid}/AppUNInstall';
+			var url = configs['mdmServer']+'/mdm/store/users/devices';
 			var data = email;
-			var result = jsonPost(url, data);
+			var result = jsonPost(url, {email:email});
 			return result;
 		},
 		
 		getUserApps: function(email){
-			var url = configs['mdmServer']+'devices/{userid}/apps';
+			var url = configs['mdmServer']+'/mdm/store/users/apps';
 			var data = email;
-			var result = jsonPost(url, data);
+			var result = jsonPost(url, {email:email});
 			return result;
+		},
+		authenticate: function(username, password){
+			
 		}
     };
     // return module
