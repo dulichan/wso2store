@@ -1,3 +1,6 @@
+selectedApp = "";
+
+
 function getURLParameter(name) {
     return decodeURI(
         (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
@@ -18,11 +21,13 @@ String.format = function() {
 
 function getServiceURLs(item){
 	
-	var serverURL = "/store/api/"
+	var serverURL = "/store/"
 	
 	var urls =
 		{
-			"appDetails": "apps/{0}"			
+			"appDetails": "api/apps/{0}",
+			"devicesList": "apis/deviceslist.json",
+			"installApp": "/mdm/devices/{0}/appInstall"			
 		};
 	
 	arguments[0] = urls[item];		
@@ -35,6 +40,7 @@ function getServiceURLs(item){
 
 $(document).ready(function() {
 	loadApp();
+	loadDevicesList();
 });
 
 
@@ -54,9 +60,50 @@ function loadApp(){
 				e.preventDefault();
 				$(this).tab('show');
 			 });
+			 
+			 
+			  $(".btn-install").click(function() {
+  			  	appId = $(this).data("appid");
+				selectedApp = appId;
+			 }); 
 
   			
 	      }				      
 	});
+	
+}
+
+
+
+
+function loadDevicesList(){
+	
+	jQuery.ajax({
+	      url: getServiceURLs("devicesList"), 
+	      type: "GET",
+	      dataType: "json",
+	      success: function(devices) {	      	
+  			 var template = Handlebars.compile($("#hbs-devices-list-modal").html());
+  			 $("#devices-list-ui-modal").html(template({devices:devices})); 
+  			 
+  			 $(".device-img").click(function() {
+  			  	deviceId = $(this).data("deviceid");
+			  	jQuery.ajax({
+				      url: getServiceURLs("installApp", deviceId), 
+				      type: "POST",
+				      dataType: "json",
+				      data: JSON.stringify({url: selectedApp}),
+				      success: function(apps) {
+				      	 
+				      }				      
+				});			
+			 }); 			
+	      }				      
+	});
+	
+	
+	
+				
+	
 	
 }

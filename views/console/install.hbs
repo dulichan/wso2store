@@ -17,7 +17,7 @@
 					</div>
 
 					<div class="appinfo-install">
-						<button class="btn btn-large btn-info">
+						<button href="#myDevices" data-toggle="modal" class="btn btn-large btn-info btn-install" data-appid="[{app.attributes.overview_url}]">
 							Install
 						</button>
 					</div>
@@ -74,3 +74,30 @@
 	</div>
 	</script>
 </div>
+
+
+<div id="myDevices" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			x
+		</button>
+		<h4 id="myModalLabel">Select your device to install</h4>
+	</div>
+	<div class="modal-body">
+		<ul id="devices-list-ui-modal" class="jcarousel-skin-tango">
+
+		</ul>
+	</div>
+</div>
+
+
+<script id="hbs-devices-list-modal" type="text/x-handlebars-template">
+	[{#devices}]
+		<div class="span2 device-img" data-deviceid="[{id}]" data-dismiss="modal" aria-hidden="true" >
+		<img class="device-image" src="../themes/img/[{model}].png">
+			<div class="raw">
+			[{name}]
+			</div>
+	</div>
+	[{/devices}]
+</script>

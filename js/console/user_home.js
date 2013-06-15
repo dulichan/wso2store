@@ -1,3 +1,6 @@
+selectedApp = "";
+selectedAction ="";
+
 String.format = function() {
   var s = arguments[0]; 
   for (var i = 0; i < arguments.length - 1; i++) {       
@@ -16,7 +19,7 @@ $(document).ready(function() {
 	loadMenu();
 	//loadCategoryList();
 	loadRecommendedAppList();
-	loadNewestAppList();
+	loadMyAppList();
 	loadDevicesList();
 	
 		
@@ -31,9 +34,10 @@ function getServiceURLs(item){
 		{
 			"categoryList": "apis/categorylist.json",
 			"recommandedAppList": "api/popular",
-			"newestAppList": "api/newest",
+			"myAppList": "api/newest",
 			"menuList": "apis/menuList.json",
-			"devicesList": "apis/deviceslist.json"
+			"devicesList": "apis/deviceslist.json",
+			"installApp": "/mdm/devices/{0}/{1}"
 		};
 	
 	arguments[0] = urls[item];		
@@ -102,6 +106,14 @@ function loadRecommendedAppList(){
 	      	 $("#recommanded-app-list").html(template({apps:apps}));
 	      	 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
   			 $(".ellipsis").ellipsis();
+  			 
+  			  appId = $(this).data("appid");
+  			 
+  			   $(".btn-install").click(function() {
+					appId = $(this).data("appid");
+					selectedApp = appId;
+					selectedAction = "appInstall";
+			 });  
   			
 	      }				      
 	});
@@ -110,17 +122,26 @@ function loadRecommendedAppList(){
 }
 
 
-function loadNewestAppList(){
+function loadMyAppList(){
 	
 	jQuery.ajax({
-	      url: getServiceURLs("newestAppList"), 
+	      url: getServiceURLs("myAppList"), 
 	      type: "GET",
 	      dataType: "json",
 	      success: function(apps) {
-	      	 var template = Handlebars.compile($("#hbs-app-list").html());
+	      	 var template = Handlebars.compile($("#hbs-my-app-list").html());
 	      	 $("#newest-app-list").html(template({apps:apps}));
 	      	 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
   			 $(".ellipsis").ellipsis();
+  			 
+  			 
+  			
+  			 
+  			  $(".btn-remove").click(function() {
+  			  	appId = $(this).data("appid");
+				selectedApp = appId;
+				selectedAction = "appRemove";
+			 }); 
   			
 	      }				      
 	});
@@ -139,8 +160,25 @@ function loadDevicesList(){
 	      	 var template = Handlebars.compile($("#hbs-devices-list").html());
 	      	 $("#devices-list-ui").html(template({devices:devices}));	      	       	 
   			 $('#devices-list-ui').jcarousel();
-  			 $("#devices-list-ui-modal").html(template({devices:devices}));
-  			 $('#devices-list-ui-modal').jcarousel();
+  			 
+  			 var template = Handlebars.compile($("#hbs-devices-list-modal").html());
+  			 $("#devices-list-ui-modal").html(template({devices:devices})); 
+  			 
+  			 
+  			 $(".device-img").click(function() {
+  			  	deviceId = $(this).data("deviceid");
+			  	jQuery.ajax({
+				      url: getServiceURLs("installApp", deviceId, selectedAction), 
+				      type: "POST",
+				      dataType: "json",
+				      data: JSON.stringify({url: selectedApp}),
+				      success: function(apps) {
+				      	 
+				      }				      
+				});			
+			 });
+  			 
+  						
 	      }				      
 	});
 	
