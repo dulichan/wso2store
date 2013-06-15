@@ -73,7 +73,7 @@
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 			x
 		</button>
-		<h3 id="myModalLabel">My Devices</h3>
+		<h4 id="myModalLabel">Select your device to install</h4>
 	</div>
 	<div class="modal-body">
 		<ul id="devices-list-ui-modal" class="jcarousel-skin-tango">
@@ -103,7 +103,7 @@
 	</div>
 	<div class="raw-fluid">
 	<img src="/store/themes/img/android.png" style="width:25px">
-	<button class="btn btn-info btn-small"  href="#myDevices" data-toggle="modal">Install</button>
+	<button class="btn btn-info btn-small btn-install" data-appid="[{attributes.overview_url}]"  href="#myDevices" data-toggle="modal">Install</button>
 	</div>
 	</div>
 	</div>
@@ -118,5 +118,17 @@
 	[{name}]
 	</div>
 	</li>
+	[{/devices}]
+</script>
+
+
+<script id="hbs-devices-list-modal" type="text/x-handlebars-template">
+	[{#devices}]
+		<div class="span2 device-img" data-deviceid="[{id}]" data-dismiss="modal" aria-hidden="true" >
+		<img class="device-image" src="../themes/img/[{model}].png">
+			<div class="raw">
+			[{name}]
+			</div>
+	</div>
 	[{/devices}]
 </script>

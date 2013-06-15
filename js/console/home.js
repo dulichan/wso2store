@@ -101,6 +101,9 @@ function loadTopAppList(){
 	      	 $("#top-app-list").html(template({apps:apps}));
   			 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
   			 $(".ellipsis").ellipsis();
+  			 
+  			 			
+  			
 	      }				      
 	});
 	
@@ -119,6 +122,8 @@ function loadNewestAppList(){
 	      	 $("#newest-app-list").html(template({apps:apps}));
   			 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
   			 $(".ellipsis").ellipsis();
+  			 
+  			 
 	      }				      
 	});
 	

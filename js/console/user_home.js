@@ -1,3 +1,5 @@
+selectedApp = "";
+
 String.format = function() {
   var s = arguments[0]; 
   for (var i = 0; i < arguments.length - 1; i++) {       
@@ -33,7 +35,8 @@ function getServiceURLs(item){
 			"recommandedAppList": "api/popular",
 			"newestAppList": "api/newest",
 			"menuList": "apis/menuList.json",
-			"devicesList": "apis/deviceslist.json"
+			"devicesList": "apis/deviceslist.json",
+			"installApp": "/mdm/devices/{0}/appInstall"
 		};
 	
 	arguments[0] = urls[item];		
@@ -102,6 +105,13 @@ function loadRecommendedAppList(){
 	      	 $("#recommanded-app-list").html(template({apps:apps}));
 	      	 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
   			 $(".ellipsis").ellipsis();
+  			 
+  			  appId = $(this).data("appid");
+  			 
+  			   $(".btn-install").click(function() {
+					appId = $(this).data("appid");
+					selectedApp = appId;
+			 });  
   			
 	      }				      
 	});
@@ -121,6 +131,14 @@ function loadNewestAppList(){
 	      	 $("#newest-app-list").html(template({apps:apps}));
 	      	 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
   			 $(".ellipsis").ellipsis();
+  			 
+  			 
+  			
+  			 
+  			  $(".btn-install").click(function() {
+  			  	appId = $(this).data("appid");
+				selectedApp = appId;
+			 }); 
   			
 	      }				      
 	});
@@ -139,8 +157,25 @@ function loadDevicesList(){
 	      	 var template = Handlebars.compile($("#hbs-devices-list").html());
 	      	 $("#devices-list-ui").html(template({devices:devices}));	      	       	 
   			 $('#devices-list-ui').jcarousel();
-  			 $("#devices-list-ui-modal").html(template({devices:devices}));
-  			 $('#devices-list-ui-modal').jcarousel();
+  			 
+  			 var template = Handlebars.compile($("#hbs-devices-list-modal").html());
+  			 $("#devices-list-ui-modal").html(template({devices:devices})); 
+  			 
+  			 
+  			 $(".device-img").click(function() {
+  			  	deviceId = $(this).data("deviceid");
+			  	jQuery.ajax({
+				      url: getServiceURLs("installApp", deviceId), 
+				      type: "POST",
+				      dataType: "json",
+				      data: JSON.stringify({url: selectedApp}),
+				      success: function(apps) {
+				      	 
+				      }				      
+				});			
+			 });
+  			 
+  						
 	      }				      
 	});
 	
