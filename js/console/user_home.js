@@ -1,4 +1,5 @@
 selectedApp = "";
+selectedAction ="";
 
 String.format = function() {
   var s = arguments[0]; 
@@ -18,7 +19,7 @@ $(document).ready(function() {
 	loadMenu();
 	//loadCategoryList();
 	loadRecommendedAppList();
-	loadNewestAppList();
+	loadMyAppList();
 	loadDevicesList();
 	
 		
@@ -33,10 +34,10 @@ function getServiceURLs(item){
 		{
 			"categoryList": "apis/categorylist.json",
 			"recommandedAppList": "api/popular",
-			"newestAppList": "api/newest",
+			"myAppList": "api/newest",
 			"menuList": "apis/menuList.json",
 			"devicesList": "apis/deviceslist.json",
-			"installApp": "/mdm/devices/{0}/appInstall"
+			"installApp": "/mdm/devices/{0}/{1}"
 		};
 	
 	arguments[0] = urls[item];		
@@ -111,6 +112,7 @@ function loadRecommendedAppList(){
   			   $(".btn-install").click(function() {
 					appId = $(this).data("appid");
 					selectedApp = appId;
+					selectedAction = "appInstall";
 			 });  
   			
 	      }				      
@@ -120,14 +122,14 @@ function loadRecommendedAppList(){
 }
 
 
-function loadNewestAppList(){
+function loadMyAppList(){
 	
 	jQuery.ajax({
-	      url: getServiceURLs("newestAppList"), 
+	      url: getServiceURLs("myAppList"), 
 	      type: "GET",
 	      dataType: "json",
 	      success: function(apps) {
-	      	 var template = Handlebars.compile($("#hbs-app-list").html());
+	      	 var template = Handlebars.compile($("#hbs-my-app-list").html());
 	      	 $("#newest-app-list").html(template({apps:apps}));
 	      	 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
   			 $(".ellipsis").ellipsis();
@@ -135,9 +137,10 @@ function loadNewestAppList(){
   			 
   			
   			 
-  			  $(".btn-install").click(function() {
+  			  $(".btn-remove").click(function() {
   			  	appId = $(this).data("appid");
 				selectedApp = appId;
+				selectedAction = "appRemove";
 			 }); 
   			
 	      }				      
@@ -165,7 +168,7 @@ function loadDevicesList(){
   			 $(".device-img").click(function() {
   			  	deviceId = $(this).data("deviceid");
 			  	jQuery.ajax({
-				      url: getServiceURLs("installApp", deviceId), 
+				      url: getServiceURLs("installApp", deviceId, selectedAction), 
 				      type: "POST",
 				      dataType: "json",
 				      data: JSON.stringify({url: selectedApp}),
