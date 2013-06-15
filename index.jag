@@ -25,15 +25,13 @@ router.get('users/current', function(ctx){
 
 router.get('users/current/devices', function(ctx){
 	var mam = require('/modules/mam.js').mam;
-	var mamServer = new mam(configs.mdmServer);
-	// mdmServer.
+	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
 	print([
 	    {
 	        "id": "1",
 	        "name": "Galaxy SIII",
 	        "model": "Galaxys3"
 	    },
-
 	    {
 	        "id": "2",
 	        "name": "iPhone",
@@ -62,7 +60,7 @@ router.post('users/authenticate', function(ctx){
 	// var data = {username:ctx.username, password:ctx.password};
 	// 	var result =post(url,data,{},'json');
 	if(ctx.username=="dilan" && ctx.password=="123"){
-		session.put("user", {name:"Dilan"});
+		session.put("user", {name:"Dilan", username:"dilan@wso2mobile.com"});
 		response.sendRedirect("../../console/user_home");
 	}else{
 		response.sendError(401);
@@ -110,6 +108,28 @@ router.get('newest', function(ctx){
 });
 
 router.get('apps', function(ctx){
+	var carbon = require('carbon'),
+	       server = new carbon.server.Server(),
+	       registry = new carbon.registry.Registry(server, {
+	           username : 'admin',
+	           tenantId : -1234
+	       }),
+	       am = new carbon.registry.ArtifactManager(registry, 'android');
+	var items =am.list();
+	print(sp(items));
+});
+router.get('apps/android',function(ctx){
+	var carbon = require('carbon'),
+	       server = new carbon.server.Server(),
+	       registry = new carbon.registry.Registry(server, {
+	           username : 'admin',
+	           tenantId : -1234
+	       }),
+	       am = new carbon.registry.ArtifactManager(registry, 'android');
+	var items =am.list();
+	print(sp(items));
+});
+router.get('apps/ios',function(ctx){
 	var carbon = require('carbon'),
 	       server = new carbon.server.Server(),
 	       registry = new carbon.registry.Registry(server, {

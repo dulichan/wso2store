@@ -6,7 +6,11 @@
 				<a class="brand" href="#">{{partials.header.appTitle}}</a>
 				
 				<div class="pull-right">
-					<a href="login"><i class="icon-eye-open"> </i>Login</a>
+					{{#if data.name}}
+						<span>Hi {{data.name}}</span>
+					{{else}}
+						<a href="login"><i class="icon-eye-open"> </i>Login</a>
+					{{/if}}
 				</div>
 			</div>
 			<div class="well serach-bar">

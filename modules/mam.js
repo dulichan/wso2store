@@ -1,10 +1,10 @@
 /*
-MAM module for fully communicating with MDM backend
+MAM module for communicating with MDM backend
 */
 var mam = (function () {
-	var configs;
+	var configs ={mdmServer:"localhost", user:"test"};
     var module = function (configs) {
-		this.configs = configs;
+		this.configs = mergeRecursive(this.configs,configs);
     };
     function mergeRecursive(obj1, obj2) {
         for (var p in obj2) {
@@ -23,6 +23,7 @@ var mam = (function () {
         return obj1;
     }
 	
+	//Tunnel communicating to the MDM server 
 	function jsonPost(postUrl, postData){
         	var url = postUrl;
 			var data = postData;

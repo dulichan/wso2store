@@ -27,7 +27,7 @@ user_home = function(appController){
 			header:appController.navigation()
 		},
 		data:{
-			
+			name:session.get('user').name
 		}
 	};
 }

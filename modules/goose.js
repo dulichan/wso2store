@@ -82,6 +82,8 @@ var goose = (function () {
 							mergeRecursive(jResult,request.getContent());	
 						}
 					}
+					log.info("--------Goose file parsing--------- ");
+					ctx.files = request.getAllFiles();
 					log.info("--------Goose parsed data--------- ");
 					log.info(jResult);
                     ctx = mergeRecursive(jResult,ctx);
