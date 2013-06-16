@@ -25,14 +25,17 @@ router.get('users/current', function(ctx){
 router.get("users/current/apps", function(ctx){
 	var mam = require('/modules/mam.js').mam;
 	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
-	mamServer.getUserApps({user:session.get('user').username});
+	var result = mamServer.getUserApps(session.get('user').username);
+	print(result.data);
 });
 
 router.get('users/current/devices', function(ctx){
 	var mam = require('/modules/mam.js').mam;
 	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
-	var result = mamServer.getDevices({user:session.get('user').username});
-	print(result);
+	log.info("user printing");
+	log.info(session.get('user'));
+	var result = mamServer.getDevices(session.get('user').username);
+	print(result.data);
 });
 
 router.post('devices/{deviceid}/apps/{id}/install', function(ctx){
@@ -67,8 +70,12 @@ router.post('users/authenticate', function(ctx){
 	//var url = 'http://jaggeryjs.org/apidocs/resources/data.jag';
 	// var data = {username:ctx.username, password:ctx.password};
 	// 	var result =post(url,data,{},'json');
-	if(ctx.username=="kasun" && ctx.password=="123"){
-		session.put("user", {name:"Kasun", username:"kasun@wso2mobile.com"});
+	var mam = require('/modules/mam.js').mam;
+	var mamServer = new mam({mdmServer:configs.mdmServer});
+	var result = mamServer.authenticate(ctx.username, ctx.password);
+	log.info("result");
+	if(result.data!=""||result.data!=null){
+		session.put("user", JSON.parse(result.data));
 		response.sendRedirect("../../console/user_home");
 	}else{
 		response.sendError(401);

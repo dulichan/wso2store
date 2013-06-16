@@ -2,6 +2,7 @@
 MAM module for communicating with MDM backend
 */
 var mam = (function () {
+	var log = new Log();
 	var configs ={mdmServer:"http://localhost:9763/mdm"};
     var module = function (config) {
 		this.configs = config;
@@ -27,8 +28,10 @@ var mam = (function () {
 	function jsonPost(postUrl, postData){
         	var url = postUrl;
 			var data = postData;
-			log.info(JSON.stringify({"data":data}));
-			var result = post(url, JSON.stringify({"data":data}), {
+			//data = {url:"http://10.200.3.163:9763/publisher/uploads/app.apk"};
+			data = JSON.stringify({"data":data});
+
+			var result = post(url, data, {
 				"Content-Type": "application/json",
 			    "User-Agent" : "Jaggery-XHR",
 			    "Country" : "LK"
@@ -50,20 +53,30 @@ var mam = (function () {
 		},
 		
 		getDevices: function(email){
-			var url = configs['mdmServer']+'/users/devices';
+			var url = configs['mdmServer']+'/store/users/devices';
 			var data = email;
 			var result = jsonPost(url, {email:email});
+			log.info(result);
 			return result;
 		},
 		
 		getUserApps: function(email){
-			var url = configs['mdmServer']+'/users/apps';
+			var url = configs['mdmServer']+'/store/users/apps';
 			var data = email;
 			var result = jsonPost(url, {email:email});
 			return result;
 		},
 		authenticate: function(username, password){
+			var url =  configs['mdmServer']+'/users/authenticate';
 			
+			var data = JSON.stringify({username:username, password:password});
+
+			var result = post(url, data, {
+				"Content-Type": "application/json",
+			    "User-Agent" : "Jaggery-XHR",
+			    "Country" : "LK"
+			});
+			return result;
 		}
     };
     // return module
