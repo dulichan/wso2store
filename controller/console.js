@@ -62,7 +62,9 @@ login = function(appController){
 	};
 }
 
-
+logout = function(appController){
+	response.sendRedirect("/store/api/users/unauthenticate");
+}
 
 
 
