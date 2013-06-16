@@ -98,6 +98,14 @@ var Manager,
         });
         return items;
     };
+    
+    Sorter.prototype.recommended = function (items) {
+        var registry = this.registry;
+        items.sort(function (l, r) {
+            return registry.rating(l.path).average > registry.rating(r.path).average;
+        });
+        return items;
+    };
 
     Sorter.prototype.older = function (items) {
         var registry = this.registry;
