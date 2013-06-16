@@ -3,6 +3,7 @@ home = function(appController){
 		layout:'1-column',
 		title:'Your Apps',
 		jsfile: 'console/home.js',
+		hasSearch: true,
 		partials:{
 			header:appController.navigation()
 		},
