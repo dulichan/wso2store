@@ -46,7 +46,7 @@ function getServiceURLs(item){
 			"recommandedAppList": "api/popular",
 			"myAppList": "api/newest",
 			"menuList": "apis/menuList.json",
-			"devicesList": "apis/deviceslist.json",
+			"devicesList": "api/users/current/devices",
 			"installApp": "api/devices/{0}/apps/{1}/{2}"
 		};
 	
