@@ -189,11 +189,26 @@ function loadDevicesList(){
   			 
   						
 	      }				      
-	});
+	});			
 	
 	
+}
+
+
+
+Handlebars.registerHelper('viewImage', function(image, options) {
+	var url = "/mdm/img/models/" + image + ".png";
+	if(imageExist(url)){
+		return url;
+	}else{
+		return "/mdm/img/models/none.png";
+	}
 	
-				
-	
-	
+});
+
+function imageExist(url) 
+{
+   var img = new Image();
+   img.src = url;
+   return img.height != 0;
 }
