@@ -30,8 +30,7 @@ function getServiceURLs(item){
 }
 
 
-$(document).ready(function() {	
-	
+$(document).ready(function() {
 	loadMenu();
 	//loadCategoryList();
 	loadTopAppList();

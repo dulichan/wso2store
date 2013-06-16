@@ -19,7 +19,7 @@ function getURLParameter(name) {
 
 $(document).ready(function() {
 	
-	var appId = getURLParameter("app");
+	var appId = getURLParameter("appid");
 	
 	if(appId != "null" ){
 		$('#myDevices').modal('show');

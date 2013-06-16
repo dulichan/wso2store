@@ -27,7 +27,7 @@ user_home = function(appController){
 			header:appController.navigation()
 		},
 		data:{
-			name:session.get('user').first_name
+			name:session.get('user').first_name,
 		}
 	};
 }
@@ -48,7 +48,7 @@ install = function(appController){
 }
 
 
-login = function(appController){	
+login = function(appController){
 	return {
 		layout:'1-column-nosearch',
 		title:'Your Apps',
@@ -56,7 +56,7 @@ login = function(appController){
 			headernosearch:appController.navigation()
 		},
 		data:{
-			
+			"current_install_app":request.getParameter('appid')
 		}
 	};
 }
