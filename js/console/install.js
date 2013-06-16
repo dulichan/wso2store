@@ -63,6 +63,7 @@ function loadApp(){
 	      	 	$("#install-app").html(template({app:app}));
 	      	 }
 	      	 
+	      	 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
 	      	 
 	      	 $('#application-tab a').click(function(e) {
 				e.preventDefault();
