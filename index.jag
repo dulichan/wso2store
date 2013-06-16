@@ -185,18 +185,42 @@ var sp = function(items){
 	var arr = [];
 	for (var i = items.length - 1; i >= 0; i--){
 		var item = items[i];
-		if(item.attributes.overview_status=="PUBLISHED"){
+		if(item.attributes.overview_status=="LIVE"){
 			arr.push(spli(item));
 		}
 	};
 	return arr;
 }
 var spli = function(item){
-	if(item.attributes.overview_status=="PUBLISHED"){
+	if(item.attributes.overview_status=="LIVE"){
 		item.attributes.images_screenshots =item.attributes.images_screenshots.split(',');
 		return item;
 	}
 	return null;
 }
+
+comments = function (aid, paging) {
+      return registry().comments(aid, paging);
+  };
+
+  commentCount = function (aid) {
+      return registry().commentCount(aid);
+  };
+
+
+  comment = function (aid, comment) {
+      return registry().comment(aid, comment);
+  };
+
+  rating = function (aid) {
+      var store = require('/dataconf.json'),
+          user = require('/modules/user.js').current();
+      return registry().rating(aid, user ? user.username : store.user.username);
+  };
+
+  rate = function (aid, rating) {
+      return registry().rate(aid, rating);
+  };
+
 mvc.route(request);
 %>
