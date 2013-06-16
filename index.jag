@@ -92,6 +92,7 @@ router.get("users/authenticate", function(ctx){
 
 router.get("users/unauthenticate", function(ctx){
 	session.put("user", undefined);
+	response.sendRedirect("store/console/home");
 });
 router.get('popular', function(ctx){
 	var carbon = require('carbon'),
