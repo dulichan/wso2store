@@ -28,8 +28,8 @@ $(document).ready(function() {
 	
 	loadMenu();
 	//loadCategoryList();
-	loadRecommendedAppList();
-	loadMyAppList();
+	//loadRecommendedAppList();
+	//loadMyAppList();
 	loadDevicesList();
 	
 		
