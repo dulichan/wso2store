@@ -7,8 +7,6 @@ home = function(appController){
 			header:appController.navigation()
 		},
 		data:{
-			name:"Chan",
-			quote:"I was a king I had a gold throne",
 			apps:[
 				{name:"Bookhub",status:"Published", price:"Free", totalInstalls:2034, rating:5}
 			]
@@ -23,6 +21,7 @@ user_home = function(appController){
 		layout:'1-column',
 		title:'Your Apps',
 		jsfile: 'console/user_home.js',
+		hasSearch: true,
 		partials:{
 			header:appController.navigation()
 		},
@@ -71,8 +70,8 @@ logout = function(appController){
 
 manager = function(){
 	//response.sendRedirect('/publisher/console/list');
-	return {name:"Chan", quote:"I was a king I had a gold throne"};
+	return {};
 }
 upload = function(){
-	return {name:"Chan", quote:"I was a king I had a gold throne"};
+	return {};
 }
