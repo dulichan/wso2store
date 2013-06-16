@@ -70,7 +70,7 @@ var mvc = (function () {
 			var partial = partials[i];
 			partial.open('r');
 			Handle.registerPartial(partial.getName().split('.')[0], partial.readAll());
-			log.info("Handle registered template -"+partial.getName().split('.')[0]);
+			//log.info("Handle registered template -"+partial.getName().split('.')[0]);
 		}
 	}
 	
@@ -136,7 +136,7 @@ var mvc = (function () {
 	}
 	//Call
 	function callAPI(request){
-		log.info("Router process ");
+		//log.info("Router process ");
 		configs.ROUTER.process(request);
 	}
 	//Check if API route is provided and 
@@ -145,7 +145,7 @@ var mvc = (function () {
 		if(configs.API==undefined){
 			return false;
 		}
-		log.info("K "+pageParams[0]);
+		//log.info("K "+pageParams[0]);
 		return pageParams[0]== configs.API;
 	}
 	// prototype
@@ -157,7 +157,7 @@ var mvc = (function () {
 			//Ignore the specified URIs
 			for (var i=0; i < configs.IGNORE.length; i++) {
 				var pageParams = pageURL.split('/');
-				log.info(configs.IGNORE[i].charAt(0));
+				//log.info(configs.IGNORE[i].charAt(0));
 				if(configs.IGNORE[i].charAt(0)=='/'){
 					
 					if(pageParams[0]==configs.IGNORE[i].split('/')[0]){
@@ -194,7 +194,7 @@ var mvc = (function () {
 			}
 			var viewName = view;
 			view = view+"."+configs.ENGINE;
-			log.info("View "+ view);
+			//log.info("View "+ view);
 			
 			//App controller
 			var appController;
@@ -218,7 +218,7 @@ var mvc = (function () {
 			}
 			if(isExists('/controller/'+controller+".js") && require('/controller/'+controller+".js")[viewName] !=undefined){
 				context = require('/controller/'+controller+".js")[viewName](appController);
-				log.info("Current context "+context);
+				//log.info("Current context "+context);
 			}		
 			//Extracting the layout from the controller
 			var layout;

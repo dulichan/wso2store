@@ -27,7 +27,7 @@ user_home = function(appController){
 			header:appController.navigation()
 		},
 		data:{
-			name:session.get('user').name
+			name:session.get('user').first_name
 		}
 	};
 }
@@ -52,7 +52,6 @@ login = function(appController){
 	return {
 		layout:'1-column-nosearch',
 		title:'Your Apps',
-		jsfile: 'console/login.js',
 		partials:{
 			headernosearch:appController.navigation()
 		},
