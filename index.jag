@@ -26,7 +26,8 @@ router.get("users/current/apps", function(ctx){
 	var mam = require('/modules/mam.js').mam;
 	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
 	var result = mamServer.getUserApps(session.get('user').username);
-	print(result.data);
+	result.data;
+	print("");
 });
 
 router.get('users/current/devices', function(ctx){
@@ -63,7 +64,18 @@ router.post('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
 
 var getPackageName = function(appid){
 	var item = getAsset(appid); 
+}
+var getAsetForPackage = function(packagename){
+	var carbon = require('carbon'),
+	       server = new carbon.server.Server(),
+	       registry = new carbon.registry.Registry(server, {
+	           username : 'admin',
+	           tenantId : -1234
+	       }),
+	am = new carbon.registry.ArtifactManager(registry, 'android');
+	var items = am.list();
 	
+	print(sp(items));
 }
 
 router.post('users/authenticate', function(ctx){
