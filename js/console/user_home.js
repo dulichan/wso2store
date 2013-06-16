@@ -15,6 +15,12 @@ String.format = function() {
 
 $(document).ready(function() {
 	
+	var appId = getURLParameter("app");
+	
+	if(appId != "null" ){
+		$('#myDevices').modal('show');
+		selectedApp = appId;
+	}
 	
 	loadMenu();
 	//loadCategoryList();
