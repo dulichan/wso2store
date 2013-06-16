@@ -27,7 +27,7 @@ function getServiceURLs(item){
 	var urls =
 		{
 			"appDetails": "api/apps/{0}",
-			"devicesList": "apis/deviceslist.json",
+			"devicesList": "api/users/current/devices",
 			"installApp": "api/devices/{0}/apps/{1}/{2}"			
 		};
 	
