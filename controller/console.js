@@ -21,6 +21,7 @@ user_home = function(appController){
 		layout:'1-column',
 		title:'Your Apps',
 		jsfile: 'console/user_home.js',
+		hasSearch: true,
 		partials:{
 			header:appController.navigation()
 		},
