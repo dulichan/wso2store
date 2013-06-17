@@ -18,6 +18,10 @@ home = function(appController){
 
 
 user_home = function(appController){
+	var user = session.get('user');
+	if(user==undefined){
+		response.sendRedirect('/store');
+	}
 	return {
 		layout:'1-column',
 		title:'Your Apps',
@@ -26,14 +30,17 @@ user_home = function(appController){
 		partials:{
 			header:appController.navigation()
 		},
-		data:{
-			name:session.get('user').first_name,
-		}
+		data:{name:user.first_name}
 	};
 }
 
 
 install = function(appController){
+	var user = session.get('user');
+	var data;
+	if(user!=undefined){
+		data={name:user.first_name};
+	}
 	return {
 		layout:'1-column-nosearch',
 		title:'Your Apps',
@@ -41,9 +48,7 @@ install = function(appController){
 		partials:{
 			headernosearch:appController.navigation()
 		},
-		data:{
-			name:session.get('user').first_name,
-		}
+		data:data
 	};
 }
 

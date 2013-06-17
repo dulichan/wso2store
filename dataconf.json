@@ -43,5 +43,6 @@
             "password": "admin"
         }
     },
-	"mdmServer": "http://localhost:9763/mdm"
+	"mdmServer": "http://10.200.3.163:9763/mdm",
+	"mdm":"http://10.200.3.163:976"
 }
