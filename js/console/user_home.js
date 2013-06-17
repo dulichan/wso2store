@@ -28,7 +28,7 @@ $(document).ready(function() {
 	
 	loadMenu();
 	//loadCategoryList();
-	//loadRecommendedAppList();
+	loadRecommendedAppList();
 	//loadMyAppList();
 	loadDevicesList();
 	
@@ -177,6 +177,7 @@ function loadDevicesList(){
   			 
   			 $(".device-img").click(function() {
   			  	deviceId = $(this).data("deviceid");
+  			  	Messenger().post("App is sent to the device");
 			  	jQuery.ajax({
 				      url: getServiceURLs("installApp", deviceId, selectedApp, selectedAction), 
 				      type: "POST",
