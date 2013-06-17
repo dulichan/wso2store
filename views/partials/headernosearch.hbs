@@ -16,7 +16,11 @@
 			</div>
 			<div class="well serach-bar">
 				<div class="span3">
-					<img src="../themes/img/logo.png">
+					{{#if data.name}}
+						<a href="/store/console/user_home"><img src="../themes/img/logo.png"></a>
+					{{else}}
+						<a href="/store/console/home"><img src="../themes/img/logo.png"></a>
+					{{/if}}
 				</div>				
 			</div>
 
