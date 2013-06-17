@@ -42,7 +42,7 @@ install = function(appController){
 			headernosearch:appController.navigation()
 		},
 		data:{
-			
+			name:session.get('user').first_name,
 		}
 	};
 }
