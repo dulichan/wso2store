@@ -24,6 +24,7 @@ $(document).ready(function() {
 	if(appId != "null" ){
 		$('#myDevices').modal('show');
 		selectedApp = appId;
+		selectedAction = "install";
 	}
 	
 	loadMenu();
