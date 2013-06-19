@@ -1,8 +1,0 @@
-<%
-//auto rediecting the user to SSO
-var log = new Log();
-
-log.info("USER OBJ : ");
-
-%>
-

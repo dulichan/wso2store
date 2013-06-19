@@ -70,7 +70,7 @@ var mam = (function () {
 			var url =  configs['mdmServer']+'/users/authenticate';
 			
 			var data = JSON.stringify({username:username, password:password});
-
+			log.info("Authenticate url "+url);
 			var result = post(url, data, {
 				"Content-Type": "application/json",
 			    "User-Agent" : "Jaggery-XHR",

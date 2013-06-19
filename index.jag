@@ -7,221 +7,176 @@ var log =new Log();
 
 var mvc = new absolute({
 	SERVER_URL:"/store/",
-	IGNORE:["sso.jag", "login.jag", "logout.jag","samples/sample.jag", "samples/sample1.jag","samples/sample2.jag","samples/sample3.jag", "samples/sample4.jag","samples/sample5.jag",
-	"samples/sample6.jag","samples/sample7.jag","samples/sample8.jag","samples/sample9.jag","samples/sample10.jag"],
+	IGNORE:["sso.jag", "login.jag", "logout.jag"],
 	API:"api",
 	ROUTER: router
 });
-router.get('test',function(ctx){
-	
-});
-router.get('users/current', function(ctx){
-	if(session.get("user")==null|| session.get("user")==undefined){
-		response.sendError(401);
-		return;
-	}
-	print (session.get('user'));
-});
-router.get("users/current/apps", function(ctx){
-	var mam = require('/modules/mam.js').mam;
-	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
-	var result = mamServer.getUserApps(session.get('user').username);
-	print(parse(result.data));
-});
 
-router.get('users/current/devices', function(ctx){
-	var mam = require('/modules/mam.js').mam;
-	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
-	log.info("user printing");
-	log.info(session.get('user'));
-	var result = mamServer.getDevices(session.get('user').username);
-	print(result.data);
-});
-
-router.post('devices/{deviceid}/apps/{id}/install', function(ctx){
-	log.info("INSIDE");
-	var url = configs['mdm']+getAsset(ctx.id).attributes.overview_url; 
-	var mam = require('/modules/mam.js').mam;
-	log.info(configs.mdmServer);
-	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:ctx.deviceid});
-	log.info("APP URL"+url);
-	mamServer.install(url,ctx.deviceid);
-//	mamServer.install
-});
-router.post('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
-	var package_name = getAsset(ctx.id).attributes.overview_package_name; 
-	var mam = require('/modules/mam.js').mam;
-	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
-	mamServer.uninstall(package_name);
-});
-// router.get('devices/{deviceid}/apps/{id}/update', function(ctx){
-// 	var package_name = getAsset(ctx.id).attributes.overview_package_name; 
-// 	var mam = require('/modules/mam.js').mam;
-// 	var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
-// 	mamServer.uninstall(package_name);
-// });
-
-var getPackageName = function(appid){
-	var item = getAsset(appid); 
-}
-var getAsetForPackage = function(packagename){
-	var carbon = require('carbon'),
-	       server = new carbon.server.Server(),
-	       registry = new carbon.registry.Registry(server, {
-	           username : 'admin',
-	           tenantId : -1234
-	       }),
-	am = new carbon.registry.ArtifactManager(registry, 'android');
-	var items = am.list();
-	var arr= [];
-	for (var i = items.length - 1; i >= 0; i--){
-		var item = items[i];
-		if(item.attributes.overview_package_name==packagename){
-			arr.push(spli(item));
+// USER APIS
+	router.get('users/current', function(ctx){
+		if(session.get("user")==null|| session.get("user")==undefined){
+			response.sendError(401);
+			return;
 		}
-	};
-	print(sp(arr));
-}
+		print (session.get('user'));
+	});
+	router.get("users/current/apps", function(ctx){
+		var mam = require('/modules/mam.js').mam;
+		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
+		var result = mamServer.getUserApps(session.get('user').username);
+		print(parse(result.data));
+	});
 
-router.post('users/authenticate', function(ctx){
-	//var url = 'http://jaggeryjs.org/apidocs/resources/data.jag';
-	// var data = {username:ctx.username, password:ctx.password};
-	// 	var result =post(url,data,{},'json');
-	var mam = require('/modules/mam.js').mam;
-	var mamServer = new mam({mdmServer:configs.mdmServer});
-	var result = mamServer.authenticate(ctx.username, ctx.password);
-	if(result.data!=""||result.data!=null){
-		log.info(JSON.parse(result.data));
-		session.put("user", JSON.parse(result.data));
-		var redi ="../../console/user_home";
-		if(ctx.appid!=undefined && ctx.appid!=''){
-			redi = redi+"?appid="+ctx.appid;
+	router.get('users/current/devices', function(ctx){
+		var mam = require('/modules/mam.js').mam;
+		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
+		log.info("user printing");
+		log.info(session.get('user'));
+		var result = mamServer.getDevices(session.get('user').username);
+		print(result.data);
+	});
+
+	router.post('users/authenticate', function(ctx){
+		var mam = require('/modules/mam.js').mam;
+		var mamServer = new mam({mdmServer:configs.mdmServer});
+		var result = mamServer.authenticate(ctx.username, ctx.password);
+		if(result.data!=""||result.data!=null){
+			log.info(JSON.parse(result.data));
+			session.put("user", JSON.parse(result.data));
+			var redi ="../../console/user_home";
+			if(ctx.appid!=undefined && ctx.appid!=''){
+				redi = redi+"?appid="+ctx.appid;
+			}
+			response.sendRedirect(redi);
+		}else{
+			response.sendError(401);
 		}
-		response.sendRedirect(redi);
-	}else{
-		response.sendError(401);
-	}
-	// if(result.xhr.status==200){
-	// 		session.put("user", result);
-	// 	}
-});
-router.get("users/authenticate", function(ctx){
-	if(session.get("user")==null|| session.get("user")==undefined){
-		response.sendError(401);
-	}
-});
+	});
+	router.get("users/authenticate", function(ctx){
+		if(session.get("user")==null|| session.get("user")==undefined){
+			response.sendError(401);
+		}
+	});
 
-router.get("users/unauthenticate", function(ctx){
-	session.put("user", undefined);
-	response.sendRedirect("/store/console/home");
-});
-router.get('popular', function(ctx){
-	var carbon = require('carbon'),
-	       server = new carbon.server.Server(),
-	       registry = new carbon.registry.Registry(server, {
-	           username : 'admin',
-	           tenantId : -1234
-	       }),
-	am = new carbon.registry.ArtifactManager(registry, 'android');
-	var items = am.list();
-	items.sort(function (l, r) {
-        return registry.rating(l.path).average > registry.rating(r.path).average;
-    });
-	print(sp(items));
-});
-router.get('newest', function(ctx){
-	var carbon = require('carbon'),
-	       server = new carbon.server.Server(),
-	       registry = new carbon.registry.Registry(server, {
-	           username : 'admin',
-	           tenantId : -1234
-	       }),
-	am = new carbon.registry.ArtifactManager(registry, 'android');
-	var items = am.list();
-    items.sort(function (l, r) {
-           return registry.get(l.path).created.time < registry.get(r.path).created.time;
-    });
-	print(sp(items));
-});
+	router.get("users/unauthenticate", function(ctx){
+		session.put("user", undefined);
+		response.sendRedirect("/store/console/home");
+	});
 
-router.get('apps', function(ctx){
-	var carbon = require('carbon'),
-	       server = new carbon.server.Server(),
-	       registry = new carbon.registry.Registry(server, {
-	           username : 'admin',
-	           tenantId : -1234
-	       }),
-	       am = new carbon.registry.ArtifactManager(registry, 'android');
-	var items =am.list();
-	print(sp(items));
-});
-router.get('apps/android',function(ctx){
-	var carbon = require('carbon'),
-	       server = new carbon.server.Server(),
-	       registry = new carbon.registry.Registry(server, {
-	           username : 'admin',
-	           tenantId : -1234
-	       }),
-	       am = new carbon.registry.ArtifactManager(registry, 'android');
-	var items =am.list();
-	print(sp(items));
-});
-router.get('apps/ios',function(ctx){
-	var carbon = require('carbon'),
-	       server = new carbon.server.Server(),
-	       registry = new carbon.registry.Registry(server, {
-	           username : 'admin',
-	           tenantId : -1234
-	       }),
-	       am = new carbon.registry.ArtifactManager(registry, 'android');
-	var items =am.list();
-	print(sp(items));
-});
-router.get('apps/{id}',function(ctx){
-	log.info('got');
- 	var item =  getAsset(ctx.id);
-	if(item!=undefined){
-		print (item);
-		return;
+
+// DEVICES APIS
+
+	router.post('devices/{deviceid}/apps/{id}/install', function(ctx){
+		log.info("INSIDE");
+		var url = configs['mdm']+getAsset(ctx.id).attributes.overview_url; 
+		var mam = require('/modules/mam.js').mam;
+		log.info(configs.mdmServer);
+		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:ctx.deviceid});
+		log.info("APP URL"+url);
+		mamServer.install(url,ctx.deviceid);
+	});
+	router.post('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
+		var package_name = getAsset(ctx.id).attributes.overview_package_name; 
+		var mam = require('/modules/mam.js').mam;
+		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
+		mamServer.uninstall(package_name);
+	});
+
+	router.get('devices/{deviceid}/apps/{id}/update', function(ctx){
+		var package_name = getAsset(ctx.id).attributes.overview_package_name; 
+		var mam = require('/modules/mam.js').mam;
+		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
+		mamServer.uninstall(package_name);
+	});
+
+// ARTIFACT APIS
+
+	router.get('apps', function(ctx){
+		var am = getArtifactManager('android');
+		var items =am.list();
+		print(sp(items));
+	});
+	router.get('apps/android',function(ctx){
+		var am = getArtifactManager('android');
+		var items =am.list();
+		print(sp(items));
+	});
+	router.get('apps/ios',function(ctx){
+		var am = getArtifactManager('android');
+		var items =am.list();
+		print(sp(items));
+	});
+	router.get('apps/{id}',function(ctx){
+		log.info('got');
+	 	var item =  getAsset(ctx.id);
+		if(item!=undefined){
+			print (item);
+			return;
+		}
+		response.sendError(404);
+	});
+	router.get('popular', function(ctx){
+		var am = getArtifactManager('android');
+		var items = am.list();
+		items.sort(function (l, r) {
+	        return registry.rating(l.path).average > registry.rating(r.path).average;
+	    });
+		print(sp(items));
+	});
+	router.get('newest', function(ctx){
+		var am = getArtifactManager('android');
+		var items = am.list();
+	    items.sort(function (l, r) {
+	           return registry.get(l.path).created.time < registry.get(r.path).created.time;
+	    });
+		print(sp(items));
+	});
+
+//MODULE APIS
+
+	var getPackageName = function(appid){
+		var item = getAsset(appid); 
 	}
-	response.sendError(404);
-});
-
-var getAsset = function(appid){
-	var carbon = require('carbon'),
-	       server = new carbon.server.Server(),
-	       registry = new carbon.registry.Registry(server, {
-	           username : 'admin',
-	           tenantId : -1234
-	       }),
-	am = new carbon.registry.ArtifactManager(registry, 'android');
-	var item = am.get(appid);
-	var items = am.list();
-	item = spli(item);
-	if(item!=null){
-		return item;
+	var getAsetForPackage = function(packagename){
+		var am = getArtifactManager('android');
+		var items = am.list();
+		var arr= [];
+		for (var i = items.length - 1; i >= 0; i--){
+			var item = items[i];
+			if(item.attributes.overview_package_name==packagename){
+				arr.push(spli(item));
+			}
+		};
+		print(sp(arr));
 	}
-}
-
-var sp = function(items){
-	var arr = [];
-	for (var i = items.length - 1; i >= 0; i--){
-		var item = items[i];
+	var getAsset = function(appid){
+		var am = getArtifactManager('android');
+		var item = spli(am.get(appid));
+		if(item!=null){
+			return item;
+		}
+	}
+	//Method to filter live artifacts
+	var sp = function(items){
+		var arr = [];
+		for (var i = items.length - 1; i >= 0; i--){
+			var item = items[i];
+			if(item.attributes.overview_status=="LIVE"){
+				arr.push(spli(item));
+			}
+		};
+		return arr;
+	}
+	//Method to convert the image screenshots to an array
+	var spli = function(item){
 		if(item.attributes.overview_status=="LIVE"){
-			arr.push(spli(item));
+			item.attributes.images_screenshots =item.attributes.images_screenshots.split(',');
+			return item;
 		}
-	};
-	return arr;
-}
-var spli = function(item){
-	if(item.attributes.overview_status=="LIVE"){
-		item.attributes.images_screenshots =item.attributes.images_screenshots.split(',');
-		return item;
+		return null;
 	}
-	return null;
-}
 
-comments = function (aid, paging) {
+  comments = function (aid, paging) {
       return registry().comments(aid, paging);
   };
 
@@ -243,6 +198,16 @@ comments = function (aid, paging) {
   rate = function (aid, rating) {
       return registry().rate(aid, rating);
   };
+  getArtifactManager =function(type){
+	var carbon = require('carbon'),
+	    server = new carbon.server.Server(),
+	       registry = new carbon.registry.Registry(server, {
+	           username : 'admin',
+	           tenantId : -1234
+	       });
+	var am = new carbon.registry.ArtifactManager(registry, type);
+	return am;
+  }
 
 mvc.route(request);
 %>
