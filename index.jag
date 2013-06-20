@@ -4,7 +4,7 @@ var goose = require('modules/goose.js').goose;
 var router = new goose({CONTEXT: "/store/api/"});
 var configs = require('dataconf.json');
 var log =new Log();
-
+var carbon = require('carbon');
 var mvc = new absolute({
 	SERVER_URL:"/store/",
 	IGNORE:["sso.jag", "login.jag", "logout.jag"],
@@ -92,17 +92,23 @@ var mvc = new absolute({
 // ARTIFACT APIS
 
 	router.get('apps', function(ctx){
-		var am = getArtifactManager('android');
+		var registry = getRegistry();
+		var am = new carbon.registry.ArtifactManager(registry, 'android');
 		var items =am.list();
 		print(sp(items));
 	});
+	
+
+  
 	router.get('apps/android',function(ctx){
-		var am = getArtifactManager('android');
+		var registry = getRegistry();
+		var am = new carbon.registry.ArtifactManager(registry, 'android');
 		var items =am.list();
 		print(sp(items));
 	});
 	router.get('apps/ios',function(ctx){
-		var am = getArtifactManager('android');
+		var registry = getRegistry();
+		var am = new carbon.registry.ArtifactManager(registry, 'android');
 		var items =am.list();
 		print(sp(items));
 	});
@@ -116,7 +122,8 @@ var mvc = new absolute({
 		response.sendError(404);
 	});
 	router.get('popular', function(ctx){
-		var am = getArtifactManager('android');
+		var registry = getRegistry();
+		var am = new carbon.registry.ArtifactManager(registry, 'android');
 		var items = am.list();
 		items.sort(function (l, r) {
 	        return registry.rating(l.path).average > registry.rating(r.path).average;
@@ -124,7 +131,8 @@ var mvc = new absolute({
 		print(sp(items));
 	});
 	router.get('newest', function(ctx){
-		var am = getArtifactManager('android');
+		var registry = getRegistry();
+		var am = new carbon.registry.ArtifactManager(registry, 'android');
 		var items = am.list();
 	    items.sort(function (l, r) {
 	           return registry.get(l.path).created.time < registry.get(r.path).created.time;
@@ -138,7 +146,8 @@ var mvc = new absolute({
 		var item = getAsset(appid); 
 	}
 	var getAsetForPackage = function(packagename){
-		var am = getArtifactManager('android');
+		var registry = getRegistry();
+		var am = new carbon.registry.ArtifactManager(registry, 'android');
 		var items = am.list();
 		var arr= [];
 		for (var i = items.length - 1; i >= 0; i--){
@@ -150,7 +159,8 @@ var mvc = new absolute({
 		print(sp(arr));
 	}
 	var getAsset = function(appid){
-		var am = getArtifactManager('android');
+		var registry = getRegistry();
+		var am = new carbon.registry.ArtifactManager(registry, 'android');
 		var item = spli(am.get(appid));
 		if(item!=null){
 			return item;
@@ -192,21 +202,19 @@ var mvc = new absolute({
   rating = function (aid) {
       var store = require('/dataconf.json'),
           user = require('/modules/user.js').current();
-      return registry().rating(aid, user ? user.username : store.user.username);
+      return getRegistry().rating(aid, user ? user.username : store.user.username);
   };
 
   rate = function (aid, rating) {
-      return registry().rate(aid, rating);
+      return getRegistry().rate(aid, rating);
   };
-  getArtifactManager =function(type){
-	var carbon = require('carbon'),
-	    server = new carbon.server.Server(),
-	       registry = new carbon.registry.Registry(server, {
-	           username : 'admin',
-	           tenantId : -1234
-	       });
-	var am = new carbon.registry.ArtifactManager(registry, type);
-	return am;
+  getRegistry =function(){
+		    server = new carbon.server.Server(),
+		   	registry = new carbon.registry.Registry(server, {
+		           username : 'admin',
+		           tenantId : -1234
+		       });
+		return registry;
   }
 
 mvc.route(request);
