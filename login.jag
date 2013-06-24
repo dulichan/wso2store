@@ -1,5 +1,5 @@
 <%
-var dataConfi = require('/dataconf.json'),
+var dataConfi = require('/store.json'),
         security = require("sso"),
         process = require("process"),
         ssoRelyingParty = new security.SSORelyingParty(dataConfi.ssoConfiguration.issuer),

@@ -8,7 +8,7 @@ if (isLogin) {
     response.sendRedirect('/store');
 }
         */
-var configs = require('/dataconf.json');
+var configs = require('/store.json');
 
 
 var samlResponse = request.getParameter("SAMLResponse");

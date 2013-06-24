@@ -26,6 +26,20 @@ var Manager,
                 return registry.tags(artifact.path).indexOf(tag) != -1;
             });
         }
+        if (options.attributes) {
+            var attribute,
+                attributes = options.attributes;
+            return that.manager.find(function (artifact) {
+                for (attribute in attributes) {
+                    if (attributes.hasOwnProperty(attribute)) {
+                        if (artifact.attributes[attribute] != attributes[attribute]) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            });
+        }
         return [];
     };
 
@@ -34,8 +48,7 @@ var Manager,
         this.registry = registry;
         this.type = type;
         this.user = require('/modules/user.js');
-     Packages.org.wso2.carbon.governance.api.util.GovernanceUtils.loadGovernanceArtifacts(registry.registry);
-//		new Log().info(registry.registry);
+        Packages.org.wso2.carbon.governance.api.util.GovernanceUtils.loadGovernanceArtifacts(registry.registry);
         this.manager = new carbon.registry.ArtifactManager(registry, type);
         this.sorter = new Sorter(registry);
     };
@@ -51,37 +64,6 @@ var Manager,
         });
         return items;
     };
-	Sorter.prototype.recommended = function (items) {
-        var registry = this.registry;
-        var mam = require('/modules/mam.js');
-        var apps = mam.getUserApps("email");
-        var android = null;
-        var catList = [];
-        var isCat = 0;
-        var catIndex = 0;
-        android = {
-            user : "kasun@wso2mobile.com",
-            apps : [{'name': 'Angry Birds', 'package' : 'com.android.angrybirds'}, {'name': 'Contacts', 'package' : 'com.android.contacts'}, {'name': 'Evernote', 'package' : 'com.android.evernote'}, {'name': 'EZ File Explorer', 'package' : 'com.android.ez'}, {'name': 'Facebook', 'package' : 'com.android.facebook'}]
-        };
-        for(var i=0; i<items.length; i++){
-        	for(var j=0; j<android[0].apps.length; j++){
-        		if(items[i].package == android[o].apps[j].package){
-        			for(var k=0; k<catList.length; k++){
-        				if(catList[k].category == items[i].category){
-        					isCat = 1;
-        					catIndex = k;
-        				}
-        			}
-        			if(isCat == 0){
-        				catList.push({category:catList[catIndex].count, count:1});
-        			}else{
-        				catList[catIndex].count++;
-        			}
-        		}
-        	}
-        }
-        return items;
-    };
 
     Sorter.prototype.popular = function (items) {
         var registry = this.registry;
@@ -95,14 +77,6 @@ var Manager,
         var registry = this.registry;
         items.sort(function (l, r) {
             return registry.rating(l.path).average < registry.rating(r.path).average;
-        });
-        return items;
-    };
-    
-    Sorter.prototype.recommended = function (items) {
-        var registry = this.registry;
-        items.sort(function (l, r) {
-            return registry.rating(l.path).average > registry.rating(r.path).average;
         });
         return items;
     };
@@ -165,7 +139,6 @@ var Manager,
      */
     Manager.prototype.get = function (options) {
         var resource = this.registry.get(options);
-		log.info(resource.uuid);
         return this.manager.get(resource.uuid);
     };
 
@@ -173,7 +146,6 @@ var Manager,
      * Assets matching the filter
      */
     Manager.prototype.add = function (options) {
-		var log = new Log();
         return this.manager.add(options);
     };
 
@@ -181,8 +153,22 @@ var Manager,
      * Assets matching the filter
      */
     Manager.prototype.update = function (options) {
-		log.info(options);
         return this.manager.update(options);
+    };
+
+    /*
+     * Assets matching the filter
+     */
+    Manager.prototype.remove = function (options) {
+        var assets;
+        if (options.id) {
+            this.manager.remove(options.id);
+            return;
+        }
+        assets = this.search(options);
+        if (assets.length > 0) {
+            this.manager.remove(assets[0].id);
+        }
     };
 
     /*
@@ -190,9 +176,7 @@ var Manager,
      */
     Manager.prototype.list = function (paging) {
         var all = this.manager.list(paging);
-        // var paginated = this.sorter.paginate(all, paging);
-		// Temporarly remove pagniation
-		var paginated  = all;
+        var paginated = this.sorter.paginate(all, paging);
         for (var i = 0; i < paginated.length; i++) {
             var asset = paginated[i];
             var user = this.user.current();

@@ -178,7 +178,6 @@ var loginWithSAML = function (username) {
                 for (i = 0; i < length; i++) {
                     if (user.isAuthorized(perm, actions[i])) {
                         authorized = true;
-
                         break L1;
                     }
                 }
@@ -192,11 +191,18 @@ var loginWithSAML = function (username) {
         username: username,
         tenantId: carbon.server.tenantId()
     }));
-	new Log().info('Login with SAML');
-	new Log().info(session.get(USER_REGISTRY));
     session.put(USER_SPACE, new carbon.user.Space(username, opts.userSpace.space, opts.userSpace.options));
     if (opts.login) {
         opts.login(user, "", session);
     }
+
+    var permission = {};
+    permission[opts.userSpace.options.path + '/' + username ] = [
+        carbon.registry.actions.GET,
+        carbon.registry.actions.PUT,
+        carbon.registry.actions.DELETE
+    ];
+    um.authorizeRole(privateRole(username), permission);
+
     return true;
 };

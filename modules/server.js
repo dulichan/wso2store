@@ -9,9 +9,8 @@ var SERVER_USER_MANAGER = 'server.usermanager';
 var SERVER_OPTIONS = 'server.options';
 
 var init = function (options) {
-	new Log().info("Testing ");
     var carbon = require('carbon'),
-        server = new carbon.server.Server(options.server.https),
+        server = new carbon.server.Server(options.server.https + '/admin'),
         system = new carbon.registry.Registry(server, {
             system: true,
             tenantId: carbon.server.superTenant.tenantId
@@ -32,7 +31,6 @@ var options = function () {
 };
 
 var systemRegistry = function () {
-	new Log().info("Registry "+application.get(SYSTEM_REGISTRY));
     return application.get(SYSTEM_REGISTRY);
 };
 
@@ -41,7 +39,6 @@ var anonRegistry = function () {
 };
 
 var server = function () {
-	new Log().info("Server "+application.get(SERVER));
     return application.get(SERVER);
 };
 

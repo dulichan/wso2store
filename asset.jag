@@ -1,0 +1,21 @@
+<%
+var log = new Log(),
+        caramel = require('caramel'),
+        store = require('/modules/store.js'),
+        site = require('/modules/site.js'),
+        user = require('/modules/user.js').current(),
+        aid = request.getParameter('asset');
+
+caramel.render({
+    title: 'Store | Gadget',
+    user: user,
+    navigation: site.navigation({sso:false, user:user}),
+    type: type,
+    asset: store.asset(type, aid),
+    tags: {
+        url: '/assets/' + type + '/?page=1&tag=',
+        data: store.tags(type)
+    },
+    recentAssets: store.recentAssets(type)
+});
+%>

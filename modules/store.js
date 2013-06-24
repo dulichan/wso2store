@@ -3,42 +3,42 @@ var ASSETS_EXT_PATH = '/assets/';
 var ASSET_MANAGERS = 'asset.managers';
 
 var ASSETS_PAGE_SIZE = (function () {
-    return require('/dataconf.json').assetsPageSize;
+    return require('/store.json').assetsPageSize;
 }());
 
 var COMMENTS_PAGE_SIZE = (function () {
-    return require('/dataconf.json').commentsPageSize;
+    return require('/store.json').commentsPageSize;
 }());
 
 var log = new Log();
 
 var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, assetTypes, currentAsset, cache,
     cached, invalidate, comments, comment, assetsPaging, commentsPaging, rate, rating, assetCount, userAssets, registry,
-    commentCount, search, addAsset, updateAsset;
+    commentCount, search, addAsset, updateAsset, removeAsset, assetManager;
 
 (function () {
 
-    var assetManager = function (type) {
-        var manager, azzet, assetManagers, context, path,
-            server = require('/modules/server.js'),
-            user = require('/modules/user.js').current();
+    assetManager = function (type, reg) {
+        var manager, assetManagers, context, user,
+            path = ASSETS_EXT_PATH + type + '/asset.js',
+            azzet = new File(path).isExists() ? require(path) : require('/modules/asset.js');
+        if (reg) {
+            return new azzet.Manager(reg, type);
+        }
+
+        user = require('/modules/user.js').current();
         context = user ? session : application;
-         assetManagers = {};
-        // if (!assetManagers) {
-        //     assetManagers = {};
-        //     context.put(ASSET_MANAGERS, assetManagers);
-        // }
-        // manager = assetManagers[type];
-        // if (manager) {
-        //     return manager;
-        // }
-        path = ASSETS_EXT_PATH + type + '/asset.js';
-        azzet = new File(path).isExists() ? require(path) : require('/modules/asset.js');
-		var r =registry();
-		log.info(r);
-		log.info(type);
-		//log.info(assetManagers);
-        return (assetManagers[type] = new azzet.Manager(r, type));
+        assetManagers = context.get(ASSET_MANAGERS);
+        if (!assetManagers) {
+            assetManagers = {};
+            context.put(ASSET_MANAGERS, assetManagers);
+        }
+        manager = assetManagers[type];
+        if (manager) {
+            //return manager;
+        }
+        reg = registry();
+        return (assetManagers[type] = new azzet.Manager(reg, type));
     };
 
     var merge = function (def, options) {
@@ -145,7 +145,7 @@ var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, 
     };
 
     rating = function (aid) {
-        var store = require('/dataconf.json'),
+        var store = require('/store.json'),
             user = require('/modules/user.js').current();
         return registry().rating(aid, user ? user.username : store.user.username);
     };
@@ -159,20 +159,8 @@ var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, 
      * @param type Asset type
      * @param paging
      */
-    assets = function (type, paging, provider) {
-		var assetlist = assetManager(type).list(paging);
-		var list = assetlist;
-		log.info(list);
-		if(provider!=undefined){
-			list = [];
-			for (var i = assetlist.length - 1; i >= 0; i--){
-				var ass = assetlist[i];
-				if(ass.attributes.overview_provider==provider){
-					list.push(ass);
-				}
-			};	
-		}
-        return list;
+    assets = function (type, paging) {
+        return assetManager(type).list(paging);
     };
 
     tagged = function (type, tag, paging) {
@@ -240,16 +228,16 @@ var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, 
      * Returns all enabled asset types for the current user
      */
     assetTypes = function () {
-        return require('/dataconf.json').assets;
+        return require('/store.json').assets;
     };
 
     currentAsset = function () {
-        var prefix = require('/dataconf.json').assetsUrlPrefix,
+        var prefix = require('/store.json').assetsUrlPrefix,
             matcher = new URIMatcher(request.getRequestURI());
         if (matcher.match('/{context}' + prefix + '/{type}/{+any}') || matcher.match('/{context}' + prefix + '/{type}')) {
             return matcher.elements().type;
         }
-        prefix = require('/dataconf.json').assetUrlPrefix;
+        prefix = require('/store.json').assetUrlPrefix;
         if (matcher.match('/{context}' + prefix + '/{type}/{+any}') || matcher.match('/{context}' + prefix + '/{type}')) {
             return matcher.elements().type;
         }
@@ -311,11 +299,14 @@ var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, 
     };
 
     addAsset = function (type, options) {
-		new Log().info(options);
         assetManager(type).add(options);
     };
 
     updateAsset = function (type, options) {
         assetManager(type).update(options);
     };
+
+    removeAsset = function (type, options) {
+        assetManager(type).remove(options);
+    }
 }());
