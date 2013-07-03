@@ -90,30 +90,36 @@ var mvc = new absolute({
 	});
 
 // ARTIFACT APIS
-
 	router.get('apps', function(ctx){
-		var registry = getRegistry();
-		var am = new carbon.registry.ArtifactManager(registry, 'android');
+		var carbon = require('carbon'),
+		       server = new carbon.server.Server(),
+		       registry = new carbon.registry.Registry(server, {
+		           username : 'admin',
+		           tenantId : -1234
+		       }),
+		am = new carbon.registry.ArtifactManager(registry, 'app');
 		var items =am.list();
-		print(sp(items));
-	});
-	
-
-  
-	router.get('apps/android',function(ctx){
-		var registry = getRegistry();
-		var am = new carbon.registry.ArtifactManager(registry, 'android');
-		var items =am.list();
-		print(sp(items));
-	});
-	router.get('apps/ios',function(ctx){
-		var registry = getRegistry();
-		var am = new carbon.registry.ArtifactManager(registry, 'android');
-		var items =am.list();
-		print(sp(items));
+		items = sp(items);
+		items = filterById(items);
+		var state = ctx.state;
+		var platform = ctx.platform;
+		var sort = ctx.sort;
+		if(platform!=undefined){
+			items = filterByType(items, platform);
+		}
+		if(sort!=undefined){
+			if(sort=="date"){
+				items.sort(function (l, r) {
+					log.info(l.attributes.overview_name);
+				   var date1 =parseDate(l.attributes[l.attributes.overview_status+"_date"]).toDate();
+				   var date2 = parseDate(r.attributes[r.attributes.overview_status+"_date"]).toDate();
+				   return date2<date1?-1:date2>date1?1:0;
+			    });
+			}
+		}
+		print(items);
 	});
 	router.get('apps/{id}',function(ctx){
-		log.info('got');
 	 	var item =  getAsset(ctx.id);
 		if(item!=undefined){
 			print (item);
@@ -123,7 +129,7 @@ var mvc = new absolute({
 	});
 	router.get('popular', function(ctx){
 		var registry = getRegistry();
-		var am = new carbon.registry.ArtifactManager(registry, 'android');
+		var am = new carbon.registry.ArtifactManager(registry, 'app');
 		var items = am.list();
 		items.sort(function (l, r) {
 	        return registry.rating(l.path).average > registry.rating(r.path).average;
@@ -132,13 +138,35 @@ var mvc = new absolute({
 	});
 	router.get('newest', function(ctx){
 		var registry = getRegistry();
-		var am = new carbon.registry.ArtifactManager(registry, 'android');
+		var am = new carbon.registry.ArtifactManager(registry, 'app');
 		var items = am.list();
 	    items.sort(function (l, r) {
 	           return registry.get(l.path).created.time < registry.get(r.path).created.time;
 	    });
 		print(sp(items));
 	});
+
+	var filterById =function(items, id){
+		var ite=[];
+		for (var i = items.length - 1; i >= 0; i--){
+		   var item = items[i];
+		   if(item.attributes.id==id){
+				ite.push(item);
+			}
+		};
+		log.info(ite);
+		return ite;
+	}
+	var filterByType = function(items,type){
+		var ite=[];
+		for (var i = items.length - 1; i >= 0; i--){
+		   var item = items[i];
+		   if(item.attributes.overview_platform==type){
+				ite.push(item);
+			}
+		};
+		return ite;
+	}
 
 //MODULE APIS
 
@@ -147,7 +175,7 @@ var mvc = new absolute({
 	}
 	var getAsetForPackage = function(packagename){
 		var registry = getRegistry();
-		var am = new carbon.registry.ArtifactManager(registry, 'android');
+		var am = new carbon.registry.ArtifactManager(registry, 'app');
 		var items = am.list();
 		var arr= [];
 		for (var i = items.length - 1; i >= 0; i--){
@@ -160,7 +188,7 @@ var mvc = new absolute({
 	}
 	var getAsset = function(appid){
 		var registry = getRegistry();
-		var am = new carbon.registry.ArtifactManager(registry, 'android');
+		var am = new carbon.registry.ArtifactManager(registry, 'app');
 		var item = spli(am.get(appid));
 		if(item!=null){
 			return item;
