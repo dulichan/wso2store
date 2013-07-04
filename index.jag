@@ -67,8 +67,8 @@ var mvc = new absolute({
 // DEVICES APIS
 
 	router.post('devices/{deviceid}/apps/{id}/install', function(ctx){
-		log.info("INSIDE");
 		var url = configs.mam.server+getAsset(ctx.id).attributes.overview_url; 
+		saveAppToUser(ctx.id);
 		var mam = require('/modules/mam.js').mam;
 		log.info(configs.mdmServer);
 		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:ctx.deviceid});
@@ -77,6 +77,7 @@ var mvc = new absolute({
 	});
 	router.post('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
 		var package_name = getAsset(ctx.id).attributes.overview_package_name; 
+		saveAppToUser(ctx.id);
 		var mam = require('/modules/mam.js').mam;
 		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
 		mamServer.uninstall(package_name);
@@ -244,6 +245,43 @@ var mvc = new absolute({
 		       });
 		return registry;
   }
+  saveAppToUser = function(aid){
+		var user = require('/modules/user.js');
 
+	    if (!user.current()) {
+	        response.sendError(401, 'Unauthorized');
+	        return;
+	    }
+
+	    var space = user.userSpace(),
+	            configs = space.get('userAssets');
+
+	    configs = configs ? parse(configs) : {};
+	    if (!configs.gadget) {
+	        configs.gadget = {};
+	    }
+	    configs.gadget[aid] = true;
+	    space.put('userAssets', stringify(configs));
+   }
+    deleteAppFromUser = function(aid){
+   		var user = require('/modules/user.js');
+
+	    if (!user.current()) {
+	        response.sendError(401, 'Unauthorized');
+	        return;
+	    }
+
+	    var aid = request.getParameter('asset'),
+	            space = user.userSpace(),
+	            configs = space.get('userAssets');
+
+	    configs = configs ? parse(configs) : {};
+	    if (!configs.gadget) {
+	        configs.gadget = {};
+	    }
+	    delete configs.gadget[aid];
+	    space.put('userAssets', stringify(configs));
+	}
+}
 mvc.route(request);
 %>
