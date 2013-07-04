@@ -43,6 +43,11 @@
             "password": "admin"
         }
     },
-	"mdmServer": "http://10.200.3.163:9763/mdm",
-	"mdm":"http://10.200.3.163:9763"
+	"mdm":{
+		"server":"http://10.200.1.142:9763/mdm",
+		"api":"http://10.200.1.142:9763/mdm/api"
+	},
+	"mam":{
+		"server":"http://10.200.142:9763/"
+	}
 }

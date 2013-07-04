@@ -3,7 +3,7 @@ MAM module for communicating with MDM backend
 */
 var mam = (function () {
 	var log = new Log();
-	var configs ={mdmServer:"http://localhost:9763/mdm"};
+	var configs = require('/dataconf.json');
     var module = function (config) {
 		this.configs = config;
     };
@@ -42,18 +42,17 @@ var mam = (function () {
     module.prototype = {
         constructor: module,
         install: function(installData, device){
-			var url =  configs['mdmServer']+'/devices/'+device+'/AppInstall';
-			log.info('URL--'+url);
+			var url =  configs.mdm.api+'/devices/'+device+'/AppInstall';
 			var result = jsonPost(url, {url:installData});
 		},
 		
 		uninstall: function(uninstallData){
-			var url = configs['mdmServer']+'/devices/'+configs['device']+'/AppUNInstall';
+			var url = configs.mdm.api+'/devices/'+configs['device']+'/AppUNInstall';
 			var result = jsonPost(url, {"package":installData});
 		},
 		
 		getDevices: function(email){
-			var url = configs['mdmServer']+'/store/users/devices';
+			var url = configs.mdm.api+'/store/users/devices';
 			var data = email;
 			var result = jsonPost(url, {email:email});
 			log.info(result);
@@ -61,13 +60,13 @@ var mam = (function () {
 		},
 		
 		getUserApps: function(email){
-			var url = configs['mdmServer']+'/store/users/apps';
+			var url = configs.mdm.api+'/store/users/apps';
 			var data = email;
 			var result = jsonPost(url, {email:email});
 			return result;
 		},
 		authenticate: function(username, password){
-			var url =  configs['mdmServer']+'/users/authenticate';
+			var url =  configs.mdm.api+'/users/authenticate';
 			
 			var data = JSON.stringify({username:username, password:password});
 			log.info("Authenticate url "+url);

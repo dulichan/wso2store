@@ -68,7 +68,7 @@ var mvc = new absolute({
 
 	router.post('devices/{deviceid}/apps/{id}/install', function(ctx){
 		log.info("INSIDE");
-		var url = configs['mdm']+getAsset(ctx.id).attributes.overview_url; 
+		var url = configs.mam.server+getAsset(ctx.id).attributes.overview_url; 
 		var mam = require('/modules/mam.js').mam;
 		log.info(configs.mdmServer);
 		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:ctx.deviceid});
