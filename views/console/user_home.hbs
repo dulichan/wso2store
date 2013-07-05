@@ -102,8 +102,14 @@
 	<div class="rateit"></div>
 	</div>
 	<div class="raw-fluid">
-	<img src="/store/themes/img/android.png" style="width:25px">
-	<button class="btn btn-info btn-small btn-install" data-appid="[{id}]"  href="#myDevices" data-toggle="modal">Install</button>
+	[{#compare attributes.overview_platform 'android' }]
+				<img src="/store/themes/img/android.png" style="width:25px">
+			[{/compare}]
+
+			[{#compare attributes.overview_platform 'ios' }]
+				<img src="/store/themes/img/ios.png" style="width:25px">
+			[{/compare}]
+	<button class="btn btn-info btn-small btn-install" data-appid="[{id}]" data-platform="[{attributes.overview_platform}]"  href="#myDevices" data-toggle="modal">Install</button>
 	</div>
 	</div>
 	</div>
@@ -134,7 +140,13 @@
 	<div class="rateit"></div>
 	</div>
 	<div class="raw-fluid">
-	<img src="/store/themes/img/android.png" style="width:25px">
+	[{#compare attributes.overview_platform 'android' }]
+				<img src="/store/themes/img/android.png" style="width:25px">
+			[{/compare}]
+
+			[{#compare attributes.overview_platform 'ios' }]
+				<img src="/store/themes/img/ios.png" style="width:25px">
+			[{/compare}]
 	<button class="btn btn-danger btn-small btn-remove" data-appid="[{id}]"  href="#myDevices" data-toggle="modal">Remove</button>
 	</div>
 	</div>
