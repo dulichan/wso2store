@@ -2,17 +2,22 @@
     {
         "id": "1",
         "name": "Home",
-        "active": "active"
+        "active": "",
+        "link": ""
     },
     
     {
         "id": "2",
-        "name": "Android"
+        "name": "Android",
+         "active": "android",
+        "link": "?platform=android"
     },
     
     {
         "id": "2",
-        "name": "iOS"
+        "name": "iOS",
+        "active": "ios",
+        "link": "?platform=ios"
     },
     
     {

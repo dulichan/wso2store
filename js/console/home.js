@@ -1,5 +1,9 @@
 
-
+function getURLParameter(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
 
 
 String.format = function() {
@@ -19,8 +23,8 @@ function getServiceURLs(item){
 	var urls =
 		{
 			"categoryList": "apis/categorylist.json",
-			"topAppList": "api/popular",
-			"newestAppList": "api/newest",
+			"topAppList": "api/popular{0}",
+			"newestAppList": "api/newest{0}",
 			"menuList": "apis/menuList.json"
 		};
 	
@@ -73,7 +77,12 @@ function loadCategoryList(){
 }
 
 
-function loadMenu(){	
+function loadMenu(){
+	
+	var platform = getURLParameter("platform");
+	if(platform === 'null'){
+		platform = "";
+	}
 	
 	jQuery.ajax({
 	      url: getServiceURLs("menuList"), 
@@ -81,7 +90,7 @@ function loadMenu(){
 	      dataType: "json",
 	      success: function(menus) {
 	      	 var template = Handlebars.compile($("#hbs-menu-list").html());
-	      	 $("#menu-list").html(template({menus:menus}));
+	      	 $("#menu-list").html(template({menus:menus, active: platform}));
   			
 	      }				      
 	});
@@ -91,8 +100,15 @@ function loadMenu(){
 
 function loadTopAppList(){
 	
+	var platform = getURLParameter("platform");
+	if(platform === 'null'){
+		platform = "";
+	}else{
+		platform = "?platform=" + platform;
+	}
+	
 	jQuery.ajax({
-	      url: getServiceURLs("topAppList"), 
+	      url: getServiceURLs("topAppList", platform), 
 	      type: "GET",
 	      dataType: "json",
 	      success: function(apps) {
@@ -112,8 +128,15 @@ function loadTopAppList(){
 
 function loadNewestAppList(){
 	
+	var platform = getURLParameter("platform");
+	if(platform === 'null'){
+		platform = "";
+	}else{
+		platform = "?platform=" + platform;
+	}
+	
 	jQuery.ajax({
-	      url: getServiceURLs("newestAppList"), 
+	      url: getServiceURLs("newestAppList", platform), 
 	      type: "GET",
 	      dataType: "json",
 	      success: function(apps) {
@@ -128,4 +151,36 @@ function loadNewestAppList(){
 	
 	
 }
+
+
+Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
+
+    if (arguments.length < 3)
+        throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+
+    operator = options.hash.operator || "==";
+
+    var operators = {
+        '==':       function(l,r) { return l == r; },
+        '===':      function(l,r) { return l === r; },
+        '!=':       function(l,r) { return l != r; },
+        '<':        function(l,r) { return l < r; },
+        '>':        function(l,r) { return l > r; },
+        '<=':       function(l,r) { return l <= r; },
+        '>=':       function(l,r) { return l >= r; },
+        'typeof':   function(l,r) { return typeof l == r; }
+    }
+
+    if (!operators[operator])
+        throw new Error("Handlerbars Helper 'compare' doesn't know the operator "+operator);
+
+    var result = operators[operator](lvalue,rvalue);
+
+    if( result ) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+
+});
 
