@@ -218,11 +218,11 @@ function loadDevicesList(){
 
 
 Handlebars.registerHelper('viewImage', function(image, options) {
-	var url = "/mdm/img/models/" + image + ".png";
+	var url = "/assets/wso2mobile/img/models/" + image + ".png";
 	if(imageExist(url)){
 		return url;
 	}else{
-		return "/mdm/img/models/none.png";
+		return "/assets/wso2mobile/img/models/none.png";
 	}
 	
 });
@@ -233,3 +233,35 @@ function imageExist(url)
    img.src = url;
    return img.height != 0;
 }
+
+
+Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
+
+    if (arguments.length < 3)
+        throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+
+    operator = options.hash.operator || "==";
+
+    var operators = {
+        '==':       function(l,r) { return l == r; },
+        '===':      function(l,r) { return l === r; },
+        '!=':       function(l,r) { return l != r; },
+        '<':        function(l,r) { return l < r; },
+        '>':        function(l,r) { return l > r; },
+        '<=':       function(l,r) { return l <= r; },
+        '>=':       function(l,r) { return l >= r; },
+        'typeof':   function(l,r) { return typeof l == r; }
+    }
+
+    if (!operators[operator])
+        throw new Error("Handlerbars Helper 'compare' doesn't know the operator "+operator);
+
+    var result = operators[operator](lvalue,rvalue);
+
+    if( result ) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+
+});
