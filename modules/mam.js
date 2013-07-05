@@ -4,8 +4,9 @@ MAM module for communicating with MDM backend
 var mam = (function () {
 	var log = new Log();
 	var configs = require('/dataconf.json');
+	var conf;
     var module = function (config) {
-		this.configs = config;
+		conf= config;
     };
     function mergeRecursive(obj1, obj2) {
         for (var p in obj2) {
@@ -47,12 +48,14 @@ var mam = (function () {
 		},
 		
 		uninstall: function(uninstallData){
-			var url = configs.mdm.api+'/devices/'+configs['device']+'/AppUNInstall';
+			var url = configs.mdm.api+'/devices/'+conf['device']+'/AppUNInstall';
 			var result = jsonPost(url, {"package":installData});
 		},
 		
 		getDevices: function(email){
 			var url = configs.mdm.api+'/store/users/devices';
+			log.info('*******************************');
+			log.info(url);
 			var data = email;
 			var result = jsonPost(url, {email:email});
 			log.info(result);

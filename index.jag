@@ -21,10 +21,10 @@ var mvc = new absolute({
 		print (session.get('user'));
 	});
 	router.get("users/current/apps", function(ctx){
-		var mam = require('/modules/mam.js').mam;
-		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
-		var result = mamServer.getUserApps(session.get('user').username);
-		print(parse(result.data));
+		// var mam = require('/modules/mam.js').mam;
+		// 		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
+		// 		var result = mamServer.getUserApps(session.get('user').username);
+		// 		print(parse(result.data));
 	});
 
 	router.get('users/current/devices', function(ctx){
@@ -68,7 +68,7 @@ var mvc = new absolute({
 
 	router.post('devices/{deviceid}/apps/{id}/install', function(ctx){
 		var url = configs.mam.server+getAsset(ctx.id).attributes.overview_url; 
-		saveAppToUser(ctx.id);
+		//saveAppToUser(ctx.id);
 		var mam = require('/modules/mam.js').mam;
 		log.info(configs.mdmServer);
 		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:ctx.deviceid});
@@ -77,7 +77,7 @@ var mvc = new absolute({
 	});
 	router.post('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
 		var package_name = getAsset(ctx.id).attributes.overview_package_name; 
-		saveAppToUser(ctx.id);
+		//saveAppToUser(ctx.id);
 		var mam = require('/modules/mam.js').mam;
 		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
 		mamServer.uninstall(package_name);
@@ -132,6 +132,10 @@ var mvc = new absolute({
 		var registry = getRegistry();
 		var am = new carbon.registry.ArtifactManager(registry, 'app');
 		var items = am.list();
+		var platform = ctx.platform;
+		if(platform!=undefined){
+			items = filterByType(items, platform);
+		}
 		items.sort(function (l, r) {
 	        return registry.rating(l.path).average > registry.rating(r.path).average;
 	    });
@@ -141,6 +145,10 @@ var mvc = new absolute({
 		var registry = getRegistry();
 		var am = new carbon.registry.ArtifactManager(registry, 'app');
 		var items = am.list();
+		var platform = ctx.platform;
+		if(platform!=undefined){
+			items = filterByType(items, platform);
+		}
 	    items.sort(function (l, r) {
 	           return registry.get(l.path).created.time < registry.get(r.path).created.time;
 	    });
@@ -282,6 +290,5 @@ var mvc = new absolute({
 	    delete configs.gadget[aid];
 	    space.put('userAssets', stringify(configs));
 	}
-}
 mvc.route(request);
 %>
