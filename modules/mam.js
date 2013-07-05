@@ -46,9 +46,9 @@ var mam = (function () {
 			var url =  configs.mdm.api+'/devices/'+device+'/AppInstall';
 			var result = jsonPost(url, {url:installData});
 		},
-		installiOS:  function(type, url, device){
+		installiOS:  function(type, installData, device){
 			var url =  configs.mdm.api+'/devices/'+device+'/AppInstall';
-			var result = jsonPost(url, {type:type,identity:url});
+			var result = jsonPost(url, {type:type,identity:installData});
 		},
 		installWebClip: function(installData,title, device){
 			var url =  configs.mdm.api+'/devices/'+device+'/operations/WEBCLIP';
