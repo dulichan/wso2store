@@ -30,7 +30,7 @@ var mvc = new absolute({
 	router.get('users/current/devices', function(ctx){
 		var mam = require('/modules/mam.js').mam;
 		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
-		var result = mamServer.getDevices(session.get('user').username);
+		var result = mamServer.getDevices(session.get('user').username, ctx.platform);
 		print(result.data);
 	});
 

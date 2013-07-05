@@ -58,10 +58,10 @@ var mam = (function () {
 			var url = configs.mdm.api+'/devices/'+device+'/AppUNInstall';
 			var result = jsonPost(url, {"package":installData});
 		},
-		getDevices: function(email){
+		getDevices: function(email, platform){
 			var url = configs.mdm.api+'/store/users/devices';
 			var data = email;
-			var result = jsonPost(url, {email:email});
+			var result = jsonPost(url, {email:email, platform: platform});
 			log.info(result);
 			return result;
 		},
