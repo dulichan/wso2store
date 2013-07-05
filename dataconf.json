@@ -48,6 +48,10 @@
 		"api":"http://localhost:9763/mdm/api"
 	},
 	"mam":{
+<<<<<<< .mine
 		"server":"http://localhost:9763/"
+=======
+		"server":"http://10.200.1.144:9763"
+>>>>>>> .theirs
 	}
 }

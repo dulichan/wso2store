@@ -22,17 +22,15 @@ var mvc = new absolute({
 	});
 	router.get("users/current/apps", function(ctx){
 		// var mam = require('/modules/mam.js').mam;
-		// 		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
-		// 		var result = mamServer.getUserApps(session.get('user').username);
-		// 		print(parse(result.data));
+		// var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
+		// var result = mamServer.getUserApps(session.get('user').username);
+		// print(parse(result.data));
 	});
 
 	router.get('users/current/devices', function(ctx){
 		var mam = require('/modules/mam.js').mam;
 		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
-		log.info("user printing");
-		log.info(session.get('user'));
-		var result = mamServer.getDevices(session.get('user').username);
+		var result = mamServer.getDevices(session.get('user').username, ctx.platform);
 		print(result.data);
 	});
 
@@ -41,7 +39,6 @@ var mvc = new absolute({
 		var mamServer = new mam({mdmServer:configs.mdmServer});
 		var result = mamServer.authenticate(ctx.username, ctx.password);
 		if(result.data!=""||result.data!=null){
-			//log.info(JSON.parse(result.data));
 			session.put("user", JSON.parse(result.data));
 			var redi ="../../console/user_home";
 			if(ctx.appid!=undefined && ctx.appid!=''){
@@ -70,24 +67,30 @@ var mvc = new absolute({
 		var url = configs.mam.server+getAsset(ctx.id).attributes.overview_url; 
 		//saveAppToUser(ctx.id);
 		var mam = require('/modules/mam.js').mam;
-		log.info(configs.mdmServer);
-		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:ctx.deviceid});
+		var mamServer = new mam();
 		log.info("APP URL"+url);
-		mamServer.install(url,ctx.deviceid);
+		if(getAsset(ctx.id).attributes.overview_platform.toUpperCase()=='WEBCLIP'){
+			mamServer.installWebClip(url,getAsset(ctx.id).attributes.overview_name, ctx.deviceid);
+		}if(getAsset(ctx.id).attributes.overview_platform.toUpperCase()=='IOS'){
+			mamServer.installiOS(getAsset(ctx.id).attributes.overview_market,url, ctx.deviceid);
+		}else{
+			mamServer.install(url,ctx.deviceid);
+		}
 	});
+	
 	router.post('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
 		var package_name = getAsset(ctx.id).attributes.overview_package_name; 
 		//saveAppToUser(ctx.id);
 		var mam = require('/modules/mam.js').mam;
-		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
-		mamServer.uninstall(package_name);
+		var mamServer = new mam();
+		mamServer.uninstall(package_name,deviceid);
 	});
 
 	router.get('devices/{deviceid}/apps/{id}/update', function(ctx){
 		var package_name = getAsset(ctx.id).attributes.overview_package_name; 
 		var mam = require('/modules/mam.js').mam;
-		var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user, device:deviceid});
-		mamServer.uninstall(package_name);
+		var mamServer = new mam();
+		mamServer.uninstall(package_name,deviceid);
 	});
 
 // ARTIFACT APIS
