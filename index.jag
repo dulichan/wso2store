@@ -69,8 +69,10 @@ var mvc = new absolute({
 		var mam = require('/modules/mam.js').mam;
 		var mamServer = new mam();
 		log.info("APP URL"+url);
-		if(getAsset(ctx.id).attributes.overview_platform=='webclip'){
+		if(getAsset(ctx.id).attributes.overview_platform.toUpperCase()=='WEBCLIP'){
 			mamServer.installWebClip(url,getAsset(ctx.id).attributes.overview_name, ctx.deviceid);
+		}if(getAsset(ctx.id).attributes.overview_platform.toUpperCase()=='IOS'){
+			mamServer.installiOS(getAsset(ctx.id).attributes.overview_market,url, ctx.deviceid);
 		}else{
 			mamServer.install(url,ctx.deviceid);
 		}
