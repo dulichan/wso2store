@@ -46,16 +46,16 @@ var mam = (function () {
 			var url =  configs.mdm.api+'/devices/'+device+'/AppInstall';
 			var result = jsonPost(url, {url:installData});
 		},
-		
-		uninstall: function(uninstallData){
-			var url = configs.mdm.api+'/devices/'+conf['device']+'/AppUNInstall';
+		installWebClip: function(installData,title, device){
+			var url =  configs.mdm.api+'/devices/'+device+'/operations/WEBCLIP';
+			var result = jsonPost(url, {url:installData, title:title});
+		},
+		uninstall: function(uninstallData,device){
+			var url = configs.mdm.api+'/devices/'+device+'/AppUNInstall';
 			var result = jsonPost(url, {"package":installData});
 		},
-		
 		getDevices: function(email){
 			var url = configs.mdm.api+'/store/users/devices';
-			log.info('*******************************');
-			log.info(url);
 			var data = email;
 			var result = jsonPost(url, {email:email});
 			log.info(result);
@@ -70,7 +70,6 @@ var mam = (function () {
 		},
 		authenticate: function(username, password){
 			var url =  configs.mdm.api+'/users/authenticate';
-			
 			var data = JSON.stringify({username:username, password:password});
 			log.info("Authenticate url "+url);
 			var result = post(url, data, {
