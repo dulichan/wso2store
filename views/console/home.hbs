@@ -8,8 +8,13 @@
 					<script id="hbs-menu-list" type="text/x-handlebars-template">
 						<ul class="nav">
 						[{#menus}]
-						<li class="[{active}]">
-						<a href="#">[{name}]</a>
+						[{#compare active ../active}]
+							<li class="active">
+						[{else}]
+							<li>
+						[{/compare}]
+						
+						<a href="/store/console/home[{link}]">[{name}]</a>
 						</li>
 						[{/menus}]
 						</ul>

@@ -44,8 +44,8 @@ function getServiceURLs(item){
 	var urls =
 		{
 			"categoryList": "apis/categorylist.json",
-			"recommandedAppList": "api/popular",
-			"myAppList": "api/newest",
+			"recommandedAppList": "api/popular{0}",
+			"myAppList": "api/newest{0}",
 			"menuList": "apis/menuList.json",
 			"devicesList": "api/users/current/devices",
 			"installApp": "api/devices/{0}/apps/{1}/{2}"
@@ -92,13 +92,18 @@ function loadCategoryList(){
 
 function loadMenu(){	
 	
+	var platform = getURLParameter("platform");
+	if(platform === 'null'){
+		platform = "";
+	}
+	
 	jQuery.ajax({
 	      url: getServiceURLs("menuList"), 
 	      type: "GET",
 	      dataType: "json",
 	      success: function(menus) {
 	      	 var template = Handlebars.compile($("#hbs-menu-list").html());
-	      	 $("#menu-list").html(template({menus:menus}));
+	      	 $("#menu-list").html(template({menus:menus, active: platform}));
   			
 	      }				      
 	});
@@ -108,8 +113,15 @@ function loadMenu(){
 
 function loadRecommendedAppList(){
 	
+	var platform = getURLParameter("platform");
+	if(platform === 'null'){
+		platform = "";
+	}else{
+		platform = "?platform=" + platform;
+	}
+	
 	jQuery.ajax({
-	      url: getServiceURLs("recommandedAppList"), 
+	      url: getServiceURLs("recommandedAppList", platform), 
 	      type: "GET",
 	      dataType: "json",
 	      success: function(apps) {
@@ -135,8 +147,15 @@ function loadRecommendedAppList(){
 
 function loadMyAppList(){
 	
+	var platform = getURLParameter("platform");
+	if(platform === 'null'){
+		platform = "";
+	}else{
+		platform = "?platform=" + platform;
+	}
+	
 	jQuery.ajax({
-	      url: getServiceURLs("myAppList"), 
+	      url: getServiceURLs("myAppList", platform), 
 	      type: "GET",
 	      dataType: "json",
 	      success: function(apps) {
