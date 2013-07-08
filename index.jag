@@ -38,7 +38,8 @@ var mvc = new absolute({
 		var mam = require('/modules/mam.js').mam;
 		var mamServer = new mam({mdmServer:configs.mdmServer});
 		var result = mamServer.authenticate(ctx.username, ctx.password);
-		if(result.data!=""||result.data!=null){
+		if(result.status!='401' && result.data!=""||result.data!=null){
+			log.info(result.data);
 			session.put("user", JSON.parse(result.data));
 			var redi ="../../console/user_home";
 			if(ctx.appid!=undefined && ctx.appid!=''){
@@ -64,17 +65,21 @@ var mvc = new absolute({
 // DEVICES APIS
 
 	router.post('devices/{deviceid}/apps/{id}/install', function(ctx){
-		var url = configs.mam.server+getAsset(ctx.id).attributes.overview_url; 
 		//saveAppToUser(ctx.id);
 		var mam = require('/modules/mam.js').mam;
 		var mamServer = new mam();
-		log.info("APP URL"+url);
-		if(getAsset(ctx.id).attributes.overview_platform.toUpperCase()=='WEBCLIP'){
+		var url = getAsset(ctx.id).attributes.overview_url; 
+		if(getAsset(ctx.id).attributes.overview_platform.toUpperCase()=='WEBAPP'){
 			mamServer.installWebClip(url,getAsset(ctx.id).attributes.overview_name, ctx.deviceid);
-		}if(getAsset(ctx.id).attributes.overview_platform.toUpperCase()=='IOS'){
-			mamServer.installiOS(getAsset(ctx.id).attributes.overview_market,url, ctx.deviceid);
-		}else{
-			mamServer.install(url,ctx.deviceid);
+		}
+		url = configs.mam.server+url;
+		if(getAsset(ctx.id).attributes.overview_market=="Market"){
+			url=getAsset(ctx.id).attributes.overview_packageName;
+		}
+		if(getAsset(ctx.id).attributes.overview_platform.toUpperCase()=='IOS'){
+			mamServer.install(getAsset(ctx.id).attributes.overview_market,url, ctx.deviceid);
+		}else if(getAsset(ctx.id).attributes.overview_platform.toUpperCase()=='ANDROID'){
+			mamServer.install(getAsset(ctx.id).attributes.overview_market,url,ctx.deviceid);
 		}
 	});
 	
@@ -220,7 +225,9 @@ var mvc = new absolute({
 	//Method to convert the image screenshots to an array
 	var spli = function(item){
 		if(item.attributes.overview_status=="LIVE"){
-			item.attributes.images_screenshots =item.attributes.images_screenshots.split(',');
+			if(item.attributes.images_screenshots){
+				item.attributes.images_screenshots =item.attributes.images_screenshots.split(',');
+			}
 			return item;
 		}
 		return null;
