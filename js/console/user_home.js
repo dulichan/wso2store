@@ -97,7 +97,8 @@ function loadMenu(){
 	var platform = getURLParameter("platform");
 	if(platform === 'null'){
 		platform = "";
-	}
+	}	
+	platform = platform.toLowerCase();
 	
 	jQuery.ajax({
 	      url: getServiceURLs("menuList"), 
@@ -121,7 +122,7 @@ function loadRecommendedAppList(){
 	}else{
 		platform = "?platform=" + platform;
 	}
-	
+	platform = platform.toLowerCase();
 	
 	
 	
@@ -192,6 +193,7 @@ function loadMyAppList(){
 	}else{
 		platform = "?platform=" + platform;
 	}
+	platform = platform.toLowerCase();
 	
 	jQuery.ajax({
 	      url: getServiceURLs("myAppList", platform), 
@@ -227,10 +229,11 @@ function loadDevicesList(){
 	}else{
 		platform = "?platform=" + platform;
 	}
+	platform = platform.toLowerCase();
 	
 	 device = getURLParameter("device");
 	if(device === 'null'){
-		device = 0;
+		device = -1;
 	}
 	
 	jQuery.ajax({
