@@ -42,16 +42,13 @@ var mam = (function () {
     // prototype
     module.prototype = {
         constructor: module,
-        install: function(installData, device){
-			var url =  configs.mdm.api+'/devices/'+device+'/AppInstall';
-			var result = jsonPost(url, {url:installData});
-		},
-		installiOS:  function(type, installData, device){
+        install: function(type,installData, device){
 			var url =  configs.mdm.api+'/devices/'+device+'/AppInstall';
 			var result = jsonPost(url, {type:type,identity:installData});
 		},
 		installWebClip: function(installData,title, device){
 			var url =  configs.mdm.api+'/devices/'+device+'/operations/WEBCLIP';
+			log.info("APP URL "+url);
 			var result = jsonPost(url, {url:installData, title:title});
 		},
 		uninstall: function(uninstallData,device){
