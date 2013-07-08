@@ -158,11 +158,29 @@
 
 <script id="hbs-devices-list" type="text/x-handlebars-template">
 	[{#devices}]
-	<li class="device-item"><img class="device-image" src="[{viewImage model}]">
+	
+	
+
+	[{#compare @index ../device}]
+		<li class="device-item selected text-center">
+	[{else}]
+		<li class="device-item" style="opacity: 0.2">
+	[{/compare}]
+
+
+    <a href="user_home?device=[{@index}]"><img class="device-image" src="[{viewImage model}]">
+	
 	<div class="text-center">
 	[{model}]
 	</div>
+	</a>
 	</li>
+
+
+	
+
+	
+	
 	[{/devices}]
 </script>
 

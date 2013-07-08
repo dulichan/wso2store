@@ -48,7 +48,7 @@ function getServiceURLs(item){
 			"recommandedAppList": "api/popular{0}",
 			"myAppList": "api/newest{0}",
 			"menuList": "apis/menuList.json",
-			"devicesList": "api/users/current/devices",
+			"devicesList": "api/users/current/devices{0}",
 			"devicesListByPlatform": "api/users/current/devices?platform={0}",
 			"installApp": "api/devices/{0}/apps/{1}/{2}"
 		};
@@ -121,6 +121,10 @@ function loadRecommendedAppList(){
 	}else{
 		platform = "?platform=" + platform;
 	}
+	
+	
+	
+	
 	
 	jQuery.ajax({
 	      url: getServiceURLs("recommandedAppList", platform), 
@@ -217,17 +221,29 @@ function loadMyAppList(){
 
 function loadDevicesList(){
 	
+	var platform = getURLParameter("platform");
+	if(platform === 'null'){
+		platform = "";
+	}else{
+		platform = "?platform=" + platform;
+	}
+	
+	 device = getURLParameter("device");
+	if(device === 'null'){
+		device = 0;
+	}
+	
 	jQuery.ajax({
-	      url: getServiceURLs("devicesList"), 
+	      url: getServiceURLs("devicesList", platform), 
 	      type: "GET",
 	      dataType: "json",
 	      success: function(devices) {
 	      	 var template = Handlebars.compile($("#hbs-devices-list").html());
-	      	 $("#devices-list-ui").html(template({devices:devices}));	      	       	 
+	      	 $("#devices-list-ui").html(template({devices:devices, device: device}));	      	       	 
   			 $('#devices-list-ui').jcarousel();
   			 
   			 var template = Handlebars.compile($("#hbs-devices-list-modal").html());
-  			 $("#devices-list-ui-modal").html(template({devices:devices})); 
+  			 $("#devices-list-ui-modal").html(template({devices:devices, device: device})); 
   			 
   			 
   			 $(".device-img").click(function() {

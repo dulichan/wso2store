@@ -44,10 +44,10 @@
         }
     },
 	"mdm":{
-		"server":"http://10.100.1.142:9763/mdm",
-		"api":"http://10.100.1.142:9763/mdm/api"
+		"server":"http://localhost:9763/mdm",
+		"api":"http://localhost:9763/mdm/api"
 	},
 	"mam":{
-		"server":"http://10.100.1.144:9763"
+		"server":"http://localhost:9763"
 	}
 }

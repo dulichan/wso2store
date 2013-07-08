@@ -16,6 +16,10 @@ header .navbar-inner{
 	border-radius: 0px;
 }
 
+.selected{
+	
+}
+
 header .navbar .brand {
     color: #FFFFFF;
     display: block;
