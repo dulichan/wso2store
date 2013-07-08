@@ -1,5 +1,6 @@
 selectedApp = "";
 selectedAction ="";
+selectedPlatform="";
 
 String.format = function() {
   var s = arguments[0]; 
@@ -48,6 +49,7 @@ function getServiceURLs(item){
 			"myAppList": "api/newest{0}",
 			"menuList": "apis/menuList.json",
 			"devicesList": "api/users/current/devices",
+			"devicesListByPlatform": "api/users/current/devices?platform={0}",
 			"installApp": "api/devices/{0}/apps/{1}/{2}"
 		};
 	
@@ -131,11 +133,44 @@ function loadRecommendedAppList(){
   			 $(".ellipsis").ellipsis();
   			 
   			  appId = $(this).data("appid");
+  			
   			 
   			   $(".btn-install").click(function() {
 					appId = $(this).data("appid");
+					selectedPlatform = $(this).data("platform");
 					selectedApp = appId;
 					selectedAction = "install";
+					
+					
+					jQuery.ajax({
+					      url: getServiceURLs("devicesListByPlatform", selectedPlatform), 
+					      type: "GET",
+					      dataType: "json",
+					      success: function(devices) {					      	
+				  			 var template = Handlebars.compile($("#hbs-devices-list-modal").html());
+				  			 $("#devices-list-ui-modal").html(template({devices:devices})); 
+				  			 
+				  			 
+				  			 $(".device-img").click(function() {
+				  			  	deviceId = $(this).data("deviceid");
+				  			  	Messenger().post("App is sent to the device");
+							  	jQuery.ajax({
+								      url: getServiceURLs("installApp", deviceId, selectedApp, selectedAction), 
+								      type: "POST",
+								      dataType: "json",				     
+								      success: function(apps) {
+								      	 
+								      }				      
+								});			
+							 });
+				  			 
+				  						
+					      }				      
+					});	
+					
+					
+					
+					
 			 });  
   			
 	      }				      

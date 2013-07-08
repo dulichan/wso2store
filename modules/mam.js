@@ -65,7 +65,6 @@ var mam = (function () {
 			log.info(result);
 			return result;
 		},
-		
 		getUserApps: function(email){
 			var url = configs.mdm.api+'/store/users/apps';
 			var data = email;
