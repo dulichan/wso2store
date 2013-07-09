@@ -239,7 +239,7 @@ function loadDevicesList(){
 	
 	 device = getURLParameter("device");
 	if(device === 'null'){
-		device = -1;
+		device = 0;
 	}
 	
 	jQuery.ajax({

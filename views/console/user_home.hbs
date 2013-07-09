@@ -166,11 +166,11 @@
 	
 	
 
-	[{#compare @index ../device}]
-		<li class="device-item selected text-center">
+	[{#compare ../device '0'}]
+		<li class="device-item text-center">
 	[{else}]
 		
-		[{#compare ../../device '-1'}]
+		[{#compare ../../device id}]
 			<li class="device-item">
 		[{else}]
 			<li class="device-item" style="opacity: 0.2">
@@ -179,7 +179,7 @@
 	[{/compare}]
 
 
-    <a href="user_home?device=[{@index}]&platform=[{platform}]"><img class="device-image" src="[{viewImage model}]">
+    <a href="user_home?device=[{id}]&platform=[{platform}]"><img class="device-image" src="[{viewImage model}]">
 	
 	<div class="text-center">
 	[{model}]
