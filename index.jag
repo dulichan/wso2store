@@ -43,7 +43,7 @@ var mvc = new absolute({
 			session.put("user", JSON.parse(result.data));
 			var redi ="../../console/user_home";
 			if(ctx.appid!=undefined && ctx.appid!=''){
-				redi = redi+"?appid="+ctx.appid+"&platform="+ctx.platform;
+				redi = redi+"?appid="+ctx.appid+"&device_platform="+ctx.platform;
 			}
 			response.sendRedirect(redi);
 		}else{
