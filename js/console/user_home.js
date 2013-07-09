@@ -21,6 +21,12 @@ function getURLParameter(name) {
 $(document).ready(function() {
 	
 	var appId = getURLParameter("appid");
+	var platform = getURLParameter("platform");
+	if(platform === 'null'){
+		platform = "";
+	}	
+	platform = platform.toLowerCase();
+	selectedPlatform = platform;
 	
 	if(appId != "null" ){
 		$('#myDevices').modal('show');
