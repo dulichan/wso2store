@@ -1,6 +1,7 @@
 selectedApp = "";
 selectedAction ="";
 selectedPlatform="";
+selected_Platform = "";
 
 String.format = function() {
   var s = arguments[0]; 
@@ -21,12 +22,12 @@ function getURLParameter(name) {
 $(document).ready(function() {
 	
 	var appId = getURLParameter("appid");
-	var platform = getURLParameter("platform");
+	var platform = getURLParameter("device_plat");
 	if(platform === 'null'){
 		platform = "";
 	}	
 	platform = platform.toLowerCase();
-	selectedPlatform = platform;
+	selected_Platform = platform;
 	
 	if(appId != "null" ){
 		$('#myDevices').modal('show');
@@ -249,15 +250,33 @@ function loadDevicesList(){
 	      success: function(devices) {
 	      	 var template = Handlebars.compile($("#hbs-devices-list").html());
 	      	 $("#devices-list-ui").html(template({devices:devices, device: device}));	      	       	 
-  			 $('#devices-list-ui').jcarousel();
-  			 
-  			 var template = Handlebars.compile($("#hbs-devices-list-modal").html());
-  			 $("#devices-list-ui-modal").html(template({devices:devices, device: device})); 
+  			 $('#devices-list-ui').jcarousel(); 			 
   			 
   			 
-  			 $(".device-img").click(function() {
-  			  	deviceId = $(this).data("deviceid");
-  			  	Messenger().post("App is sent to the device");
+  						
+	      }				      
+	});	
+	
+	
+	if(selected_Platform === 'null'){
+		selected_Platform = "";
+	}else{
+		selected_Platform = "?platform=" + selected_Platform;
+	}
+	selected_Platform = selected_Platform.toLowerCase();
+	
+	jQuery.ajax({
+	      url: getServiceURLs("devicesList", selected_Platform), 
+	      type: "GET",
+	      dataType: "json",
+	      success: function(devices) {
+	      				 
+			 var template = Handlebars.compile($("#hbs-devices-list-modal").html());
+			 $("#devices-list-ui-modal").html(template({devices:devices, device: device})); 
+			 
+			 $(".device-img").click(function() {
+				  	deviceId = $(this).data("deviceid");
+				  	Messenger().post("App is sent to the device");
 			  	jQuery.ajax({
 				      url: getServiceURLs("installApp", deviceId, selectedApp, selectedAction), 
 				      type: "POST",
@@ -267,10 +286,14 @@ function loadDevicesList(){
 				      }				      
 				});			
 			 });
-  			 
-  						
+			
+			 
+						
 	      }				      
-	});			
+	});
+	
+	
+	
 	
 	
 }
