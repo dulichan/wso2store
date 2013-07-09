@@ -61,7 +61,8 @@ login = function(appController){
 			headernosearch:appController.navigation()
 		},
 		data:{
-			"current_install_app":request.getParameter('appid')
+			"current_install_app":request.getParameter('appid'),
+			"current_install_platform":request.getParameter('platform')
 		}
 	};
 }
