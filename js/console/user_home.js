@@ -83,6 +83,9 @@ $("#device-list-close").click(function() {
 
 
 
+
+
+
 function loadCategoryList(){
 	
 	jQuery.ajax({
@@ -131,6 +134,11 @@ function loadRecommendedAppList(){
 	}
 	platform = platform.toLowerCase();
 	
+	 device = getURLParameter("device");
+		if(device === 'null'){
+			device = 0;
+		}
+	
 	
 	
 	
@@ -152,6 +160,21 @@ function loadRecommendedAppList(){
 					selectedPlatform = $(this).data("platform");
 					selectedApp = appId;
 					selectedAction = "install";
+					
+					
+					if(device <= 0){	  					
+	  					 $('#myDevices').modal('show');	  					 
+	  				 }else{
+	  					Messenger().post("App is sent to the device");
+	  					jQuery.ajax({
+						      url: getServiceURLs("installApp", device, selectedApp, selectedAction), 
+						      type: "POST",
+						      dataType: "json",				     
+						      success: function(apps) {
+						      	 
+						      }				      
+						});
+	  				 }	
 					
 					
 					jQuery.ajax({
@@ -176,6 +199,7 @@ function loadRecommendedAppList(){
 								});			
 							 });
 				  			 
+				  					  			 
 				  						
 					      }				      
 					});	
