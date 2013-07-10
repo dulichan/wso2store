@@ -22,9 +22,32 @@ var mvc = new absolute({
 	});
 	router.get("users/current/apps", function(ctx){
 		// var mam = require('/modules/mam.js').mam;
-		// var mamServer = new mam({mdmServer:configs.mdmServer, user:session.get('user').user});
+		// var mamServer = new mam();
 		// var result = mamServer.getUserApps(session.get('user').username);
 		// print(parse(result.data));
+		var myapps = application.get('myapps');
+		var apps = [];
+		if(myapps!=undefined){
+			for (var property in myapps){
+				if(myapps.hasOwnProperty(property)){
+					var applist;
+					if(ctx.deviceid==property){
+						applist = myapps[property];
+					}else if(ctx.deviceid==undefined){
+						applist = myapps[property];
+						log.info(applist);
+					}
+					
+					if(applist!=undefined){
+						for (var i = applist.length - 1; i >= 0; i--){
+							var app =  getAsset(applist[i]);
+							apps.push(app);
+						}	
+					}
+				}
+			}
+		}
+		print(apps);
 	});
 
 	router.get('users/current/devices', function(ctx){
@@ -81,6 +104,15 @@ var mvc = new absolute({
 		}else if(getAsset(ctx.id).attributes.overview_platform.toUpperCase()=='ANDROID'){
 			mamServer.install(getAsset(ctx.id).attributes.overview_market,url,ctx.deviceid);
 		}
+		var myapps = application.get('myapps');
+		if(myapps==undefined){
+			myapps={};
+			application.put('myapps', myapps);
+		}
+	    if(myapps[ctx.deviceid]==undefined){
+			myapps[ctx.deviceid]=[];
+		}
+		myapps[ctx.deviceid].push(ctx.id);
 	});
 	
 	router.post('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
