@@ -22,11 +22,10 @@
     
     {
         "id": "2",
-        "name": "Blackberry"
-    },
-    
-     {
-        "id": "2",
-        "name": "Win Mobile"
+        "name": "iOS",
+        "active": "ios",
+        "link": "?platform=webapp"
     }
+    
+    
 ]
