@@ -38,7 +38,7 @@ $(document).ready(function() {
 	loadMenu();
 	//loadCategoryList();
 	loadRecommendedAppList();
-	//loadMyAppList();
+	loadMyAppList();
 	loadDevicesList();
 	
 		
