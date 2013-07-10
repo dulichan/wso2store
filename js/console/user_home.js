@@ -53,7 +53,7 @@ function getServiceURLs(item){
 		{
 			"categoryList": "apis/categorylist.json",
 			"recommandedAppList": "api/popular{0}",
-			"myAppList": "api/newest{0}",
+			"myAppList": "api/users/current/apps{0}",
 			"menuList": "apis/menuList.json",
 			"devicesList": "api/users/current/devices{0}",
 			"devicesListByPlatform": "api/users/current/devices?platform={0}",
@@ -202,8 +202,17 @@ function loadMyAppList(){
 	}
 	platform = platform.toLowerCase();
 	
+	
+	var device = getURLParameter("device");
+	if(device === 'null'){
+		device = "";
+	}else{
+		device = "?deviceid=" + device;
+	}
+
+	
 	jQuery.ajax({
-	      url: getServiceURLs("myAppList", platform), 
+	      url: getServiceURLs("myAppList", device), 
 	      type: "GET",
 	      dataType: "json",
 	      success: function(apps) {
