@@ -22,8 +22,8 @@
     
     {
         "id": "2",
-        "name": "iOS",
-        "active": "ios",
+        "name": "Web Apps",
+        "active": "webapp",
         "link": "?platform=webapp"
     }
     
