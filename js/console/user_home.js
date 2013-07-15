@@ -245,13 +245,62 @@ function loadMyAppList(){
 	      	 $(function () { $('.rateit').rateit({ max: 5, step: 0.5, readonly:"true", value:4.5}); });
   			 $(".ellipsis").ellipsis();
   			 
-  			 
+  			 device = getURLParameter("device");
+  			if(device === 'null'){
+  				device = 0;
+  			}
   			
   			 
   			  $(".btn-remove").click(function() {
-  			  	appId = $(this).data("appid");
+  				appId = $(this).data("appid");
+				selectedPlatform = $(this).data("platform");
 				selectedApp = appId;
-				selectedAction = "remove";
+				selectedAction = "uninstall";
+				
+				if(device <= 0){	  					
+ 					 $('#myDevices').modal('show');	  					 
+ 				 }else{
+ 					Messenger().post("App is sent to the device");
+ 					jQuery.ajax({
+					      url: getServiceURLs("installApp", device, selectedApp, selectedAction), 
+					      type: "POST",
+					      dataType: "json",				     
+					      success: function(apps) {
+					      	 
+					      }				      
+					});
+ 				 }	
+				
+				
+				jQuery.ajax({
+				      url: getServiceURLs("devicesListByPlatform", selectedPlatform), 
+				      type: "GET",
+				      dataType: "json",
+				      success: function(devices) {					      	
+			  			 var template = Handlebars.compile($("#hbs-devices-list-modal").html());
+			  			 $("#devices-list-ui-modal").html(template({devices:devices})); 
+			  			 
+			  			 
+			  			 $(".device-img").click(function() {
+			  			  	deviceId = $(this).data("deviceid");
+			  			  	Messenger().post("App is sent to the device");
+						  	jQuery.ajax({
+							      url: getServiceURLs("installApp", deviceId, selectedApp, selectedAction), 
+							      type: "POST",
+							      dataType: "json",				     
+							      success: function(apps) {
+							      	 
+							      }				      
+							});			
+						 });
+			  			 
+			  					  			 
+			  						
+				      }				      
+				});	
+				
+				
+				
 			 }); 
   			
 	      }				      
