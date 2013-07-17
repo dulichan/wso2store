@@ -116,15 +116,23 @@ var mvc = new absolute({
 	});
 	
 	router.post('devices/{deviceid}/apps/{id}/uninstall', function(ctx){
-		var package_name = getAsset(ctx.id).attributes.overview_package_name; 
+		var package_name = getAsset(ctx.id).attributes.overview_packageName; 
 		//saveAppToUser(ctx.id);
 		var mam = require('/modules/mam.js').mam;
 		var mamServer = new mam();
-		mamServer.uninstall(package_name,deviceid);
+		mamServer.uninstall(package_name,ctx.deviceid);
+		var myapps = application.get('myapps');
+		var devicesApps = myapps[ctx.deviceid];
+		for (var i = 0; i < devicesApps.length; i++) {
+			var app = devicesApps[i];
+			if(app==ctx.id){
+				devicesApps.splice(i,1);
+			}
+		}
 	});
 
 	router.get('devices/{deviceid}/apps/{id}/update', function(ctx){
-		var package_name = getAsset(ctx.id).attributes.overview_package_name; 
+		var package_name = getAsset(ctx.id).attributes.overview_packageName; 
 		var mam = require('/modules/mam.js').mam;
 		var mamServer = new mam();
 		mamServer.uninstall(package_name,deviceid);

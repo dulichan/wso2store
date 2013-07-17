@@ -53,7 +53,8 @@ var mam = (function () {
 		},
 		uninstall: function(uninstallData,device){
 			var url = configs.mdm.api+'/devices/'+device+'/AppUNInstall';
-			var result = jsonPost(url, {"package":installData});
+			log.info({"package":uninstallData});
+			var result = jsonPost(url, {"identity":uninstallData});
 		},
 		getDevices: function(email, platform){
 			var url = configs.mdm.api+'/store/users/devices';
