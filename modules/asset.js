@@ -43,11 +43,22 @@ var Manager,
         return [];
     };
 
+    var loadRatings = function (manager, items) {
+        var i, asset,
+            username = manager.username,
+            length = items.length;
+        for (i = 0; i < length; i++) {
+            asset = items[i];
+            asset.rating = manager.registry.rating(asset.path, username);
+        }
+        return items;
+    };
+
     Manager = function (registry, type) {
         var carbon = require('carbon');
         this.registry = registry;
         this.type = type;
-        this.user = require('/modules/user.js');
+        this.username = registry.username;
         Packages.org.wso2.carbon.governance.api.util.GovernanceUtils.loadGovernanceArtifacts(registry.registry);
         this.manager = new carbon.registry.ArtifactManager(registry, type);
         this.sorter = new Sorter(registry);
@@ -68,7 +79,7 @@ var Manager,
     Sorter.prototype.popular = function (items) {
         var registry = this.registry;
         items.sort(function (l, r) {
-            return registry.rating(l.path).average > registry.rating(r.path).average;
+            return registry.rating(l.path).average < registry.rating(r.path).average;
         });
         return items;
     };
@@ -76,7 +87,7 @@ var Manager,
     Sorter.prototype.unpopular = function (items) {
         var registry = this.registry;
         items.sort(function (l, r) {
-            return registry.rating(l.path).average < registry.rating(r.path).average;
+            return registry.rating(l.path).average > registry.rating(r.path).average;
         });
         return items;
     };
@@ -85,6 +96,20 @@ var Manager,
         var registry = this.registry;
         items.sort(function (l, r) {
             return registry.get(l.path).created.time > registry.get(r.path).created.time;
+        });
+        return items;
+    };
+
+    Sorter.prototype.az = function (items) {
+        items.sort(function (l, r) {
+            return l['overview_name'] > r['overview_name'];
+        });
+        return items;
+    };
+
+    Sorter.prototype.za = function (items) {
+        items.sort(function (l, r) {
+            return l['overview_name'] < r['overview_name'];
         });
         return items;
     };
@@ -102,6 +127,12 @@ var Manager,
                 break;
             case 'unpopular':
                 this.unpopular(items);
+                break;
+            case 'az':
+                this.az(items);
+                break;
+            case 'za':
+                this.za(items);
                 break;
             default:
                 this.recent(items);
@@ -131,7 +162,7 @@ var Manager,
      };*/
 
     Manager.prototype.search = function (options, paging) {
-        return search(this, options).slice(paging.start, (paging.start + paging.count));
+        return loadRatings(this, this.sorter.paginate(search(this, options), paging));
     };
 
     /*
@@ -176,13 +207,7 @@ var Manager,
      */
     Manager.prototype.list = function (paging) {
         var all = this.manager.list(paging);
-        var paginated = this.sorter.paginate(all, paging);
-        for (var i = 0; i < paginated.length; i++) {
-            var asset = paginated[i];
-            var user = this.user.current();
-            asset.rating = this.registry.rating(asset.path, user ? user.username : null);
-        }
-        return paginated;
+        return loadRatings(this, this.sorter.paginate(all, paging));
     };
 
     Manager.prototype.count = function (options) {

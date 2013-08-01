@@ -1,6 +1,6 @@
 /*var getComment = function (cid) {
  var comment,
- store = require('/store.json'),
+ store = require('/store.js').config(),
  registry = require('/modules/store.js').systemRegistry();
 
  comment = registry.get(store.restEPR + '/comment', {
@@ -13,7 +13,7 @@
 
 var getComments = function (rid, start, count) {
     var comments,
-        store = require('/store.json'),
+        store = require('/store.js').config(),
         registry = require('/modules/store.js').systemRegistry();
     comments = registry.comments(rid);
     return comments;
@@ -28,7 +28,7 @@ var addComment = function (rid, comment) {
 /*
  var deleteComment = function (cid) {
  var comments,
- store = require('/store.json'),
+ store = require('/store.js').config(),
  token = require('/modules/store.js').accessToken();
 
  comments = del(store.restEPR + '/comment', {

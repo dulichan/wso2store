@@ -12,7 +12,7 @@ var navigation = function (options) {
     var i, j, type, link, links, length1,
         assetLinks = {},
         sso = options.sso,
-        config = require('/store.json'),
+        config = require('/store.js').config(),
         prefix = config.assetsUrlPrefix,
         user = require('/modules/user.js'),
         store = require('/modules/store.js'),

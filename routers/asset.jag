@@ -3,7 +3,7 @@ var type;
 (function () {
     var prefix, path, elements, theme, mapper,
             log = new Log(),
-            config = require('/store.json'),
+            config = require('/store.js').config(),
             store = require('/modules/store.js'),
             file = require('/modules/file.js'),
             matcher = new URIMatcher(request.getRequestURI());

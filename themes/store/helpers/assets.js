@@ -6,3 +6,14 @@ var resources = function (block, page, area, meta) {
         code: ['store.asset.hbs']
     };
 };
+
+var currentPage = function (assetsx,ssox,userx) {
+    var outx  = {
+        'assets': assetsx,
+        'sso': ssox,
+        'user': userx
+    };
+    
+    return outx;
+};
+

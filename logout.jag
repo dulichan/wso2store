@@ -1,9 +1,12 @@
 <%
-	var configs = require('/store.json');
+if(session.get("LOGGED_IN_USER") === null) {
+    response.sendRedirect('/store');
+} else {
+	var configs = require('/store.js').config();
 	var security =require("sso");
     var sessionId = session.getId();
 	var ssoRelyingParty = new security.SSORelyingParty(configs.ssoConfiguration.issuer);
-	var samlLogoutRequest = ssoRelyingParty.getSAMLLogoutRequest(session.get("LOGGED_IN_USER"));
+	var samlLogoutRequest = ssoRelyingParty.getSAMLLogoutRequest(session.get("LOGGED_IN_USER"), sessionId);
 	var encodedRequest = ssoRelyingParty.encode(samlLogoutRequest);
 	var relayState = ssoRelyingParty.getUUID();
 	var idpURL = ssoRelyingParty.getProperty("identityProviderURL");
@@ -30,3 +33,4 @@
 
 </script>
         
+ <%}%>

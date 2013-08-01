@@ -1971,6 +1971,7 @@ legend + .control-group {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+  pointer-events: none;
 }
 .btn-large {
   padding: 11px 19px;

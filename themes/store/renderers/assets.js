@@ -13,15 +13,13 @@ var render = function (theme, data, meta, require) {
         header: [
             {
                 partial: 'sort-assets',
-                context: {
-                    type : data.type
-                }
+                context: require('/helpers/sort-assets.js').format(data.sorting, data.paging)
             }
         ],
         body: [
             {
                 partial: 'assets',
-                context: data.assets
+                context: require('/helpers/assets.js').currentPage(data.assets,data.sso,data.user)
             },
             {
                 partial: 'pagination',

@@ -1,11 +1,11 @@
 <%
 var caramel;
 (function () {
-    var assets, paging, count, current, total, loggedUser, sso,
+    var assets, paging, count, current, total, loggedUser, sso, url,
             options = {},
             log = new Log(),
             user = require('/modules/user.js'),
-            configs = require('/store.json'),
+            configs = require('/store.js').config(),
             store = require('/modules/store.js'),
             site = require('/modules/site.js'),
             tag = request.getParameter('tag'),
@@ -19,8 +19,9 @@ var caramel;
 
     loggedUser = (sso && ssoUser) ? {username: ssoUser} : user.current();
 
+    url = '/assets/' + type + '/?' + (tag ? 'tag=' + tag + '&' : '') + (query ? 'query=' + query + '&' : '');
 
-    log.info("LOGGED_IN_USER (store) " + session.get('LOGGED_IN_USER'));
+   // log.info("LOGGED_IN_USER (store) " + session.get('LOGGED_IN_USER'));
 
 
     paging = store.assetsPaging(request);
@@ -64,6 +65,7 @@ var caramel;
     caramel.render({
         title: 'Store | Assets',
         user: loggedUser,
+        sso: sso,
         navigation: site.navigation(
                 {
                     sso: sso,
@@ -76,20 +78,23 @@ var caramel;
         type: type,
         tag: tag,
         tags: function () {
-            return {
+            return [{
                 url: '/assets/' + type + '/?page=1&tag=',
                 data: store.tags(type)
-            };
+            }];
         },
-        assets: assets,
+        assets: assets(),
         paging: {
-            url: '/assets/' + type + '/?' + (tag ? 'tag=' + tag + '&' : '') + (query ? 'query=' + query + '&' : '') + 'sort=' + paging.sort + '&page=',
+            url:  url + 'sort=' + paging.sort + '&page=',
             start: paging.start || 0,
             count: paging.count || store.ASSETS_PAGE_SIZE,
             size: store.ASSETS_PAGE_SIZE,
             total: total,
             sort: paging.sort,
             tag: tag
+        },
+        sorting :{
+            url: url + 'sort='
         },
         recentAssets: function () {
             return store.recentAssets(type);

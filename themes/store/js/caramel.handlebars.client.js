@@ -208,6 +208,10 @@
         }
     };
 
+    caramel.loaded = function(type, name) {
+        resources[type][name] = true;
+    };
+
     var invoke = Handlebars.VM.invokePartial;
 
     Handlebars.VM.invokePartial = function (partial, name, context, helpers, partials, data) {

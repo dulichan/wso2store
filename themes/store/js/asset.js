@@ -15,7 +15,11 @@ $(function () {
     $($('input', el)[rating - 1]).attr('checked', 'checked');
 
     $('.auto-submit-star').rating({
-        callback: function (value, link) {
+        callback: function (value, link) {		
+		if(value==undefined){
+			value=0;
+		}
+        	$('.rate-num-assert').html('('+value+')');
             caramel.post('/apis/rate', {
                 asset: $('#assetp-tabs').data('aid'),
                 value: value || 0
@@ -67,9 +71,16 @@ $(function () {
             } else {
                 async.parallel({
                     comments: function (callback) {
+                        var i, comment,
+                            comments = result.comments,
+                            length = comments.length;
+                        for(i = 0; i < length; i++) {
+                            comment = comments[i];
+                            comment.created.time = moment(comment.created.time).format('LL');
+                        }
                         caramel.render('comments', {
                             user: store.user,
-                            comments: result.comments
+                            comments: comments
                         }, callback);
                     },
                     paging: function (callback) {
@@ -110,11 +121,45 @@ $(function () {
     });
 
     $('#btn-add-gadget').click(function () {
-        var elem = $(this);
-        asset.process(elem.data('type'), elem.data('aid'), location.href);
+	var elem = $(this);
+	if(store.user){
+	    isAssertTrue(elem.data('aid'),elem.data('type'));
+		}else{
+		   asset.process(elem.data('type'), elem.data('aid'), location.href);
+			}
     });
 
     $("a[data-toggle='tooltip']").tooltip();
+
+    $('.embed-snippet').hide();
+
+    $('.btn-embed').click(function() {
+    	$('.embed-snippet').toggle(400);
+    	return false;
+    });
+	
+	
+	$('.text-review-box').live('keyup focus', function(e){	
+	if($('#comment-content').hasClass('user-review')) {
+		$(".btn-review").removeClass("btn-primary");
+		$(".btn-review").addClass("disabled");
+		$('.text-review-box-charCount-msg').hide();
+		$('.error-text').show();	
+		return false;
+	}
+	    var chars = this.value.length;
+		$('.text-review-box-charCount-msg').show();
+		var limit = 490;
+                if (chars > limit) {
+                    src.value = src.value.substr(0, limit);
+                    chars = limit;
+                }
+				$("#charCount").html( limit - chars );
+		return false;
+	
+    });
+	
+	
 
     /*    $('#btn-copy-gadget-code').click(function(){
      var script = $('#modal-add-gadget code').html().trim();
@@ -139,4 +184,8 @@ $(function () {
      $('.asset-description-header').removeClass('asset-description-header-scroll');
      }
      })*/
+	 
+	 
+
+
 });

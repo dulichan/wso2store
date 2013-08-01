@@ -1,7 +1,7 @@
 var ssoEncodedRequest, ssoRelayState, ssoSessionId, ssoIdpURL;
 
 (function () {
-    var dataConfi = require('/store.json'),
+    var dataConfi = require('/store.js').config(),
         security = require("sso"),
         process = require("process"),
         ssoRelyingParty = new security.SSORelyingParty(dataConfi.ssoConfiguration.issuer),

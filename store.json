@@ -1,12 +1,12 @@
 {
-    "assets": ["gadget", "site"],
+    "assets": ["gadget", "site", "mobileapp"],
     "assetsUrlPrefix": "/assets",
     "assetUrlPrefix": "/asset",
     "assetsPageSize": 16,
     "commentsPageSize": 10,
     "server": {
-        "https": "https://localhost:9443/admin",
-        "http": "http://localhost:9763"
+        "https": "%https.host%/admin",
+        "http": "%http.host%"
     },
     "roles": {
         "store": {
@@ -27,7 +27,7 @@
         "space": "store",
         "options": {
             "type": "registry",
-            "serverUrl": "https://localhost:9443/admin",
+            "serverUrl": "%https.host%/admin",
             "path": "/_system/governance/users",
             "username": "admin",
             "password": "admin"
@@ -36,7 +36,7 @@
     "ssoConfiguration": {
         "enabled": true,
         "issuer": "store",
-        "identityProviderURL": "https://localhost:9443/sso/samlsso.jag",
+        "identityProviderURL": "%https.host%/sso/samlsso.jag",
         "keyStorePassword": "wso2carbon",
         "identityAlias": "wso2carbon",
         "responseSigningEnabled": "true",

@@ -44,6 +44,7 @@
     background: url("../img/icon-sort-alphabetical.png") no-repeat scroll left top transparent;
     height: 14px;
     width: 16px;
+    display:inline-block!important;
 }
 
 #ul-sort-assets  li a.selected-type {
@@ -58,5 +59,5 @@
     background: url(../img/store-sort-arrow.png) no-repeat top left;
     position: absolute;
     bottom: -12px;
-    left: 5px;
+    left: 3px;
 }

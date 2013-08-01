@@ -125,9 +125,11 @@ hr.emboss {
     border-right: 1px solid #555555;
 }
 .navbar-inverse .navbar-inner {
-    background: #2d2d2d;
+    background: #2C3238;
     background-image: none;
+   
 }
+
 .navbar-inner {
     background: #2C3238;
     background-image: none;
@@ -137,6 +139,7 @@ hr.emboss {
     padding-top: 0px;
     padding-bottom: 0px;
     border-width: 0 !important;
+     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#002C3238,endColorstr=#002C3238) !important; 
 }
 .navbar-inner .container-fluid {
     padding: 0 10px;
@@ -164,7 +167,8 @@ hr.emboss {
     line-height: 30px;
 }
 .dropdown-menu li > a:hover, .dropdown-menu li > a:focus, .dropdown-submenu:hover > a {
-    background: #16a085;
+      background: #16a085;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#0016a085,endColorstr=#0016a085); 
 }
 
 .navbar .nav > li > .dropdown-menu:after, .navbar .nav > li > .dropdown-menu:before {
@@ -225,3 +229,5 @@ border:none;
     margin-right: 11px;
     vertical-align: middle;
 }
+
+

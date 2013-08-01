@@ -35,7 +35,10 @@ var render = function (theme, data, meta, require) {
         body: [
             {
                 partial: 'userAssets',
-                context: data.userAssets
+                context: {
+        		'userAssets': data.userAssets,
+        		'URL': data.URL
+		}
             }
         ],
         right: [

@@ -31,7 +31,7 @@ if (samlResponse != null) {
         var requestedURI = ssoRelyingParty.getRelayStateProperty(relayState);
 
         if (requestedURI == null) {
-            log.info("Relaystate value is invalid.");
+            log.debug("Relaystate value is invalid.");
 
         }
 
@@ -39,7 +39,7 @@ if (samlResponse != null) {
         if (configs.ssoConfiguration.responseSigningEnabled) {
             var isSignatureValid = ssoRelyingParty.validateSignature(samlResponse);
             if (!Boolean(isSignatureValid)) {
-                log.info("SAML response signature is verification failed.");
+                log.debug("SAML response signature is verification failed.");
             }
         }
         ssoRelyingParty.setSessionAuthenticated(sessionId, samlResponse);
