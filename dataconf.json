@@ -1,0 +1,5 @@
+{
+	"mam":{
+		"server" : "http://10.200.1.144:9763/publisher/uploads/"
+	}
+}
