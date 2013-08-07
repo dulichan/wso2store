@@ -16,10 +16,12 @@ var render = function (theme, data, meta, require) {
                 context: require('/helpers/sort-assets.js').format(data.sorting, data.paging)
             }
         ],
-        body: [
+                
+        body: [		
+			
             {
                 partial: 'assets',
-                context: require('/helpers/assets.js').currentPage(data.assets,data.sso,data.user)
+                context: require('/helpers/assets.js').currentPage(data.assets,data.sso,data.user, data.devices)
             },
             {
                 partial: 'pagination',

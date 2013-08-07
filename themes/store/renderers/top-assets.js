@@ -11,12 +11,15 @@ var render = function (theme, data, meta, require) {
                 partial: 'search'
             }
         ],
+        
+        
        
         body: [
             {
                 partial: 'top-assets',
                 context: require('/helpers/top-assets.js').currentPage(data.topAssets,data.sso,data.user)
-            }
+            }        
+ 
         ],
         right: [
             {

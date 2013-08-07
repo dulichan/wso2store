@@ -84,6 +84,19 @@ var caramel;
             }];
         },
         assets: assets(),
+        devices: [
+    {
+        "id": "1",
+        "name": "Galaxy SIII",
+        "model": "Galaxys3"
+    },
+    
+    {
+        "id": "2",
+        "name": "iPhone",
+        "model": "iPhone"
+    }
+],
         paging: {
             url:  url + 'sort=' + paging.sort + '&page=',
             start: paging.start || 0,

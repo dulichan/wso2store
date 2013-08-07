@@ -8,7 +8,7 @@
                             <img src="{{#if images_banner}}{{images_banner}}{{/if}}">
                         </div>
                         <div class="asset-introduction-box">
-                            <img src="{{#if images_thumbnail}}{{images_thumbnail}}{{/if}}">
+                            <img src="{{#if images_icon}}{{images_icon}}{{/if}}">
 
                             <h3>{{overview_name}}</h3>
                             <small> {{t "Version"}} 1.0.0</small>
@@ -72,6 +72,7 @@
                 <ul class="nav nav-tabs" id="assetp-tabs" data-aid="{{../path}}">
                     <li class="active">
                         <a href="#tab-properties" data-toggle="tab" data-type="basic">{{t "Description"}}</a>
+                        
                     </li>
                     <li>
                         <a href="#tab-reviews" data-toggle="tab" data-type="comments">{{t "User Reviews"}}</a>
@@ -82,6 +83,8 @@
                     <div class="tab-pane active" id="tab-properties">
                         <div class="content">
                             {{>overview .}}
+                            
+                             <img style="width: 200px" src="{{#if images_screenshots}}{{images_screenshots}}{{/if}}">
                         </div>
                     </div>
                     <div class="tab-pane" id="tab-reviews">
