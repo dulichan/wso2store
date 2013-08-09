@@ -9,7 +9,7 @@ var mvc = new absolute({
 	SERVER_URL:"/store/",
 	IGNORE:["sso.jag", "login.jag", "logout.jag"],
 	API:"api",
-	ROUTER: router
+	ROUTER: router 
 });
 
 // USER APIS
