@@ -34,14 +34,14 @@
                     </span>
 
                         {{#if ../../inDashboard}}
-                            <a id="btn-add-gadget" class="btn disabled" href="#modal-add-gadget" data-toggle="modal"
+                            <a id="btn-add-gadget" class="btn disabled" href="#devicesList" data-toggle="modal"
                             data-aid="{{../../path}}" data-type="{{../../type}}"> {{t "Bookmarked"}} </a>
 						{{else}}
 			
 							{{#if ../../../sso}}
 								{{#if ../../../../user.username}}
- 									<a id="btn-add-gadget" class="btn btn-primary" href="#modal-add-gadget" data-toggle="modal"
-                             		data-aid="{{../../../../path}}" data-type="{{../../../../type}}"> {{t "Bookmark "}}</a>
+ 									<a id="btn-add-gadget" class="btn btn-primary" href="#devicesList" data-toggle="modal"
+                             		data-aid="{{../../../../path}}" data-type="{{../../../../type}}" data-app-id="{{../../../../id}}" data-toggle="modal">{{t "Install"}}</a>
 								{{else}}			
 			 						<a id="btn-add-gadget" class="btn btn-primary" href="{{url "/login.jag"}}" data-toggle="modal"
                              		data-aid="{{../../../../path}}" data-type="{{../../../../type}}"> {{t "Bookmark "}}</a>
@@ -123,3 +123,31 @@ embed code goes here
 Copy Gadget Code
 </button>
 </div>-->
+
+
+
+
+<!-- Modal Features -->
+<div id="devicesList" class="modal hide" tabindex="-1" role="dialog" aria-hidden="true" style="width:700px">
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">x</button>
+		<h3 id="myModalLabel">Devices</h3>
+	</div>
+	<div class="modal-body">
+	
+				<div class="span12">
+				{{#devices}}
+							<div  data-dismiss="modal" class="span1 device-image-block text-center" data-device-id="{{id}}">
+							<img class="device-image" style="height:100px" src="/assets/wso2mobile/img/models/{{model}}.png">
+							<div class="text-center">
+								{{name}}
+							</div>
+							</div>
+				{{/devices}}	
+				
+				</div>	
+		
+	</div>
+</div>

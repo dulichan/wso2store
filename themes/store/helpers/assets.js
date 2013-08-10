@@ -7,11 +7,12 @@ var resources = function (block, page, area, meta) {
     };
 };
 
-var currentPage = function (assetsx,ssox,userx) {
+var currentPage = function (assetsx,ssox,userx, devicesx) {
     var outx  = {
         'assets': assetsx,
         'sso': ssox,
-        'user': userx
+        'user': userx,
+        'devices': devicesx
     };
     
     return outx;

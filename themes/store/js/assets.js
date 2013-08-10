@@ -6,18 +6,25 @@
  */
 
 var opened = false;
+var selectedApp = null;
+
+
 
 $(function() {
 	var paging = store.asset.paging;
 	paging.current = 1;
 
 	$(document).on('click', '#assets-container .asset-add-btn', function(event) {
-		var parent = $(this).parent().parent().parent();
+		var appId = $(this).data("appId");
+		selectedApp = appId;
+		/*var parent = $(this).parent().parent().parent();
 		asset.process(parent.data('type'), parent.data('path'), location.href);
+		event.stopPropagation();*/
 		event.stopPropagation();
 	});
 
 	$(document).on('click', '.asset > .asset-details', function(event) {
+		//alert("hi");
 		var link = $(this).find('.asset-name > a').attr('href');
 		location.href = link;
 	});
@@ -34,7 +41,7 @@ $(function() {
 	var loadAssets = function(url) {
 		caramel.data({
 			title : null,
-			header : ['sort-assets'],
+			header : ['devices', 'sort-assets'],
 			body : ['assets', 'pagination']
 		}, {
 			url : url,
@@ -64,7 +71,30 @@ $(function() {
 		mouseStop();
 		e.preventDefault();
 	});
-
+	
+	$(document).on('click', '.device-image-block', function(e) {
+		deviceId = $(this).data("deviceId");
+		if(deviceId){
+			jQuery.ajax({
+			      url: "/store/api/devices/" + deviceId + "/apps/" + selectedApp + "/install", 
+			      type: "POST",
+			      dataType: "json",				     
+			      success: function(apps) {
+			      	 
+			      }				      
+			});
+			
+			noty({
+				text : 'App is sent to the device successfully!',
+				'layout' : 'center',
+				'modal': false,
+				'timeout': 1000
+			});
+		}
+		
+	});
+	
+	
 	$(document).on('click', '.pagination a', function(e) {
 		e.preventDefault();
 		var url = $(this).attr('href');
@@ -79,3 +109,18 @@ $(function() {
 	caramel.loaded('js', 'assets');
 	caramel.loaded('js', 'sort-assets');
 }); 
+
+
+$(".device-image").each(function(index) {	
+	var srcImage = $(this).attr("src");	
+	if (!urlExists(srcImage)) {
+		$(this).attr("src", "/assets/wso2mobile/img/models/none.png");
+	}
+});
+
+function urlExists(url){
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status!=404;
+}

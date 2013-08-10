@@ -21,7 +21,7 @@ var theme = (function () {
             return;
         }
         children.remove();
-        el.append(data);
+        //el.append(data);
     };
 
     return {

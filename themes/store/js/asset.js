@@ -1,3 +1,5 @@
+var selectedApp = null;
+
 $(function () {
     var comments = {
             interval: 5 * 1000,
@@ -121,12 +123,8 @@ $(function () {
     });
 
     $('#btn-add-gadget').click(function () {
-	var elem = $(this);
-	if(store.user){
-	    isAssertTrue(elem.data('aid'),elem.data('type'));
-		}else{
-		   asset.process(elem.data('type'), elem.data('aid'), location.href);
-			}
+    	var appId = $(this).data("appId");
+		selectedApp = appId;
     });
 
     $("a[data-toggle='tooltip']").tooltip();
@@ -184,8 +182,46 @@ $(function () {
      $('.asset-description-header').removeClass('asset-description-header-scroll');
      }
      })*/
+	
+	
+	$(document).on('click', '.device-image-block', function(e) {
+		deviceId = $(this).data("deviceId");
+		if(deviceId){
+			jQuery.ajax({
+			      url: "/store/api/devices/" + deviceId + "/apps/" + selectedApp + "/install", 
+			      type: "POST",
+			      dataType: "json",				     
+			      success: function(apps) {
+			      	 
+			      }				      
+			});
+			
+			noty({
+				text : 'App is sent to the device successfully!',
+				'layout' : 'center',
+				'modal': false,
+				'timeout': 1000
+			});
+		}
+		
+	});
 	 
 	 
 
 
 });
+
+$(".device-image").each(function(index) {	
+	var srcImage = $(this).attr("src");	
+	if (!urlExists(srcImage)) {
+		$(this).attr("src", "/assets/wso2mobile/img/models/none.png");
+	}
+});
+
+function urlExists(url){
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status!=404;
+}
+
