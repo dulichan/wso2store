@@ -23,6 +23,19 @@ caramel.render({
     embedURL: config.server.http + '/gadgets/ifr?url=' + asset.attributes.overview_url,
     inDashboard: inDashboard,
     asset:asset,
+        devices: [
+    {
+        "id": "1",
+        "name": "Galaxy SIII",
+        "model": "Galaxys3"
+    },
+    
+    {
+        "id": "2",
+        "name": "iPhone",
+        "model": "iPhone"
+    }
+],
     tags: [{
         url: '/assets/' + type + '/?page=1&tag=',
         data: store.tags(type)

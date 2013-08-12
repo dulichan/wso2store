@@ -1,5 +1,5 @@
 <div>
-	<div id="assets-container">	
+	<div id="assets-container">
 	
 		{{#if assets}}
 		{{#slice assets size="4"}}
@@ -13,7 +13,7 @@
 					{{#if ../indashboard}}
 						<i class="icon-bookmark store-bookmark-icon"></i>
 					{{/if}}
-				<img src="{{#if images_thumbnail}}{{images_thumbnail}}{{/if}}">
+				<img style="width: 150px; margin-left:25px; margin-top:25px" src="{{#if images_icon}}{{images_icon}}{{/if}}">
 				</div> </a>
 
 				<div class="asset-details">
@@ -48,7 +48,8 @@
 								<a href="#" class="btn btn-primary asset-add-btn">{{>process-asset-text}}</a>
 							{{/if}}
 							{{# if ../../../../user.username}}		
-							<a href="#" class="btn btn-primary asset-add-btn">{{>process-asset-text}}</a>
+							<a href="#devicesList" data-app-id="{{../../../id}}"  data-toggle="modal" class="btn btn-primary asset-add-btn">{{>process-asset-text}}</a>
+							
 							{{/if}}
 						{{/if}}
 
@@ -65,4 +66,33 @@
 
 	</div>
 
+</div>
+
+
+
+
+
+<!-- Modal Features -->
+<div id="devicesList" class="modal hide" tabindex="-1" role="dialog" aria-hidden="true" style="width:700px">
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">x</button>
+		<h3 id="myModalLabel">Devices</h3>
+	</div>
+	<div class="modal-body">
+	
+				<div class="span12">
+				{{#devices}}
+							<div  data-dismiss="modal" class="span1 device-image-block text-center" data-device-id="{{id}}">
+							<img class="device-image" style="height:100px" src="/assets/wso2mobile/img/models/{{model}}.png">
+							<div class="text-center">
+								{{name}}
+							</div>
+							</div>
+				{{/devices}}	
+				
+				</div>	
+		
+	</div>
 </div>

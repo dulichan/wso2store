@@ -14,9 +14,14 @@ var renderAssets, mouseStop, isAssertTrue, addAssert;
             },
             sort: function (callback) {
                 caramel.render('sort-assets', data.header['sort-assets'].context, callback);
+            },
+            devices: function (callback) {
+                caramel.render('devices', data.header['devices'].context, callback);
             }
         }, function (err, result) {
             theme.loaded(el, result.sort);
+            el.append(result.devices);
+            el.append(result.sort);
             el.append(result.assets);
             el.append(result.paging);
             caramel.js($('body'), data.body['assets'].resources.js, 'assets', function () {
