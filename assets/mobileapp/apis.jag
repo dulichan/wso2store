@@ -75,7 +75,7 @@ router.post('apps/devices/{deviceid}/uninstall', function(ctx){
 // ARTIFACT APIS
 router.get('apps', function(ctx){
 	var paging = ctx.paging || 0;
-	var items = store.assets(type, paging);
+	var items = store.assets(type, {"start" : 0.0, "count" : 16});
 	items = sp(items);
 	var state = ctx.state;
 	var platform = ctx.platform;

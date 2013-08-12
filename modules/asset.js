@@ -47,6 +47,7 @@ var Manager,
         var i, asset,
             username = manager.username,
             length = items.length;
+		
         for (i = 0; i < length; i++) {
             asset = items[i];
             asset.rating = manager.registry.rating(asset.path, username);

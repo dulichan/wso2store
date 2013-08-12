@@ -23,7 +23,7 @@ var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, 
 		assetManagers = context.get(ASSET_MANAGERS);
 		if(!assetManagers) {
 			assetManagers = {};
-			context.put(ASSET_MANAGERS, assetManagers);
+			//context.put(ASSET_MANAGERS, assetManagers);
 		}
 		manager = assetManagers[type];
 		if(manager) {
@@ -137,7 +137,7 @@ var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, 
 		return registry().rating(aid, user ? user.username : store.user.username);
 	};
 	rate = function(aid, rating) {
-		return registry().rate(aid, rating);
+		return registryry().rate(aid, rating);
 	};
 	/**
 	 * Returns all assets for the current user
@@ -145,7 +145,9 @@ var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, 
 	 * @param paging
 	 */
 	assets = function(type, paging) {
+			
 			var assetz = assetManager(type).list(paging);
+			//log.info(assetz);
 			for(i =0; i < assetz.length;i++){
 				if(isuserasset(assetz[i].path,type)){
 					assetz[i].indashboard = true;
