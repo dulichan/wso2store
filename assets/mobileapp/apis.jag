@@ -22,11 +22,12 @@ router.get('apps/users/{userid}/devices', function(ctx){
 	iOS device will first perform a request to the below end point - it will serve a plist file
 	with an endpoint to pickup the .ipa archive
 */
-router.get("apps/install/ios/{name}", function(ctx){
-	var appName = ctx.name;
-	var asset =  store.asset(type, appName);
+router.get("apps/install/ios/{id}", function(ctx){
+	var appName = ctx.id;
+	var asset =  store.assetID(type, appName);
 	//Assuming that the extension is of 3 letters
-	var iosManifest = compileTemplate("/assets/"+type+"/resources/ios_profile.hbs", {url:serverURL+"/publisher/upload/"+asset.url+".ipa", bundleid: asset.overview_packageName, bundleversion: asset.overview_bundleVersion,  appname:asset.name});
+	var iosManifest = compileTemplate("/assets/"+type+"/resources/ios_profile.hbs", {url:configs.mam.ip+asset.url, bundleid: asset.overview_packageName, bundleversion: asset.overview_bundleVersion,  appname:asset.name});
+	response.contentType = "application/xml";
 	print(iosManifest);
 });
 
@@ -36,17 +37,19 @@ router.get("apps/install/ios/{name}", function(ctx){
 router.post('apps/devices/{deviceid}/install', function(ctx){
 	var mam = require('/modules/mam.js').mam;
 	var mamServer = new mam();
-	
-	var asset =  store.asset(type, ctx.asset);
+	var asset =  store.assetID(type, ctx.asset);
 	var url = asset.attributes.overview_url; 
+	log.info(asset.attributes.overview_type);
 	if(asset.attributes.overview_platform.toUpperCase()=='WEBAPP'){
 		mamServer.installWebClip(url,getAsset(ctx.id).attributes.overview_name, ctx.deviceid);
 	}
-	url = serverURL+url;
+	url = configs.mam.ip+url;
 	if(asset.attributes.overview_type.toUpperCase()=="MARKET"){
 		url=asset.attributes.overview_packageName;
 	}
 	if(asset.attributes.overview_platform.toUpperCase()=='IOS'){
+		url =  configs.mam.ip+"store/apps/install/ios/"+asset.id;
+		log.info(url);
 		mamServer.install(asset.attributes.overview_type, url, ctx.deviceid);
 	}else if(asset.attributes.overview_platform.toUpperCase()=='ANDROID'){
 		mamServer.install(asset.attributes.overview_type, url, ctx.deviceid);
@@ -54,7 +57,7 @@ router.post('apps/devices/{deviceid}/install', function(ctx){
 });
 
 router.post('apps/devices/{deviceid}/uninstall', function(ctx){
-	var asset =  store.asset(type, ctx.asset);
+	var asset =  store.assetID(type, ctx.asset);
 	var install_asset = asset.attributes.overview_packageName; 
 	if(asset.attributes.overview_platform.toUpperCase()=='IOS'){
 		install_asset = asset.attributes.overview_appid;
@@ -143,5 +146,13 @@ var compileTemplate = function(templatePath, context){
 	var template = Handle.compile(getResource(templatePath));
 	return template(context);
 }
+function getResource(name){
+	var f = new File(name);
+	f.open("r");
+	var cont = f.readAll();
+	f.close();
+	return cont;
+}
+
 router.process(request);
 %>
