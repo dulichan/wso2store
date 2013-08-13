@@ -76,9 +76,10 @@ $(function() {
 		deviceId = $(this).data("deviceId");
 		if(deviceId){
 			jQuery.ajax({
-			      url: "/store/api/devices/" + deviceId + "/apps/" + selectedApp + "/install", 
+			      url: "/store/api/apps/devices/" + deviceId + "/install", 
 			      type: "POST",
-			      dataType: "json",				     
+			      dataType: "json",	
+			      data : {"app": selectedApp},			     
 			      success: function(apps) {
 			      	 
 			      }				      
@@ -109,18 +110,3 @@ $(function() {
 	caramel.loaded('js', 'assets');
 	caramel.loaded('js', 'sort-assets');
 }); 
-
-
-$(".device-image").each(function(index) {	
-	var srcImage = $(this).attr("src");	
-	if (!urlExists(srcImage)) {
-		$(this).attr("src", "/assets/wso2mobile/img/models/none.png");
-	}
-});
-
-function urlExists(url){
-    var http = new XMLHttpRequest();
-    http.open('HEAD', url, false);
-    http.send();
-    return http.status!=404;
-}

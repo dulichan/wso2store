@@ -1,5 +1,5 @@
 var resources = function (page, meta) {
     return {
-        js: []
+        js: ['devices.js']
     };
 };

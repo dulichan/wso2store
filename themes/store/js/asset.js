@@ -188,9 +188,10 @@ $(function () {
 		deviceId = $(this).data("deviceId");
 		if(deviceId){
 			jQuery.ajax({
-			      url: "/store/api/devices/" + deviceId + "/apps/" + selectedApp + "/install", 
+			      url: "/store/api/apps/devices/" + deviceId + "/install", 
 			      type: "POST",
-			      dataType: "json",				     
+			      dataType: "json",	
+			      data : {"app": selectedApp},					     
 			      success: function(apps) {
 			      	 
 			      }				      
