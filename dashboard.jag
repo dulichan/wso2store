@@ -27,7 +27,7 @@ var caramel;
 	}
 
 	caramel.render({
-		'title' : 'Store | My Bookmarks',
+		'title' : 'Store | My Apps',
 		'navigation' : site.navigation({
 			sso : sso,
 			user : user
