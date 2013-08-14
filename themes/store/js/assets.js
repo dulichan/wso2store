@@ -79,7 +79,7 @@ $(function() {
 			      url: "/store/api/apps/devices/" + deviceId + "/install", 
 			      type: "POST",
 			      dataType: "json",	
-			      data : {"app": selectedApp},			     
+			      data : {"asset": selectedApp},			     
 			      success: function(apps) {
 			      	 
 			      }				      
