@@ -13,7 +13,7 @@ var render = function(theme, data, meta, require) {
 
 				{
 					partial : 'devices',
-					context : data.devices
+					context : {devices: data.devices, user: data.user}
 				},
 
 				{
