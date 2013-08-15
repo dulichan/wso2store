@@ -7,8 +7,9 @@ $(function() {
 });
 
 
-$( "#os-select" ).change(function() {
-	window.location.assign("?os=" + $(this).val());
+$( "#os-select" ).change(function() {	
+	var uri = window.location.pathname + window.location.search;
+	location.href = updateQueryStringParameter(uri, 'os', $(this).val());
 });
 
 function updateQueryStringParameter(uri, key, value) {
