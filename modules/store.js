@@ -183,6 +183,11 @@ var tags, init, assets, asset, assetLinks, tagged, popularAssets, recentAssets, 
 		asset.rating = rating(aid);
 		return asset;
 	};
+	assetID = function(type, aid){
+		var asset = assetManager(type).getById(aid);
+		asset.rating = rating(aid);
+		return asset;
+	}
 	/**
 	 * Returns links of a asset for the current user
 	 * @param type Asset type

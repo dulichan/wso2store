@@ -174,6 +174,11 @@ var Manager,
         return this.manager.get(resource.uuid);
     };
 
+	Manager.prototype.getById = function(id){
+		log.info(id);
+        return this.manager.get(id);
+	}
+
     /*
      * Assets matching the filter
      */

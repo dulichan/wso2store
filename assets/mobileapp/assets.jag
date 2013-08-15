@@ -22,8 +22,6 @@ var caramel;
     url = '/assets/' + type + '/?' + (tag ? 'tag=' + tag + '&' : '') + (query ? 'query=' + query + '&' : '');
 
    // log.info("LOGGED_IN_USER (store) " + session.get('LOGGED_IN_USER'));
-   
-   platform = request.getParameter("os");
 
 
     paging = store.assetsPaging(request);
@@ -94,7 +92,7 @@ var caramel;
     },
     
     {
-        "id": "78",
+        "id": "2",
         "name": "iPhone",
         "model": "iPhone"
     }
@@ -109,7 +107,7 @@ var caramel;
             tag: tag
         },
         sorting :{
-            url: url + 'os='+ platform +'&sort='
+            url: url + 'sort='
         },
         recentAssets: function () {
             return store.recentAssets(type);
