@@ -1,7 +1,8 @@
+{{#if user.username}}
 <div class="container" style="padding-top: 20px;">
 <h4>My Devices</h4>
 <div class="span10">	
-	{{#if user.username}}	
+		
 	{{#../devices}}
 	<div data-dismiss="modal" class="span1 text-center" style="text-align: center"
 		data-device-id="{{id}}">
@@ -10,8 +11,9 @@
 		<div class="text-center" style="font-size: x-small">{{name}}</div>
 	</div>
 	{{/../devices}}
-	{{/if}}	
+	
 </div>
 </div>
+{{/if}}	
 
 
