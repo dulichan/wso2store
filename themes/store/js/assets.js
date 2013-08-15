@@ -76,7 +76,7 @@ $(function() {
 		deviceId = $(this).data("deviceId");
 		if(deviceId){
 			jQuery.ajax({
-			      url: "/store/api/apps/devices/" + deviceId + "/install", 
+			      url: "/store/apps/devices/" + deviceId + "/install", 
 			      type: "POST",
 			      dataType: "json",	
 			      data : {"asset": selectedApp},			     
