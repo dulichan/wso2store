@@ -6,7 +6,7 @@
 		<div class="row-fluid">
 		
 			{{#each .}}
-			<div class="span3 asset" data-path="{{path}}" data-type="{{type}}">
+			<div class="span3 asset" data-path="{{path}}" data-type="{{type}}" style="background-image:url({{url "/themes/store/img/os/android.png"}})">
 				{{#attributes}}
 				<a href="{{url "/asset"}}/{{../type}}?asset={{../path}}">
 				<div class="asset-icon">
