@@ -17,6 +17,37 @@ $(function() {
 	$(document).on('click', '#assets-container .asset-add-btn', function(event) {
 		var appId = $(this).data("appId");
 		selectedApp = appId;
+		var deviceId = getURLParameter("devices");
+		
+		
+		if(deviceId > 0){
+			jQuery.ajax({
+			      url: "/store/apps/devices/" + deviceId + "/install", 
+			      type: "POST",
+			      dataType: "json",	
+			      data : {"asset": selectedApp},			     
+			      success: function(apps) {
+			      	 
+			      }				      
+			});
+			
+			noty({
+				text : 'App is sent to the device successfully!',
+				'layout' : 'center',
+				'modal': false,
+				'timeout': 1000
+			});
+		}else{
+			
+			noty({
+				text : 'Please select a device',
+				'layout' : 'center',
+				'type': 'error',
+				'modal': false,
+				'timeout': 1000
+			});
+		}
+		
 		/*var parent = $(this).parent().parent().parent();
 		asset.process(parent.data('type'), parent.data('path'), location.href);
 		event.stopPropagation();*/
@@ -110,3 +141,9 @@ $(function() {
 	caramel.loaded('js', 'assets');
 	caramel.loaded('js', 'sort-assets');
 }); 
+
+function getURLParameter(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
